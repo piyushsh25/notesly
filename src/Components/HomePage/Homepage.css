@@ -44,6 +44,7 @@
 .title-content {
   font-size: 1.2rem;
   margin-top: 1.5rem;
+  line-height: 0.9;
 }
 .home-cta {
   display: flex;
