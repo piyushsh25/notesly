@@ -1,0 +1,17 @@
+.footer-div{
+    background-color: white;
+    font-family: "Fuzzy Bubbles", cursive;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    padding-left: 3rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+}
+.footer-icon{
+    margin-left: 1.5rem;
+}
+.footer-title{
+    color: #5348c7;
+}
