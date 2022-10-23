@@ -3,15 +3,24 @@
     font-family: "Fuzzy Bubbles", cursive;
     font-weight: bolder;
     font-size: 1.5rem;
-    padding-left: 3rem;
+    padding-left: 4rem;
     position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
+    justify-content: space-between;
 }
+.footer-div div{
+    display: flex;
+}
+
 .footer-icon{
     margin-left: 1.5rem;
 }
 .footer-title{
     color: #5348c7;
+}
+.social-icons{
+    margin-right: 50%;
+    gap: 20px;
 }
