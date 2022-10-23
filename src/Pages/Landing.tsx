@@ -1,5 +1,5 @@
 import { HomePage } from "../Components/HomePage/Homepage"
 
-export const Home=()=>{
+export const Landing=()=>{
     return <div>{<HomePage/>}</div>
 }
