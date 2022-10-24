@@ -1,11 +1,11 @@
 /* array of notes */
 .notes-array {
-  margin-left: 15%;
+  margin-left: 22%;
   width: 100%;
   margin-top: 1.5rem;
 }
 /* the main div containing notes */
-.note-container{
+.note-container {
   width: 80%;
   background-color: #ffffff;
   margin-top: 2rem;
@@ -14,30 +14,43 @@
   height: auto;
 }
 /* the second div of notes */
-.note-cta{
+.note-cta {
   display: flex;
   justify-content: space-between;
   color: rgb(128, 128, 128);
 }
 /* the icons inside cta */
-.note-icons{
+.note-icons {
   display: flex;
   gap: 1rem;
   font-size: 1.2rem;
 }
 /* the first div of notes */
-.note-upper-container{
+.note-upper-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
-.note-upper-container .pin-icon{
+.note-upper-container .pin-icon {
   font-size: 2rem;
   color: rgb(128, 128, 128);
   position: absolute;
   right: 5%;
 }
 /* the title of the notes */
-.note-header{
+.note-header {
   font-size: 1.5rem;
+}
+@media only screen and (max-width: 768px) {
+  .notes-array {
+    margin-left: 35%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .notes-array {
+    margin-left: 15%;
+  }
+  .dashboard-container{
+    display: none;
+  }
 }

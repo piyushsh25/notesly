@@ -18,7 +18,7 @@ export const Note = ({ header, content }: Props) => {
       <div>
         <hr />
         <div className="note-cta">
-          <div className="note-date">created on 10/10/2010</div>
+          <div className="note-date">created : 10/10/2010</div>
           <div className="note-icons">
             <div>
               <i className="bi bi-palette"></i>
