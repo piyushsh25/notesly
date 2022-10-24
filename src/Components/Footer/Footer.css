@@ -2,26 +2,22 @@
     background-color: white;
     font-family: "Fuzzy Bubbles", cursive;
     font-weight: bolder;
-    font-size: 1.5rem;
-    padding-left: 4rem;
+    font-size: auto;
     bottom: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     z-index: 999;
     position: fixed;
+    padding: 4px 0;
 }
 .footer-div div{
     display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+    font-size: 1.5rem;
 }
 
-.footer-icon{
-    margin-left: 1.5rem;
-}
 .footer-title{
     color: #5348c7;
-}
-.social-icons{
-    margin-right: 50%;
-    gap: 20px;
 }

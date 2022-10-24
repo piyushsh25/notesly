@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import { Landing } from './Pages/Landing';
-import { User } from './Components/UserPage/User';
+import { User } from './Pages/User';
 
 function App() {
   return <div className='app-container'>
