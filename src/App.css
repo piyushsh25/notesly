@@ -1,5 +1,6 @@
 @import url("https://engin-ui.netlify.app/components/style.css");
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Freehand&family=Lora&family=Nunito+Sans:wght@600&family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fasthand&family=Fuzzy+Bubbles&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 .app-container {
   font-family: "Nunito Sans", sans-serif;
@@ -7,6 +8,14 @@
   height: 100%;
   background: #e5e5e5;
 }
-div a{
+div a {
   text-decoration: none;
 }
+/* available fonts */
+/* font-family: 'Freehand', cursive;
+font-family: 'Lora', serif;
+font-family: 'Nunito Sans', sans-serif;
+font-family: 'PT Sans', sans-serif;
+font-family: 'Fasthand', cursive;
+font-family: 'Fuzzy Bubbles', cursive;
+*/
