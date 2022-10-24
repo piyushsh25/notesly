@@ -1,5 +1,43 @@
+/* array of notes */
 .notes-array {
-  margin-left: 20%;
+  margin-left: 15%;
   width: 100%;
+  margin-top: 1.5rem;
+}
+/* the main div containing notes */
+.note-container{
+  width: 80%;
+  background-color: #ffffff;
   margin-top: 2rem;
+  padding: 3% 5%;
+  position: relative;
+  height: auto;
+}
+/* the second div of notes */
+.note-cta{
+  display: flex;
+  justify-content: space-between;
+  color: rgb(128, 128, 128);
+}
+/* the icons inside cta */
+.note-icons{
+  display: flex;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+/* the first div of notes */
+.note-upper-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.note-upper-container .pin-icon{
+  font-size: 2rem;
+  color: rgb(128, 128, 128);
+  position: absolute;
+  right: 5%;
+}
+/* the title of the notes */
+.note-header{
+  font-size: 1.5rem;
 }

@@ -4,11 +4,12 @@
     font-weight: bolder;
     font-size: 1.5rem;
     padding-left: 4rem;
-    position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    z-index: 999;
+    position: fixed;
 }
 .footer-div div{
     display: flex;
