@@ -6,9 +6,9 @@ export const Header = () => {
         <div className="header-title"> notesly </div>
       </div>
       <div>
-        <div className="header-icon">
+        <button className="header-icon">
           <i className="bi bi-box-arrow-right"></i>
-        </div>
+        </button>
       </div>
     </div>
   );
