@@ -16,8 +16,11 @@ export const Note = ({
         <div className="note-upper-container">
           <div className="note-header">{header}</div>
           <button className="pin-icon">
-            <i className="bi bi-pin-angle"></i>
-            {/* <i className="bi bi-pin-angle-fill"></i> */}
+            {!pinned ? (
+              <i className="bi bi-pin-angle"></i>
+            ) : (
+              <i className="bi bi-pin-angle-fill"></i>
+            )}
           </button>
         </div>
         <div className="note-content">{content.slice(0, 70)}......</div>

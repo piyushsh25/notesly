@@ -5,6 +5,9 @@
   margin-top: 1.5rem;
   margin-bottom: 5rem;
 }
+.notes-array h2{
+  margin-top: 2rem;
+}
 /* the main div containing notes */
 .note-container {
   width: 80%;

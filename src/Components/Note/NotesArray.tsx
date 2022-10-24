@@ -1,6 +1,7 @@
 import { Search } from "../Search/Search";
 import { Note } from "./Note";
 import "./Notes.css";
+import { NoteProps } from "./Notes.type";
 export const NotesArray = () => {
   /* font-family: 'Freehand', cursive;
 font-family: 'Lora', serif;
@@ -60,19 +61,41 @@ font-family: 'Fuzzy Bubbles', cursive;
       pinned: true,
     },
   ];
+  function pinnedTotal(acc: number, curr: NoteProps) {
+    return curr.pinned ? (acc = acc + 1) : acc;
+  }
+  function unpinnedTotal(acc: number, curr: NoteProps) {
+    return !curr.pinned ? (acc = acc + 1) : acc;
+  }
   return (
     <div className="notes-array">
       <Search />
-
-      {notes.map((note) => (
-        <Note
-          header={note.header}
-          content={note.content}
-          fontFamily={note.fontFamily}
-          backgroundColor={note.backgroundColor}
-          pinned={note.pinned}
-        />
-      ))}
+      <h2>Pinned NOTESLY : {notes.reduce(pinnedTotal, 0)}</h2>
+      {notes?.map(
+        (note) =>
+          note.pinned && (
+            <Note
+              header={note.header}
+              content={note.content}
+              fontFamily={note.fontFamily}
+              backgroundColor={note.backgroundColor}
+              pinned={note.pinned}
+            />
+          )
+      )}
+      <h2>OTHER NOTESLY:  {notes.reduce(unpinnedTotal, 0)}</h2>
+      {notes?.map(
+        (note) =>
+          !note.pinned && (
+            <Note
+              header={note.header}
+              content={note.content}
+              fontFamily={note.fontFamily}
+              backgroundColor={note.backgroundColor}
+              pinned={note.pinned}
+            />
+          )
+      )}
     </div>
   );
 };
