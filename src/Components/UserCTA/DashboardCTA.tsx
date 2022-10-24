@@ -1,11 +1,29 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { DashboardModal } from "../Modal/DashboardModal";
 import "./DashboardCTA.css";
 export const DashboardCTA = () => {
+  const [showDashboardModal, setShowDashboardModal] = useState(false);
+  useEffect(() => {
+    if (showDashboardModal) {
+      document.body.style.overflow = "hidden";
+    }
+    if (!showDashboardModal) {
+      document.body.style.overflow = "auto";
+    }
+  });
+  function dashboardHandler() {
+    setShowDashboardModal((prev) => !prev);
+  }
   return (
     <div className="dashboard-menu-container">
-      <div className="small-screen-menu-dashboard">
+      {showDashboardModal && <DashboardModal />}
+      <button
+        className="small-screen-menu-dashboard"
+        onClick={dashboardHandler}
+      >
         <i className="bi bi-three-dots-vertical"></i>
-      </div>
+      </button>
 
       <div className="dashboard-container">
         <div className="dashboard-icons">
@@ -50,9 +68,9 @@ export const DashboardCTA = () => {
             </div>
           </Link>
         </div>
-        <div className="dashboard-button">
-          <div>Create new note</div>
-        </div>
+        <button className="dashboard-button">
+          <div> note +</div>
+        </button>
       </div>
     </div>
   );

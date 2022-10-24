@@ -25,6 +25,12 @@
   display: flex;
   gap: 1rem;
   font-size: 1.2rem;
+  flex-wrap: wrap;
+
+}
+.note-icons button{
+  border: none;
+  background-color: inherit;
 }
 /* the first div of notes */
 .note-upper-container {
@@ -37,6 +43,8 @@
   color: rgb(128, 128, 128);
   position: absolute;
   right: 5%;
+  border: none;
+  background-color: inherit;
 }
 /* the title of the notes */
 .note-header {

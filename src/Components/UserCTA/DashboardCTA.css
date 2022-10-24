@@ -16,6 +16,8 @@
 .dashboard-icons div {
   display: flex;
   gap: 1rem;
+  border: none;
+  background-color: inherit;
 }
 .dashboard-icons a{
   color:inherit;
@@ -33,6 +35,8 @@
   justify-content: center;
   align-items: center;
   background-color: #5348c7;
+  border: none;
+
 }
 .small-screen-menu-dashboard{
   display: none;
@@ -46,6 +50,8 @@
     position: absolute;
     top: 1.75%;
     font-size: 2rem;
-    left: 20px;
+    left: 1.5rem;
+    border: none;
+    background-color: inherit;
   }
 }

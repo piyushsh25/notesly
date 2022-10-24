@@ -8,9 +8,9 @@ export const Search = () => {
       <div className="search-icon">
         <i className="bi bi-search"></i>
       </div>
-      <div className="filter-icon">
-      <i className="bi bi-funnel"></i>
-      </div>
+      <button className="filter-icon">
+        <i className="bi bi-funnel"></i>
+      </button>
     </div>
   );
 };
