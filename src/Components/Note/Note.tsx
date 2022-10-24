@@ -1,7 +1,17 @@
 import { NoteProps } from "./Notes.type";
-export const Note = ({ header, content }: NoteProps) => {
+export const Note = ({
+  header,
+  content,
+  fontFamily,
+  backgroundColor,
+  pinned,
+}: NoteProps) => {
+  const style = {
+    fontFamily: fontFamily,
+    backgroundColor: backgroundColor,
+  };
   return (
-    <div className="note-container">
+    <div className="note-container" style={style}>
       <div>
         <div className="note-upper-container">
           <div className="note-header">{header}</div>
