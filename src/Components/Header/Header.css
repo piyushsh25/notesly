@@ -4,4 +4,17 @@
     font-weight: bolder;
     font-size: 3rem;
     padding-left: 4rem;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+}
+.header-icon{
+    position: absolute;
+    right: 10%;
+    font-size: 2rem;
+    top: 1rem;
+    background-color: inherit;
+    border: none;
 }

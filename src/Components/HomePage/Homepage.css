@@ -50,7 +50,7 @@
   flex-direction: column;
   margin-top: 3rem;
 }
-.home-cta div:nth-child(1) {
+.home-cta .join-button {
   background-color: #5348c7;
   width: 10rem;
   color: white;

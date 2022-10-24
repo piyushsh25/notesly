@@ -1,0 +1,35 @@
+.search-bar{
+    position: relative;
+}
+
+.search-bar input{
+    width: 80%;
+    border: 1px solid rgb(188, 185, 185);
+    height: 3rem;
+    font-size: 12px;
+    position: relative;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+}
+.search-bar input:focus{
+    outline: none;
+}
+.search-icon{
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    font-size: 1.2rem;
+    padding: 2px 6px 2px 6px;
+}
+.filter-icon{
+    position: absolute;
+    top: 7px;
+    right: 22%;
+    font-size: 1.2rem;
+    border: none;
+    background-color: inherit;
+    padding: 2px 6px 2px 6px;
+}
+.filter-icon:focus{
+    outline-color: gray;
+}
