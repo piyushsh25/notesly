@@ -43,12 +43,12 @@ export const DashboardCTA = () => {
               <div>Tags</div>
             </div>
           </Link>
-          <Link to="/bookmarks">
+          <Link to="/archives">
             <div>
               <div>
-                <i className="bi bi-bookmark-check-fill"></i>
+              <i className="bi bi-calendar-plus"></i>
               </div>
-              <div>Bookmarks</div>
+              <div>Archives</div>
             </div>
           </Link>
           <Link to="/trash">
