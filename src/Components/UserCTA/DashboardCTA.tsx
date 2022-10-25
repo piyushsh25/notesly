@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { DashboardModal } from "../Modal/DashboardModal";
 import "./DashboardCTA.css";
 export const DashboardCTA = () => {
@@ -27,46 +27,61 @@ export const DashboardCTA = () => {
 
       <div className="dashboard-container">
         <div className="dashboard-icons">
-          <Link to="/me">
+          <NavLink
+            to="/me"
+            style={({ isActive }) => (isActive ? { color: "#7978FF" } : {})}
+          >
             <div>
               <div>
                 <i className="bi bi-house-door"></i>
               </div>
               <div>Home</div>
             </div>
-          </Link>
-          <Link to="/tags">
+          </NavLink>
+          <NavLink
+            to="/tags"
+            style={({ isActive }) => (isActive ? { color: "#BCE29E" } : {})}
+          >
             <div>
               <div>
                 <i className="bi bi-bookmark"></i>
               </div>
               <div>Tags</div>
             </div>
-          </Link>
-          <Link to="/archives">
+          </NavLink>
+          <NavLink
+            to="/archives"
+            style={({ isActive }) => (isActive ? { color: "#7978FF" } : {})}
+          >
             <div>
               <div>
-              <i className="bi bi-calendar-plus"></i>
+                <i className="bi bi-calendar-plus"></i>
               </div>
               <div>Archives</div>
             </div>
-          </Link>
-          <Link to="/trash">
+          </NavLink>
+          <NavLink
+            to="/trash"
+            style={({ isActive }) => (isActive ? { color: "#FF5858" } : {})}
+          >
             <div>
               <div>
                 <i className="bi bi-trash"></i>
               </div>
               <div>Trash</div>
             </div>
-          </Link>
-          <Link to="/profile">
+          </NavLink>
+          <NavLink
+            to="/profile"
+            style={({ isActive }) => (isActive ? { color: "#BCE29E" } : {})}
+          >
             <div>
               <div>
                 <i className="bi bi-person-circle"></i>
               </div>
               <div>User</div>
             </div>
-          </Link>
+          </NavLink>
         </div>
         <button className="dashboard-button">
           <div> note +</div>
