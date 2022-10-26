@@ -2,7 +2,6 @@ import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { NotesArray } from "../Note/NotesArray";
 import { DashboardCTA } from "../UserCTA/DashboardCTA";
-import { ArchiveNotes } from "./ArchiveNotes";
 const ArchiveArray = [
   {
     header: "lol 1",
@@ -11,6 +10,7 @@ const ArchiveArray = [
     backgroundColor: "#FDFDBD",
     fontFamily: "'PT Sans', sans-serif",
     pinned: true,
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol 2",
@@ -19,6 +19,7 @@ const ArchiveArray = [
     backgroundColor: "#C8FFD4",
     fontFamily: "'PT Sans', sans-serif",
     pinned: false,
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol 3",
@@ -27,6 +28,7 @@ const ArchiveArray = [
     backgroundColor: "#B8E8FC",
     fontFamily: "'Nunito Sans', sans-serif",
     pinned: true,
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol 4",
@@ -35,6 +37,7 @@ const ArchiveArray = [
     backgroundColor: "#B1AFFF",
     fontFamily: "'Lora', serif",
     pinned: false,
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol5",
@@ -43,6 +46,7 @@ const ArchiveArray = [
     backgroundColor: "white",
     fontFamily: "'Lora', serif",
     pinned: true,
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol 6",
@@ -51,6 +55,7 @@ const ArchiveArray = [
     backgroundColor: "white",
     fontFamily: "'Fuzzy Bubbles', cursive",
     pinned: true,
+    tags: ["tag1", "lol", "lmao"],
   },
 ];
 export const ArchivedPage = () => {
@@ -59,7 +64,7 @@ export const ArchivedPage = () => {
       <Header />
       <div className="user-body">
         <DashboardCTA />
-        <NotesArray todisplayArray={ArchiveArray}/>
+        <NotesArray todisplayArray={ArchiveArray} />
       </div>
       <Footer />
     </div>

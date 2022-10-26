@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { HeaderTags } from "../Header/HeaderTags";
 import { Search } from "../Search/Search";
 import { Note } from "./Note";
 import "./Notes.css";
@@ -8,17 +10,18 @@ type DisplayArray = {
 };
 export const NotesArray = ({ todisplayArray }: DisplayArray) => {
   const { pathname } = useLocation();
+  const [tagName, setTag] = useState<string>("All");
+  todisplayArray = todisplayArray.filter((notes) => {
+    if (tagName === "All") {
+      return notes;
+    } else {
+      return notes.tags.find((tag) => tag === tagName);
+    }
+  });
   return (
     <div className="notes-array">
       <Search />
-      <div className="array-header-cta-all">
-        <div className="h2">
-          {pathname.slice(1, pathname.length).toLocaleUpperCase()} : {todisplayArray.length}
-        </div>
-        <div className="trash-icon">
-          <i className="bi bi-trash"></i>
-        </div>
-      </div>
+      {HeaderTags(pathname, { todisplayArray }, tagName, setTag)}
       {todisplayArray?.map((note) => (
         <Note
           header={note.header}
@@ -26,6 +29,7 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
           fontFamily={note.fontFamily}
           backgroundColor={note.backgroundColor}
           pinned={note.pinned}
+          tags={note.tags}
         />
       ))}
     </div>

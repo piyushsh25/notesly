@@ -5,6 +5,7 @@ export const Note = ({
   fontFamily,
   backgroundColor,
   pinned,
+  tags,
 }: NoteProps) => {
   const style = {
     fontFamily: fontFamily,
@@ -44,6 +45,11 @@ export const Note = ({
               <i className="bi bi-trash"></i>
             </button>
           </div>
+        </div>
+        <div className="tag-names">
+          {tags.map((tag) => {
+            return <div>#{tag}</div>;
+          })}
         </div>
       </div>
     </div>

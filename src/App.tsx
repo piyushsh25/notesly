@@ -6,6 +6,7 @@ import { Landing } from "./Pages/Landing";
 import { User } from "./Pages/User";
 import { Archive } from "./Pages/Archive";
 import { Trash } from "./Pages/Trash";
+import { Tags } from "./Pages/Tags";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/me" element={<User />} />
           <Route path="/archives" element={<Archive />} />
           <Route path="/trash" element={<Trash />} />
+          <Route path="/tags" element={<Tags />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -5,15 +5,15 @@
   margin-top: 1.5rem;
   margin-bottom: 5rem;
 }
-.notes-array .h2{
+.notes-array .h2 {
   margin-top: 2rem;
 }
 /* the header */
-.array-header-cta-all{
+.array-header-cta-all {
   display: flex;
   position: relative;
 }
-.notes-array .trash-icon{
+.notes-array .trash-icon {
   position: absolute;
   right: 20%;
   margin-top: 2rem;
@@ -40,9 +40,8 @@
   gap: 1rem;
   font-size: 1.2rem;
   flex-wrap: wrap;
-
 }
-.note-icons button{
+.note-icons button {
   border: none;
   background-color: inherit;
 }
@@ -64,6 +63,37 @@
 .note-header {
   font-size: 1.5rem;
 }
+.tag-names {
+  display: flex;
+  gap: 2rem;
+  margin-top: 8px;
+}
+
+.tag-names div {
+  background-color: rgb(144, 164, 153);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.tag-header .tag-names div {
+  padding: 0;
+}
+.label-tag {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.tag-header .trash-icon {
+  margin-top: 0;
+}
+.tag-input input[type="radio"] {
+  display: none;
+  margin: 10px;
+}
+.tag-input input[type="radio"]:checked + label {
+  background-image: none;
+  border: 2px solid #000000;
+}
+
 @media only screen and (max-width: 768px) {
   .notes-array {
     margin-left: 35%;
@@ -73,7 +103,7 @@
   .notes-array {
     margin-left: 15%;
   }
-  .dashboard-container{
+  .dashboard-container {
     display: none;
   }
 }

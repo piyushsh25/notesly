@@ -19,6 +19,7 @@ font-family: 'Fuzzy Bubbles', cursive;
       backgroundColor: "#FDFDBD",
       fontFamily: "'PT Sans', sans-serif",
       pinned: true,
+      tags: ["tag1", "lol", "lmao"],
     },
     {
       header: "lol 2",
@@ -27,6 +28,7 @@ font-family: 'Fuzzy Bubbles', cursive;
       backgroundColor: "#C8FFD4",
       fontFamily: "'PT Sans', sans-serif",
       pinned: false,
+      tags: ["tag1"],
     },
     {
       header: "lol 3",
@@ -35,6 +37,7 @@ font-family: 'Fuzzy Bubbles', cursive;
       backgroundColor: "#B8E8FC",
       fontFamily: "'Nunito Sans', sans-serif",
       pinned: true,
+      tags: ["lol2", "lmao"],
     },
     {
       header: "lol 4",
@@ -43,6 +46,7 @@ font-family: 'Fuzzy Bubbles', cursive;
       backgroundColor: "#B1AFFF",
       fontFamily: "'Lora', serif",
       pinned: false,
+      tags: ["tag1", "lmao"],
     },
     {
       header: "lol5",
@@ -51,6 +55,7 @@ font-family: 'Fuzzy Bubbles', cursive;
       backgroundColor: "white",
       fontFamily: "'Lora', serif",
       pinned: true,
+      tags: ["tag1", "lol", "lmao"],
     },
     {
       header: "lol 6",
@@ -59,6 +64,7 @@ font-family: 'Fuzzy Bubbles', cursive;
       backgroundColor: "white",
       fontFamily: "'Fuzzy Bubbles', cursive",
       pinned: true,
+      tags: ["tag1", "lol", "lmao"],
     },
   ];
   function pinnedTotal(acc: number, curr: NoteProps) {
@@ -80,6 +86,7 @@ font-family: 'Fuzzy Bubbles', cursive;
               fontFamily={note.fontFamily}
               backgroundColor={note.backgroundColor}
               pinned={note.pinned}
+              tags={note.tags}
             />
           )
       )}
@@ -93,6 +100,7 @@ font-family: 'Fuzzy Bubbles', cursive;
               fontFamily={note.fontFamily}
               backgroundColor={note.backgroundColor}
               pinned={note.pinned}
+              tags={note.tags}
             />
           )
       )}

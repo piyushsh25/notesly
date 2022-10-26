@@ -2,7 +2,7 @@ import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { NotesArray } from "../Note/NotesArray";
 import { DashboardCTA } from "../UserCTA/DashboardCTA";
-const TrashArray = [
+const TagArray = [
   {
     header: "lol 1",
     content:
@@ -10,7 +10,7 @@ const TrashArray = [
     backgroundColor: "#FDFDBD",
     fontFamily: "'PT Sans', sans-serif",
     pinned: true,
-    tags:["tag1","lol","lmao"]
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol 2",
@@ -19,7 +19,7 @@ const TrashArray = [
     backgroundColor: "#C8FFD4",
     fontFamily: "'PT Sans', sans-serif",
     pinned: false,
-    tags:["lol","lmao"]
+    tags: ["lol", "lmao"],
   },
   {
     header: "lol 3",
@@ -28,7 +28,7 @@ const TrashArray = [
     backgroundColor: "#B8E8FC",
     fontFamily: "'Nunito Sans', sans-serif",
     pinned: true,
-    tags:["tag1","lol","lmao"]
+    tags: ["tag1", "lol", "lmao"],
   },
   {
     header: "lol 4",
@@ -37,7 +37,7 @@ const TrashArray = [
     backgroundColor: "#B1AFFF",
     fontFamily: "'Lora', serif",
     pinned: false,
-    tags:["tag1","lol"]
+    tags: ["tag1", "lol"],
   },
   {
     header: "lol5",
@@ -46,7 +46,7 @@ const TrashArray = [
     backgroundColor: "white",
     fontFamily: "'Lora', serif",
     pinned: true,
-    tags:["tag1","lmao"]
+    tags: ["tag1", "lmao"],
   },
   {
     header: "lol 6",
@@ -55,17 +55,17 @@ const TrashArray = [
     backgroundColor: "white",
     fontFamily: "'Fuzzy Bubbles', cursive",
     pinned: true,
-    
-    tags:["tag1"]
+
+    tags: ["tag1"],
   },
 ];
-export const TrashPage = () => {
+export const TagPage = () => {
   return (
     <div>
       <Header />
       <div className="user-body">
         <DashboardCTA />
-        <NotesArray todisplayArray={TrashArray} />
+        <NotesArray todisplayArray={TagArray} />
       </div>
       <Footer />
     </div>

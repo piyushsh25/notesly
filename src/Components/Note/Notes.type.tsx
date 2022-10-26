@@ -5,4 +5,5 @@ export type NoteProps = {
   fontFamily: string;
   backgroundColor: string;
   pinned: boolean;
+  tags:string[]
 };
