@@ -1,0 +1,55 @@
+.signup-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  justify-content: center;
+  margin: auto;
+  margin-top: 7rem;
+  flex-wrap: wrap;
+}
+.signup-form .mb-3 {
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 1.5rem;
+}
+.header-header-name.login-header {
+  color: rgb(41, 32, 27);
+  font-size: 2.5rem;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mb-3{
+  flex-direction: column;
+}
+/* signup ways */
+
+.footer-elements {
+  padding: var(--size2);
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-text {
+  font-size: var(--size8);
+  margin-bottom: var(--size8);
+  display: flex;
+  justify-content: center;
+}
+
+.other-login-methods {
+  font-size: var(--size15);
+  display: flex;
+  justify-content: space-between;
+}
