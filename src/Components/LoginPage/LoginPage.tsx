@@ -4,10 +4,11 @@ import { LoginBody } from "./LoginBody";
 
 export const LoginPage = () => {
   return (
-    <div className="signup-page-container">
+    <div className="signup-login-container">
       <Header />
-      <LoginBody />
+      <div className="header-login">Welcome back !</div>
       <SignupWays />
+      <LoginBody />
     </div>
   );
 };

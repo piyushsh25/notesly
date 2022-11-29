@@ -1,7 +1,6 @@
 export const SignupWays = () => {
   return (
     <div className="footer-elements">
-      <div className="footer-text">Other Methods</div>
       <div className="other-login-methods">
         <div>
           <i className="bi bi-google"></i>

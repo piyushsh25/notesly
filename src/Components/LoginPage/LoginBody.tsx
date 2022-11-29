@@ -1,27 +1,31 @@
-import { Form, Row, Col, Button, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import "../SignupPage/Signup.css";
 export function LoginBody() {
   return (
-    <Form className="signup-form login-form">
-      <Navbar.Brand className="header-header-name login-header">
-        {" "}
-        Login
-      </Navbar.Brand>
-
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Control type="email" placeholder="Enter email" />
-        </Form.Group>
-
-        <Form.Group as={Col} controlId="formGridPassword">
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-      </Row>
-
-      <Button variant="primary">Submit</Button>
-      <Link to="/signup">Have an account already?</Link>
-    </Form>
+    <div className="login-body">
+      <div>or login using</div>
+      <div className="login-form">
+        <div className="username-container">
+          <i className="bi bi-envelope email-icon"></i>
+          <input
+            type="email"
+            placeholder="email-id"
+            className="enter-username"
+          />
+        </div>
+        <div className="password-container">
+          <i className="bi bi-file-lock2 password-icon"></i>
+          <input
+            type="password"
+            placeholder="password"
+            className="enter-password"
+          />
+        </div>
+        <button className="submit-button">Submit</button>
+        <Link to="/signup" className="login-signup-redirect">
+        New? Create a new account.
+        </Link>
+      </div>
+    </div>
   );
 }

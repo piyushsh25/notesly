@@ -4,10 +4,10 @@ import { SignupWays } from "./SignupWays";
 
 export const SignupPage = () => {
   return (
-    <div className="signup-page-container">
+    <div className="signup-login-container">
       <Header />
-      <SignUpBody />
       <SignupWays />
+      <SignUpBody />
     </div>
   );
 };

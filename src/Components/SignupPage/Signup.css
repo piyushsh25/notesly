@@ -1,55 +1,88 @@
-.signup-page-container {
-  width: 100vw;
+.signup-login-container {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  padding-top: 5rem;
+  background-color: #A0E4CB;
 }
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  justify-content: center;
-  margin: auto;
-  margin-top: 7rem;
-  flex-wrap: wrap;
-}
-.signup-form .mb-3 {
-  flex-wrap: wrap;
-  margin-top: 2rem;
-  gap: 1.5rem;
-}
-.header-header-name.login-header {
-  color: rgb(41, 32, 27);
-  font-size: 2.5rem;
-  font-weight: bolder;
+.header-login {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  font-size: 2rem;
 }
-.mb-3{
+/* login page */
+.login-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   flex-direction: column;
+}
+.login-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+}
+.login-form input {
+  margin-top: 1.5rem;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  padding-left: 2.5rem;
+}
+.submit-button {
+  margin-top: 1.5rem;
+  padding: 4px 1rem;
+  border-radius: 0;
+  border-style: none;
+  width: 50%;
+  border-radius: 6px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  background-color: #A0E4CB;
+}
+.submit-button:hover {
+  background-color:#8ad3b8;
+}
+.username-container,.password-container {
+  position: relative;
+}
+.email-icon,.password-icon {
+  position: absolute;
+  top: 40%;
+  left: 4px;
+  font-size: 1.5rem;
+}
+.first-last-name-container{
+  display: flex;
+  gap: 20px;
 }
 /* signup ways */
 
 .footer-elements {
-  padding: var(--size2);
-  width: 20%;
+  padding: 4px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   margin: auto;
   margin-top: 2rem;
-  flex-wrap: wrap;
 }
 
 .footer-text {
-  font-size: var(--size8);
-  margin-bottom: var(--size8);
+  font-size: 1rem;
   display: flex;
   justify-content: center;
 }
 
 .other-login-methods {
-  font-size: var(--size15);
+  font-size: 2rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin: auto;
+  gap: 3rem;
+  margin-bottom: 1rem;
+}
+.other-login-methods i {
+  border: 2px solid white;
+  border-radius: 20%;
+  padding: 14px;
 }
