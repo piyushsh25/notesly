@@ -5,7 +5,6 @@ const initialState: LoginInitialState = {
   username: "",
   password: "",
   loginLoadState: "idle",
-  message: "",
 };
 
 export type State = LoginInitialState;
@@ -54,6 +53,7 @@ const loginSlice = createSlice({
       state.password = "";
     });
     builder.addCase(loginHandler.rejected, (state, action) => {
+      state.password = "";
       state.loginLoadState = "failed";
     });
   },
