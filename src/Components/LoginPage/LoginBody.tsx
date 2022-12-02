@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../Hooks/store";
 import {
   loginActions,
@@ -7,11 +7,20 @@ import {
 } from "../../Hooks/slices/loginSlice";
 import "../SignupPage/Signup.css";
 import { RootState } from "../../Hooks/store";
+import { useEffect } from "react";
+import { LoginInitialState } from "../../Hooks/slices/loginSlice.types";
 export function LoginBody() {
+  const navigate=useNavigate()
   const dispatch = useDispatch<AppDispatch>();
-  const { username, password } = useSelector(
+  const { username, password ,loginLoadState}:LoginInitialState = useSelector(
     (store: RootState) => store.loginReducer
   );
+  useEffect(()=>{
+    if(loginLoadState==="succeeded"){
+      navigate("/me")
+      dispatch(loginActions.setIdleHandler({}))
+    }
+  },[loginLoadState])
   return (
     <div className="login-body">
       <div>or login using</div>
@@ -21,6 +30,7 @@ export function LoginBody() {
           <input
             type="text"
             placeholder="username"
+            value={username}
             className="enter-username"
             onChange={(e) =>
               dispatch(loginActions.setUsernameHandler(e.target.value))
@@ -33,6 +43,7 @@ export function LoginBody() {
             type="password"
             placeholder="password"
             className="enter-password"
+            value={password}
             onChange={(e) =>
               dispatch(loginActions.setPasswordHandler(e.target.value))
             }

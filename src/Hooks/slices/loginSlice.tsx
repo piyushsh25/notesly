@@ -16,10 +16,13 @@ export const loginHandler = createAsyncThunk(
       username: username,
       password: password,
     };
-    const response = await axios.post("https://notesly-backend.onrender.com/login/", {
-      user: user,
-    });
-    return response;
+    const response = await axios.post(
+      "https://notesly-backend.onrender.com/login/",
+      {
+        user: user,
+      }
+    );
+    return response.data;
   }
 );
 const loginSlice = createSlice({
@@ -38,14 +41,22 @@ const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginHandler.pending, (state, action) => {
-      console.log("pend");
+      console.log("pending")
       state.loginLoadState = "pending";
     });
     builder.addCase(loginHandler.fulfilled, (state, action) => {
-      console.log(action);
+      // extract token from payload and save it in the localstorage
+      const token = action.payload.token;
+      localStorage.setItem("token", token);
+      // set the status to succeeded
       state.loginLoadState = "succeeded";
+      //clear the username and passoword field after successful login
+      state.username = "";
+      state.password = "";
+      console.log("succedded")
     });
     builder.addCase(loginHandler.rejected, (state, action) => {
+      console.log("failed")
       state.loginLoadState = "failed";
     });
   },

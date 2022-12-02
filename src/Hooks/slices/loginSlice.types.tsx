@@ -1,12 +1,12 @@
 export type User = {
-    username: String;
-    password: String;
+    username: string;
+    password: string;
   };
   export type LoginInitialState = {
-    username: String;
-    password: String;
+    username: string;
+    password: string;
     loginLoadState: "idle" | "pending" | "succeeded" | "failed";
-    message: String;
+    message: string;
   };
   export type Action = {
     payload: any;
