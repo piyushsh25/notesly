@@ -11,9 +11,9 @@ export const HomeText = () => {
         manage your daily task and boost your efficiency without any effort
       </div>
       <div className="home-cta">
-        <div className="join-button">Join now</div>
+        <Link to="/signup" className="join-button">Join now</Link>
         <div>
-          <Link to="/me">
+          <Link to="/login">
             <div className="sign-in-button">Already have an account?</div>
           </Link>
         </div>

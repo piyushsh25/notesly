@@ -3,7 +3,7 @@ export const Footer = () => {
   return (
     <div className="footer-div">
       <div>
-        <div className="footer-title"> Piyush Poudyal </div>
+        <div className="footer-title"> Username </div>
         <div className="footer-icon">
           <div>
             <i className="bi bi-github"></i>
