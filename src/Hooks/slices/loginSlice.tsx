@@ -1,4 +1,4 @@
-import { AsyncThunk, createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { LoginInitialState, User } from "./loginSlice.types";
 const initialState: LoginInitialState = {
@@ -16,7 +16,7 @@ export const loginHandler = createAsyncThunk(
       username: username,
       password: password,
     };
-    const response = await axios.post("http://localhost:5000/login/", {
+    const response = await axios.post("https://notesly-backend.onrender.com/login/", {
       user: user,
     });
     return response;
