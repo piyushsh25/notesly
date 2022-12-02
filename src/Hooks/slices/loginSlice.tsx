@@ -41,7 +41,6 @@ const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginHandler.pending, (state, action) => {
-      console.log("pending")
       state.loginLoadState = "pending";
     });
     builder.addCase(loginHandler.fulfilled, (state, action) => {
@@ -53,10 +52,8 @@ const loginSlice = createSlice({
       //clear the username and passoword field after successful login
       state.username = "";
       state.password = "";
-      console.log("succedded")
     });
     builder.addCase(loginHandler.rejected, (state, action) => {
-      console.log("failed")
       state.loginLoadState = "failed";
     });
   },
