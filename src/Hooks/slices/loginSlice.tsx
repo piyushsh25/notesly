@@ -11,8 +11,9 @@ export type State = LoginInitialState;
 export const loginHandler = createAsyncThunk(
   "auth/loginHandler",
   async ({ username, password }: User) => {
+    
     const user: User = {
-      username: username,
+      username: username.toLowerCase(),
       password: password,
     };
     const response = await axios.post(

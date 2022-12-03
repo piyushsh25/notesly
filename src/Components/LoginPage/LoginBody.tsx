@@ -18,7 +18,18 @@ export function LoginBody() {
   useEffect(() => {
     if (loginLoadState === "succeeded") {
       navigate("/me");
-      dispatch(loginActions.setIdleHandler({}));
+      dispatch(
+        toastAction.setMessage({
+          header: "Login, Success",
+          description: "Welcome back, we missed you.",
+          color: "Success",
+        })
+      );
+      dispatch(toastAction.setToastHandler({ message: true }));
+      setTimeout(() => {
+        dispatch(toastAction.setToastHandler({ message: false }));
+        dispatch(loginActions.setIdleHandler({}));
+      }, 5000);
     }
     if (loginLoadState === "failed") {
       dispatch(
@@ -32,10 +43,8 @@ export function LoginBody() {
       setTimeout(() => {
         dispatch(toastAction.setToastHandler({ message: false }));
         dispatch(loginActions.setIdleHandler({}));
-      }, 10000);
+      }, 5000);
     }
-
-
   }, [loginLoadState]);
   return (
     <div className="login-body">
@@ -65,8 +74,17 @@ export function LoginBody() {
             }
           />
         </div>
-        {(loginLoadState === "pending") ? (
-            <Spinner animation="grow" />
+        {loginLoadState === "pending" ? (
+          <button className="submit-button">
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            Loading...
+          </button>
         ) : (
           <button
             className="submit-button"
