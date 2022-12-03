@@ -1,3 +1,4 @@
+// user details in login
 export type User = {
     username: string;
     password: string;
@@ -6,9 +7,5 @@ export type User = {
     username: string;
     password: string;
     loginLoadState: "idle" | "pending" | "succeeded" | "failed";
-    message: string;
   };
-  export type Action = {
-    payload: any;
-    type: string;
-  };
+ 
