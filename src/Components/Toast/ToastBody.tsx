@@ -1,6 +1,6 @@
 import Toast from "react-bootstrap/Toast";
 import { useDispatch, useSelector } from "react-redux";
-import { toastAction } from "../../Hooks/slices/ToastSlice";
+import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 import { RootState } from "../../Hooks/store";
 import "./Toast.css";
 // 'Primary',

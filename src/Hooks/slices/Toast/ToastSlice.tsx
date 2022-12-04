@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Toast } from "./Toast.types";
 
-type Toast = {
-  showToast: boolean;
-  messageHeader: string;
-  messageDescription: string;
-  color: string;
-};
+
 const initialState: Toast = {
   showToast: false,
   messageHeader: "",
