@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 import { AppDispatch } from "../../Hooks/store";
 import "./Header.css";
@@ -26,7 +26,7 @@ export const Header = () => {
   return (
     <div className="header-div">
       <div>
-        <div className="header-title"> notesly </div>
+        <Link to="/me"><div className="header-title"> notesly </div></Link>
       </div>
       <div>
         <button className="header-icon" onClick={logoutSelfHandler}>

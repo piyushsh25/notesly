@@ -32,7 +32,7 @@ function App() {
         toastAction.setMessage({
           header: "You have been logged out",
           description:
-            "There is some issue with authentication. Please login again",
+            "There is some issue with authentication. Please login again :)",
           color: "Warning",
         })
       );
