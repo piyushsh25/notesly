@@ -1,0 +1,22 @@
+.new-note-body {
+  margin-top: 5rem;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+}
+.new-note-container{
+    background-color: #fff;
+    margin: auto;
+    align-items: center;
+    padding: 2rem;
+    width: 90%;
+    border-radius: 4px;
+    border: 2px solid rgb(53, 146, 186);
+}
+/* input,textarea{
+    margin:4px 20px;
+}
+input:focus,textarea:focus{
+    border: none;
+    
+} */

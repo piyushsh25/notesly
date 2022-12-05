@@ -20,12 +20,14 @@ import { AppDispatch, RootState } from "./Hooks/store";
 import { ToastComponent } from "./Components/Toast/ToastBody";
 import { Logout } from "./Components/Logout/Logout";
 import { toastAction } from "./Hooks/slices/Toast/ToastSlice";
+import { NewNote } from "./Pages/NewNote";
 
 function App() {
   const { showToast } = useSelector((store: RootState) => store.toastReducer);
   const { userError } = useSelector((store: RootState) => store.userReducer);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
+    //user slice will run everytime a page is loaded to authenticate a user
     if (userError) {
       localStorage.clear();
       dispatch(
@@ -54,6 +56,7 @@ function App() {
             <Route path="/trash" element={<Trash />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/newnote" element={<NewNote/>}/>
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />
