@@ -70,7 +70,7 @@ export function LoginBody() {
           <input
             type="password"
             placeholder="password"
-            className="enter-password"
+            className="enter-password current-password"
             value={password}
             onChange={(e) =>
               dispatch(loginActions.setPasswordHandler(e.target.value))
@@ -96,6 +96,7 @@ export function LoginBody() {
             Submit
           </button>
         )}
+
         <Link to="/signup" className="login-signup-redirect">
           New? Create a new account.
         </Link>

@@ -14,6 +14,7 @@ import { RedirectAuth } from "./Hooks/Auth/RedirectAuth";
 import { useSelector } from "react-redux";
 import { RootState } from "./Hooks/store";
 import { ToastComponent } from "./Components/Toast/ToastBody";
+import { Logout } from "./Components/Logout/Logout";
 
 function App() {
   const { showToast } = useSelector((store: RootState) => store.toastReducer);
@@ -28,6 +29,7 @@ function App() {
             <Route path="/archives" element={<Archive />} />
             <Route path="/trash" element={<Trash />} />
             <Route path="/tags" element={<Tags />} />
+            <Route path="/logout" element={<Logout/>}/>
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />
