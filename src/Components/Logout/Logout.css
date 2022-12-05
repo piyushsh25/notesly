@@ -1,0 +1,8 @@
+.logout-body {
+  margin-top: 5rem;
+}
+.logout-message{
+    background-color: rgb(117, 220, 129);
+    padding: 12px;
+    border-radius: 8px;
+}

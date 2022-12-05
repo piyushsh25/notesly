@@ -6,6 +6,7 @@ const initialState: UserState = {
   name: "",
   userstatus: "idle",
   bio: [],
+  userError:false
 };
 export const getDetails = createAsyncThunk("user/getDetails", async () => {
   const token = localStorage.getItem("token");
@@ -24,6 +25,7 @@ const UserSlice = createSlice({
     });
     builder.addCase(getDetails.rejected, (state, action) => {
       state.userstatus = "error";
+      state.userError=true;
     });
     builder.addCase(getDetails.fulfilled, (state, action) => {
       state.name = action.payload.user[0].username;
