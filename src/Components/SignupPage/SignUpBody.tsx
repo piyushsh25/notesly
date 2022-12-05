@@ -1,7 +1,50 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  signupButtonHandler,
+  signupSlice,
+} from "../../Hooks/slices/Signup/SignupSlice";
+import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
+import { AppDispatch, RootState } from "../../Hooks/store";
+import Spinner from "react-bootstrap/Spinner";
 
 import "./Signup.css";
 export function SignUpBody() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { firstname, lastname, email, password, username, signupstatus } =
+    useSelector((store: RootState) => store.signupReducer);
+  useEffect(() => {
+    if (signupstatus === "succeeded") {
+      navigate("/me");
+      dispatch(
+        toastAction.setMessage({
+          header: "Welcome to notesly",
+          description: "We're excited to have you here.",
+          color: "Success",
+        })
+      );
+      dispatch(toastAction.setToastHandler({ message: true }));
+      setTimeout(() => {
+        dispatch(toastAction.setToastHandler({ message: false }));
+      }, 5000);
+    }
+    if (signupstatus === "failed") {
+      dispatch(
+        toastAction.setMessage({
+          header: "Opps!",
+          description: "Something broke. Please try again.",
+          color: "Danger",
+        })
+      );
+      dispatch(toastAction.setToastHandler({ message: true }));
+      setTimeout(() => {
+        dispatch(toastAction.setToastHandler({ message: false }));
+      }, 10000);
+    }
+    dispatch(signupSlice.setIdleHandler({}));
+  }, [signupstatus]);
   return (
     <div className="login-body">
       <div>or signup using</div>
@@ -13,6 +56,10 @@ export function SignUpBody() {
               type="text"
               placeholder="first name"
               className="enter-username"
+              value={firstname}
+              onChange={(e) => {
+                dispatch(signupSlice.setFirstNameHandler(e.target.value));
+              }}
             />
           </div>
           <div className="username-container">
@@ -21,6 +68,10 @@ export function SignUpBody() {
               type="text"
               placeholder="last name"
               className="enter-username"
+              value={lastname}
+              onChange={(e) => {
+                dispatch(signupSlice.setLastNameHandler(e.target.value));
+              }}
             />
           </div>
         </div>
@@ -31,6 +82,10 @@ export function SignUpBody() {
               type="email"
               placeholder="email-id"
               className="enter-username"
+              value={email}
+              onChange={(e) => {
+                dispatch(signupSlice.setEmailHandler(e.target.value));
+              }}
             />
           </div>
           <div className="password-container">
@@ -39,6 +94,10 @@ export function SignUpBody() {
               type="password"
               placeholder="password"
               className="enter-password"
+              value={password}
+              onChange={(e) => {
+                dispatch(signupSlice.setPasswordHandler(e.target.value));
+              }}
             />
           </div>
         </div>
@@ -48,9 +107,41 @@ export function SignUpBody() {
             type="email"
             placeholder="username"
             className="enter-username"
+            value={username}
+            onChange={(e) => {
+              dispatch(signupSlice.setUsernameHandler(e.target.value));
+            }}
           />
         </div>
-        <button className="submit-button">Submit</button>
+        {signupstatus === "pending" ? (
+          <button className="submit-button">
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            Loading...
+          </button>
+        ) :( <button
+          className="submit-button"
+          onClick={() =>
+            dispatch(
+              signupButtonHandler({
+                firstname,
+                lastname,
+                email,
+                password,
+                username,
+                signupstatus,
+              })
+            )
+          }
+        >
+          Submit
+        </button>)}
+       
         <Link to="/login" className="login-signup-redirect">
           Already have an account ?
         </Link>
