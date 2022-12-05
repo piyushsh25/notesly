@@ -25,9 +25,9 @@ export const signupButtonHandler = createAsyncThunk(
     const user = {
       userID,
       username: username.toLowerCase(),
-      firstname,
+      firstName:firstname,
       email,
-      lastname,
+      lastName:lastname,
       password,
       bio: "",
     };

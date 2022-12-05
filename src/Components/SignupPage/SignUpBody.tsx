@@ -35,7 +35,7 @@ export function SignUpBody() {
     if (signupstatus === "failed") {
       dispatch(
         toastAction.setMessage({
-          header: "Opps!",
+          header: "Opps!. The username already exists",
           description: "Something broke. Please try again.",
           color: "Danger",
         })
@@ -48,7 +48,6 @@ export function SignUpBody() {
       dispatch(signupSlice.setIdleHandler({}));
     }
   }, [signupstatus]);
-  console.log(signupstatus);
   return (
     <div className="login-body">
       <div>or signup using</div>
