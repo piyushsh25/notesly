@@ -29,6 +29,8 @@ export function SignUpBody() {
       setTimeout(() => {
         dispatch(toastAction.setToastHandler({ message: false }));
       }, 5000);
+
+      dispatch(signupSlice.setIdleHandler({}));
     }
     if (signupstatus === "failed") {
       dispatch(
@@ -42,9 +44,11 @@ export function SignUpBody() {
       setTimeout(() => {
         dispatch(toastAction.setToastHandler({ message: false }));
       }, 10000);
+
+      dispatch(signupSlice.setIdleHandler({}));
     }
-    dispatch(signupSlice.setIdleHandler({}));
   }, [signupstatus]);
+  console.log(signupstatus);
   return (
     <div className="login-body">
       <div>or signup using</div>
@@ -124,24 +128,26 @@ export function SignUpBody() {
             />
             Loading...
           </button>
-        ) :( <button
-          className="submit-button"
-          onClick={() =>
-            dispatch(
-              signupButtonHandler({
-                firstname,
-                lastname,
-                email,
-                password,
-                username,
-                signupstatus,
-              })
-            )
-          }
-        >
-          Submit
-        </button>)}
-       
+        ) : (
+          <button
+            className="submit-button"
+            onClick={() =>
+              dispatch(
+                signupButtonHandler({
+                  firstname,
+                  lastname,
+                  email,
+                  password,
+                  username,
+                  signupstatus,
+                })
+              )
+            }
+          >
+            Submit
+          </button>
+        )}
+
         <Link to="/login" className="login-signup-redirect">
           Already have an account ?
         </Link>

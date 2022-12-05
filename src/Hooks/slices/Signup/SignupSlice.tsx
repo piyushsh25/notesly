@@ -37,7 +37,7 @@ export const signupButtonHandler = createAsyncThunk(
         user: user,
       }
     );
-    return (await response).data;
+    return response.data;
   }
 );
 const SignupSlice = createSlice({
@@ -59,9 +59,9 @@ const SignupSlice = createSlice({
     setUsernameHandler: (state, action) => {
       state.username = action.payload;
     },
-    setIdleHandler:(state,action)=>{
-      state.signupstatus="idle"
-    }
+    setIdleHandler: (state, action) => {
+      state.signupstatus = "idle";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signupButtonHandler.pending, (state, action) => {
@@ -74,11 +74,11 @@ const SignupSlice = createSlice({
       localStorage.setItem("token", token);
       // set status to localstorage
       state.signupstatus = "succeeded";
-      state.firstname="";
-      state.lastname="";
-      state.email="";
-      state.password="";
-      state.username="";
+      state.firstname = "";
+      state.lastname = "";
+      state.email = "";
+      state.password = "";
+      state.username = "";
     });
     builder.addCase(signupButtonHandler.rejected, (state, action) => {
       state.signupstatus = "failed";
