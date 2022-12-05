@@ -25,9 +25,9 @@ export const signupButtonHandler = createAsyncThunk(
     const user = {
       userID,
       username: username.toLowerCase(),
-      firstName:firstname,
+      firstName: firstname,
       email,
-      lastName:lastname,
+      lastName: lastname,
       password,
       bio: "",
     };
@@ -82,6 +82,8 @@ const SignupSlice = createSlice({
     });
     builder.addCase(signupButtonHandler.rejected, (state, action) => {
       state.signupstatus = "failed";
+      state.username = "";
+      state.password = "";
     });
   },
 });

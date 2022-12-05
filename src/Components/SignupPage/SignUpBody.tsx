@@ -35,8 +35,8 @@ export function SignUpBody() {
     if (signupstatus === "failed") {
       dispatch(
         toastAction.setMessage({
-          header: "Opps!. The username already exists",
-          description: "Something broke. Please try again.",
+          header: "Opps!. Something broke. Please try again.",
+          description: "Username already exists.",
           color: "Danger",
         })
       );
