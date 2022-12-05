@@ -23,16 +23,19 @@
 .note-container {
   width: 80%;
   background-color: #ffffff;
-  margin-top: 1rem;
+  margin-top: 0.7rem;
   padding: 1.5% 5%;
   position: relative;
   height: auto;
+  border-radius: 12px;
 }
 /* the second div of notes */
 .note-cta {
   display: flex;
   justify-content: space-between;
   color: rgb(128, 128, 128);
+  margin-top: 1rem;
+  flex-wrap: wrap;
 }
 /* the icons inside cta */
 .note-icons {
@@ -66,7 +69,7 @@
 .tag-names {
   display: flex;
   gap: 2rem;
-  margin-top: 8px;
+  flex-wrap: wrap;
 }
 
 .tag-names div {

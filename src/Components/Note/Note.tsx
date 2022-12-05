@@ -28,6 +28,14 @@ export const Note = ({
       </div>
       <div>
         <hr />
+
+        <div className="tag-names">
+          {tags.map((tag) => {
+            return <div>#{tag}</div>;
+          })}
+        </div>
+        <hr />
+
         <div className="note-cta">
           <div className="note-date">created : 10/10/2010</div>
           <div className="note-icons">
@@ -45,11 +53,6 @@ export const Note = ({
               <i className="bi bi-trash"></i>
             </button>
           </div>
-        </div>
-        <div className="tag-names">
-          {tags.map((tag) => {
-            return <div>#{tag}</div>;
-          })}
         </div>
       </div>
     </div>
