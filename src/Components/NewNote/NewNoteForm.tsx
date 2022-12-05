@@ -49,9 +49,9 @@ export const NewNoteForm = () => {
               Add tags seperated by spaces
             </Form.Text>
           </Form.Group>
-          <div className="dashboard-button">
+          <button className="dashboard-button">
             <div>Save note</div>
-          </div>
+          </button>
         </Form>
       </div>
     </div>

@@ -1,6 +1,10 @@
 import "./DashboardModal.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export const DashboardModal = () => {
+  const navigate=useNavigate()
+  const newNoteHandler=()=>{
+    navigate("/newnote")
+  }
   return (
     <div className="dashboard-modal">
       <div className="dashboard-menu-container">
@@ -47,9 +51,9 @@ export const DashboardModal = () => {
               </div>
             </Link>
           </div>
-          <div className="dashboard-button">
-            <div>Create new note</div>
-          </div>
+          <button className="dashboard-button" onClick={()=>newNoteHandler()}>
+            <div>note +</div>
+          </button>
         </div>
       </div>
     </div>

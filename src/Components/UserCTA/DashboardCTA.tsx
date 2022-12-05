@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { DashboardModal } from "../Modal/DashboardModal";
 import "./DashboardCTA.css";
 export const DashboardCTA = () => {
   const [showDashboardModal, setShowDashboardModal] = useState(false);
+  const navigate=useNavigate()
   useEffect(() => {
     if (showDashboardModal) {
       document.body.style.overflow = "hidden";
@@ -14,6 +15,9 @@ export const DashboardCTA = () => {
   });
   function dashboardHandler() {
     setShowDashboardModal((prev) => !prev);
+  }
+  const newNoteHandler=()=>{
+    navigate("/newnote")
   }
   return (
     <div className="dashboard-menu-container">
@@ -83,7 +87,7 @@ export const DashboardCTA = () => {
             </div>
           </NavLink>
         </div>
-        <button className="dashboard-button">
+        <button className="dashboard-button" onClick={()=>newNoteHandler()}>
           <div> note +</div>
         </button>
       </div>
