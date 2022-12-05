@@ -1,20 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../Hooks/store";
-import { loginActions, loginHandler } from "../../Hooks/slices/loginSlice";
+import {
+  loginActions,
+  loginHandler,
+} from "../../Hooks/slices/Login/loginSlice";
 import "../SignupPage/Signup.css";
 import { RootState } from "../../Hooks/store";
 import { useEffect } from "react";
-import { LoginInitialState } from "../../Hooks/slices/loginSlice.types";
-import { toastAction } from "../../Hooks/slices/ToastSlice";
+import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 import Spinner from "react-bootstrap/Spinner";
 
 export function LoginBody() {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { username, password, loginLoadState }: LoginInitialState = useSelector(
+  const { username, password, loginLoadState } = useSelector(
     (store: RootState) => store.loginReducer
   );
+
   useEffect(() => {
     if (loginLoadState === "succeeded") {
       navigate("/me");

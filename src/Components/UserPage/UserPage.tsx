@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getDetails, userActions } from "../../Hooks/slices/UserDetails";
+import { getDetails, userActions } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch } from "../../Hooks/store";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
