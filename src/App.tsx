@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Landing } from "./Pages/Landing";
 import { User } from "./Pages/User";
 import { Archive } from "./Pages/Archive";
@@ -19,27 +15,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./Hooks/store";
 import { ToastComponent } from "./Components/Toast/ToastBody";
 import { Logout } from "./Components/Logout/Logout";
-import { toastAction } from "./Hooks/slices/Toast/ToastSlice";
+import { NewNote } from "./Pages/NewNote";
+import { ToastInvokeFunc } from "./Hooks/ToastHelperFunction";
+import { userActions } from "./Hooks/slices/User/UserDetails";
 
 function App() {
   const { showToast } = useSelector((store: RootState) => store.toastReducer);
   const { userError } = useSelector((store: RootState) => store.userReducer);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
+    //user slice will run everytime a page is loaded to authenticate a user
     if (userError) {
       localStorage.clear();
-      dispatch(
-        toastAction.setMessage({
-          header: "You have been logged out",
-          description:
-            "There is some issue with authentication. Please login again :)",
-          color: "Warning",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "You have been logged out",
+        "There is some issue with authentication. Please login again :)",
+        "Warning"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-      }, 5000);
+      userActions.setUserHandler({ message: false });
     }
   }, [userError]);
   return (
@@ -54,6 +48,7 @@ function App() {
             <Route path="/trash" element={<Trash />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/newnote" element={<NewNote />} />
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />
