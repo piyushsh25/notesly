@@ -34,7 +34,7 @@ export const saveNewNoteHandler = createAsyncThunk(
       tags,
     };
     const response = await axios.post(
-      "https://notesly-backend.onrender.com/notes/addsadd/",
+      "https://notesly-backend.onrender.com/notes/add/",
       { user: user },
       { headers: { authorization: token } }
     );
