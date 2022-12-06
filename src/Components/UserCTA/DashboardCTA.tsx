@@ -12,7 +12,7 @@ export const DashboardCTA = () => {
     if (!showDashboardModal) {
       document.body.style.overflow = "auto";
     }
-  });
+  },[showDashboardModal]);
   function dashboardHandler() {
     setShowDashboardModal((prev) => !prev);
   }

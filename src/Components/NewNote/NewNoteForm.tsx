@@ -2,7 +2,13 @@ import "./NewNote.css";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Hooks/store";
-import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
+import {
+  noteActions,
+  saveNewNoteHandler,
+} from "../../Hooks/slices/NewNote/NoteSlice";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 export const NewNoteForm = () => {
   const availableFonts = [
     "'Nunito Sans', sans-serif",
@@ -12,9 +18,50 @@ export const NewNoteForm = () => {
     "'Fasthand', cursive",
     "'Fuzzy Bubbles', cursive",
   ];
-  const { header, content, fontFamily, backgroundColor, pinned, tags } =
-    useSelector((store: RootState) => store.noteReducer);
+  const {
+    header,
+    content,
+    fontFamily,
+    backgroundColor,
+    pinned,
+    tags,
+    saveStatus,
+  } = useSelector((store: RootState) => store.noteReducer);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (saveStatus === "succeeded") {
+      // navigate to specific note after route is made
+      navigate("/me");
+      dispatch(
+        toastAction.setMessage({
+          header: "Success",
+          description: "Your note has successfully been saved",
+          color: "Secondary",
+        })
+      );
+      dispatch(toastAction.setToastHandler({ message: true }));
+      setTimeout(() => {
+        dispatch(toastAction.setToastHandler({ message: false }));
+      }, 7000);
+      dispatch(noteActions.setSaveStatusIdle({}));
+    }
+    if (saveStatus === "failed") {
+      // navigate to specific note after route is made
+      dispatch(
+        toastAction.setMessage({
+          header: "Error",
+          description: "Something went wrong, please try again",
+          color: "Warning",
+        })
+      );
+      dispatch(toastAction.setToastHandler({ message: true }));
+      setTimeout(() => {
+        dispatch(toastAction.setToastHandler({ message: false }));
+      }, 7000);
+      dispatch(noteActions.setSaveStatusIdle({}));
+    }
+  }, [saveStatus]);
   return (
     <div className="new-note-body">
       <div className="new-note-container">
@@ -120,7 +167,22 @@ export const NewNoteForm = () => {
             </Form.Text>
           </Form.Group>
         </Form>
-        <button className="dashboard-button">
+        <button
+          className="dashboard-button"
+          onClick={() =>
+            dispatch(
+              saveNewNoteHandler({
+                header,
+                content,
+                fontFamily,
+                backgroundColor,
+                pinned,
+                tags,
+                saveStatus,
+              })
+            )
+          }
+        >
           <div>Save note</div>
         </button>
       </div>
