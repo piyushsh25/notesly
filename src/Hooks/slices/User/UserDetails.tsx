@@ -18,7 +18,11 @@ export const getDetails = createAsyncThunk("user/getDetails", async () => {
 const UserSlice = createSlice({
   name: "userdetails",
   initialState,
-  reducers: {},
+  reducers: {
+    setUserHandler:(state,action)=>{
+      state.userError=action.payload.message
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getDetails.pending, (state, action) => {
       state.userstatus = "pending";

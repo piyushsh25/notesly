@@ -5,11 +5,11 @@ import {
   signupButtonHandler,
   signupSlice,
 } from "../../Hooks/slices/Signup/SignupSlice";
-import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import Spinner from "react-bootstrap/Spinner";
 
 import "./Signup.css";
+import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
 export function SignUpBody() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -18,33 +18,21 @@ export function SignUpBody() {
   useEffect(() => {
     if (signupstatus === "succeeded") {
       navigate("/me");
-      dispatch(
-        toastAction.setMessage({
-          header: "Welcome to notesly",
-          description: "We're excited to have you here.",
-          color: "Success",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "Welcome to notesly",
+        "We're excited to have you here.",
+        "Success"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-      }, 5000);
-
       dispatch(signupSlice.setIdleHandler({}));
     }
     if (signupstatus === "failed") {
-      dispatch(
-        toastAction.setMessage({
-          header: "Opps!. Something broke. Please try again.",
-          description: "Username already exists.",
-          color: "Danger",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "Opps!.Something broke. Please try again.",
+        "Username already exists.",
+        "Danger"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-      }, 10000);
-
       dispatch(signupSlice.setIdleHandler({}));
     }
   }, [signupstatus]);

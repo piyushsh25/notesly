@@ -9,6 +9,9 @@ import {
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
+import Spinner from "react-bootstrap/Spinner";
+import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
+
 export const NewNoteForm = () => {
   const availableFonts = [
     "'Nunito Sans', sans-serif",
@@ -33,32 +36,21 @@ export const NewNoteForm = () => {
     if (saveStatus === "succeeded") {
       // navigate to specific note after route is made
       navigate("/me");
-      dispatch(
-        toastAction.setMessage({
-          header: "Success",
-          description: "Your note has successfully been saved",
-          color: "Secondary",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "Success",
+        "Your note has successfully been saved",
+        "Secondary"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-      }, 7000);
       dispatch(noteActions.setSaveStatusIdle({}));
     }
     if (saveStatus === "failed") {
-      // navigate to specific note after route is made
-      dispatch(
-        toastAction.setMessage({
-          header: "Error",
-          description: "Something went wrong, please try again",
-          color: "Warning",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "Error",
+        "Something went wrong, please try again.",
+        "Warning"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-      }, 7000);
       dispatch(noteActions.setSaveStatusIdle({}));
     }
   }, [saveStatus]);
@@ -167,24 +159,37 @@ export const NewNoteForm = () => {
             </Form.Text>
           </Form.Group>
         </Form>
-        <button
-          className="dashboard-button"
-          onClick={() =>
-            dispatch(
-              saveNewNoteHandler({
-                header,
-                content,
-                fontFamily,
-                backgroundColor,
-                pinned,
-                tags,
-                saveStatus,
-              })
-            )
-          }
-        >
-          <div>Save note</div>
-        </button>
+        {saveStatus === "pending" ? (
+          <button className="dashboard-button">
+            Saving...
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          </button>
+        ) : (
+          <button
+            className="dashboard-button"
+            onClick={() =>
+              dispatch(
+                saveNewNoteHandler({
+                  header,
+                  content,
+                  fontFamily,
+                  backgroundColor,
+                  pinned,
+                  tags,
+                  saveStatus,
+                })
+              )
+            }
+          >
+            <div>Save note</div>
+          </button>
+        )}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const toastSlice = createSlice({
     },
     setToastHandler: (state, action) => {
       state.showToast = action.payload.message;
-    },
+    }
 
   },
 });

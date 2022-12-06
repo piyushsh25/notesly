@@ -8,8 +8,8 @@ import {
 import "../SignupPage/Signup.css";
 import { RootState } from "../../Hooks/store";
 import { useEffect } from "react";
-import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 import Spinner from "react-bootstrap/Spinner";
+import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
 
 export function LoginBody() {
   const navigate = useNavigate();
@@ -21,32 +21,22 @@ export function LoginBody() {
   useEffect(() => {
     if (loginLoadState === "succeeded") {
       navigate("/me");
-      dispatch(
-        toastAction.setMessage({
-          header: "Login, Success",
-          description: "Welcome back, we missed you.",
-          color: "Success",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "Login, Success",
+        "Welcome back, we missed you.",
+        "Success"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-        dispatch(loginActions.setIdleHandler({}));
-      }, 5000);
+      dispatch(loginActions.setIdleHandler({}));
     }
     if (loginLoadState === "failed") {
-      dispatch(
-        toastAction.setMessage({
-          header: "Error in login",
-          description: "Login issue. Check username and passeord",
-          color: "Danger",
-        })
+      ToastInvokeFunc(
+        dispatch,
+        "Error in login",
+        "ogin issue. Check username and passeord",
+        "Danger"
       );
-      dispatch(toastAction.setToastHandler({ message: true }));
-      setTimeout(() => {
-        dispatch(toastAction.setToastHandler({ message: false }));
-        dispatch(loginActions.setIdleHandler({}));
-      }, 5000);
+      dispatch(loginActions.setIdleHandler({}));
     }
   }, [loginLoadState]);
   return (
