@@ -106,6 +106,7 @@ export function SignUpBody() {
         </div>
         {signupstatus === "pending" ? (
           <button className="submit-button">
+            Loading...
             <Spinner
               as="span"
               animation="grow"
@@ -113,7 +114,7 @@ export function SignUpBody() {
               role="status"
               aria-hidden="true"
             />
-            Loading...
+            
           </button>
         ) : (
           <button

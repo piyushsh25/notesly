@@ -69,6 +69,7 @@ export function LoginBody() {
         </div>
         {loginLoadState === "pending" ? (
           <button className="submit-button">
+            Loading...
             <Spinner
               as="span"
               animation="grow"
@@ -76,7 +77,6 @@ export function LoginBody() {
               role="status"
               aria-hidden="true"
             />
-            Loading...
           </button>
         ) : (
           <button

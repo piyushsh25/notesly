@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { NewNote } from "./NewNote.types";
-
-const initialState: NewNote = {
+import { NewNote, Note } from "./NewNote.types";
+const initialState: Note = {
   header: "",
   content: "",
   fontFamily: "'Nunito Sans', sans-serif",
@@ -11,6 +10,9 @@ const initialState: NewNote = {
   pinned: false,
   tags: "",
   saveStatus: "idle",
+  allNotes: [],
+  archiveNotes: [],
+  trashNotes: [],
 };
 export const saveNewNoteHandler = createAsyncThunk(
   "saveNote/saveNewNoteHandler",
@@ -41,7 +43,7 @@ export const saveNewNoteHandler = createAsyncThunk(
     return response.data;
   }
 );
-const newNoteSlice = createSlice({
+const noteSlice = createSlice({
   name: "new-note",
   initialState,
   reducers: {
@@ -63,9 +65,9 @@ const newNoteSlice = createSlice({
     setTaggedHandler: (state, action) => {
       state.tags = action.payload;
     },
-    setSaveStatusIdle:(state,action)=>{
-      state.saveStatus="idle"
-    }
+    setSaveStatusIdle: (state, action) => {
+      state.saveStatus = "idle";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(saveNewNoteHandler.pending, (state, action) => {
@@ -85,5 +87,5 @@ const newNoteSlice = createSlice({
     });
   },
 });
-export const noteReducer = newNoteSlice.reducer;
-export const noteActions = newNoteSlice.actions;
+export const noteReducer = noteSlice.reducer;
+export const noteActions = noteSlice.actions;
