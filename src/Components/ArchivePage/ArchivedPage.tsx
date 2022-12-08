@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArchivedHandler } from "../../Hooks/slices/NewNote/NoteSlice";
+import { getDetails } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
@@ -72,6 +73,8 @@ export const ArchivedPage = () => {
   const {archiveNotes:ArchiveArray}=useSelector((store:RootState)=>store.noteReducer)
   useEffect(()=>{
     dispatch(getArchivedHandler())
+    //user details for auth
+    dispatch(getDetails());
   },[])
 
   return (

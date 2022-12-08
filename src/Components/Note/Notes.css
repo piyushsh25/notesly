@@ -70,12 +70,14 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+  width: 80%;
 }
 
 .tag-names div {
   background-color: rgb(144, 164, 153);
   border-radius: 8px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 .tag-header .tag-names div {
   padding: 0;
@@ -94,7 +96,9 @@
 }
 .tag-input input[type="radio"]:checked + label {
   background-image: none;
-  border: 2px solid #000000;
+  background-color: rgb(39, 231, 125);
+  color: #ffffff;
+
 }
 
 @media only screen and (max-width: 768px) {
