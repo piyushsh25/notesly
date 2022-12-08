@@ -35,6 +35,7 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
           formatDate={note.formatDate}
         />
       ))}
+      {todisplayArray.length===0 && <div>This section is empty !</div>}
     </div>
   );
 };

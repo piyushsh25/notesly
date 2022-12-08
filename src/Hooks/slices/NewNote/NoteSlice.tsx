@@ -19,12 +19,25 @@ const initialState: Note = {
   getArchiveStatus:"idle",
   getTrashStatus:"idle"
 };
+//get notes
 export const getNoteHandler = createAsyncThunk(
   "getNote/getNoteHandler",
   async () => {
     const token = localStorage.getItem("token");
     const response = await axios.get(
       "https://notesly-backend.onrender.com/notes/",
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+// get archived notes
+export const getArchivedHandler = createAsyncThunk(
+  "getNote/getArchivedHandler",
+  async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      "https://notesly-backend.onrender.com/archive/",
       { headers: { authorization: token } }
     );
     return response.data;
@@ -113,6 +126,17 @@ const noteSlice = createSlice({
     });
     builder.addCase(getNoteHandler.rejected, (state, action) => {
       state.getNoteStatus="failed"
+    });
+    //get archive
+    builder.addCase(getArchivedHandler.pending, (state, action) => {
+      state.getArchiveStatus="pending"
+    });
+    builder.addCase(getArchivedHandler.fulfilled, (state, action) => {
+      state.getArchiveStatus="succeeded"
+      state.archiveNotes=action.payload.message
+    });
+    builder.addCase(getArchivedHandler.rejected, (state, action) => {
+      state.getArchiveStatus="failed"
     });
   },
 });

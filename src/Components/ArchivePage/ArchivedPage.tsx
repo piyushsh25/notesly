@@ -1,20 +1,24 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getArchivedHandler } from "../../Hooks/slices/NewNote/NoteSlice";
+import { AppDispatch, RootState } from "../../Hooks/store";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { NotesArray } from "../Note/NotesArray";
 import { DashboardCTA } from "../UserCTA/DashboardCTA";
-const ArchiveArray = [
-  {
-    header: "lol 1",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    backgroundColor: "#FDFDBD",
-    fontFamily: "'PT Sans', sans-serif",
-    pinned: true,
-    tags: ["tag1", "lol", "lmao"],
-    noteId: "string",
-    createDate: "string",
-    formatDate:"string"
-  }
+// const ArchiveArray = [
+//   {
+//     header: "lol 1",
+//     content:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+//     backgroundColor: "#FDFDBD",
+//     fontFamily: "'PT Sans', sans-serif",
+//     pinned: true,
+//     tags: ["tag1", "lol", "lmao"],
+//     noteId: "string",
+//     createDate: "string",
+//     formatDate:"string"
+//   }
   // },
   // {
   //   header: "lol 2",
@@ -61,8 +65,15 @@ const ArchiveArray = [
   //   pinned: true,
   //   tags: ["tag1", "lol", "lmao"],
   // },
-];
+// ];
+
 export const ArchivedPage = () => {
+  const dispatch=useDispatch<AppDispatch>()
+  const {archiveNotes:ArchiveArray}=useSelector((store:RootState)=>store.noteReducer)
+  useEffect(()=>{
+    dispatch(getArchivedHandler())
+  },[])
+
   return (
     <div>
       <Header />
