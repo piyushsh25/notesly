@@ -9,7 +9,7 @@ import {
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
+import { toast } from "react-toastify";
 
 export const NewNoteForm = () => {
   const availableFonts = [
@@ -35,21 +35,15 @@ export const NewNoteForm = () => {
     if (saveStatus === "succeeded") {
       // navigate to specific note after route is made
       navigate("/me");
-      ToastInvokeFunc(
-        dispatch,
-        "Success",
-        "Your note has successfully been saved",
-        "Secondary"
-      );
-      dispatch(noteActions.setSaveStatusIdle({}));
+      setTimeout(() => {
+        toast.success("Successfully added.", {
+          theme: "dark",
+        });
+        dispatch(noteActions.setSaveStatusIdle({}));
+      }, 1000);
     }
     if (saveStatus === "failed") {
-      ToastInvokeFunc(
-        dispatch,
-        "Error",
-        "Something went wrong, please try again.",
-        "Warning"
-      );
+      toast.error("Something went wrong, please try again.");
       dispatch(noteActions.setSaveStatusIdle({}));
     }
   }, [saveStatus]);

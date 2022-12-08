@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getDetails } from "../../Hooks/slices/User/UserDetails";
+import { AppDispatch } from "../../Hooks/store";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { NotesArray } from "../Note/NotesArray";
@@ -60,6 +64,10 @@ const TrashArray = [
   },
 ];
 export const TrashPage = () => {
+  const dispatch=useDispatch<AppDispatch>()
+  useEffect(() => {
+    dispatch(getDetails());
+  }, []);
   return (
     <div>
       <Header />

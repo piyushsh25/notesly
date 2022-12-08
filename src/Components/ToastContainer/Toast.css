@@ -1,0 +1,5 @@
+.toastify-container {
+  top: inherit;
+  position: fixed;
+  z-index: 999999;
+}

@@ -9,7 +9,7 @@ import "../SignupPage/Signup.css";
 import { RootState } from "../../Hooks/store";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
+import { toast } from "react-toastify";
 
 export function LoginBody() {
   const navigate = useNavigate();
@@ -21,21 +21,19 @@ export function LoginBody() {
   useEffect(() => {
     if (loginLoadState === "succeeded") {
       navigate("/me");
-      ToastInvokeFunc(
-        dispatch,
-        "Login, Success",
-        "Welcome back, we missed you.",
-        "Success"
-      );
+      setTimeout(()=>{
+        toast.success("Welcome back, we missed you.", {
+          theme: "dark",
+        });
+      },100)
+
       dispatch(loginActions.setIdleHandler({}));
     }
     if (loginLoadState === "failed") {
-      ToastInvokeFunc(
-        dispatch,
-        "Error in login",
-        "ogin issue. Check username and passeord",
-        "Danger"
-      );
+
+      toast.error("login issue. Check username and passeord", {
+        theme: "dark",
+      });
       dispatch(loginActions.setIdleHandler({}));
     }
   }, [loginLoadState]);

@@ -20,7 +20,7 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     setUserHandler:(state,action)=>{
-      state.userError=action.payload.message
+      state.userError=false
     }
   },
   extraReducers: (builder) => {
@@ -30,9 +30,11 @@ const UserSlice = createSlice({
     builder.addCase(getDetails.rejected, (state, action) => {
       state.userstatus = "error";
       state.userError=true;
+      localStorage.clear()
     });
     builder.addCase(getDetails.fulfilled, (state, action) => {
       state.name = action.payload.user[0].username;
+      state.userError=false
       state.userstatus = "succeeded";
     });
   },
