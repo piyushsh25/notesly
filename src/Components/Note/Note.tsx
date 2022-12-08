@@ -6,13 +6,16 @@ export const Note = ({
   backgroundColor,
   pinned,
   tags,
+  noteId,
+  createDate,
+  formatDate
 }: NoteProps) => {
   const style = {
     fontFamily: fontFamily,
     backgroundColor: backgroundColor,
   };
   return (
-    <div className="note-container" style={style}>
+    <div className="note-container" style={style} id={noteId}>
       <div>
         <div className="note-upper-container">
           <div className="note-header">{header}</div>
@@ -30,14 +33,14 @@ export const Note = ({
         <hr />
 
         <div className="tag-names">
-          {tags.map((tag) => {
+          {tags?.map((tag) => {
             return <div>#{tag}</div>;
           })}
         </div>
         <hr />
 
         <div className="note-cta">
-          <div className="note-date">created : 10/10/2010</div>
+          <div className="note-date">{createDate}</div>
           <div className="note-icons">
             <button>
               <i className="bi bi-palette"></i>

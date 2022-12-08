@@ -26,6 +26,7 @@ export const NewNoteForm = () => {
     fontFamily,
     backgroundColor,
     pinned,
+    tagHolder,
     tags,
     saveStatus,
   } = useSelector((store: RootState) => store.noteReducer);
@@ -40,7 +41,7 @@ export const NewNoteForm = () => {
           theme: "dark",
         });
         dispatch(noteActions.setSaveStatusIdle({}));
-      }, 1000);
+      }, 100);
     }
     if (saveStatus === "failed") {
       toast.error("Something went wrong, please try again.");
@@ -175,7 +176,7 @@ export const NewNoteForm = () => {
                   backgroundColor,
                   pinned,
                   tags,
-                  saveStatus,
+                  tagHolder,
                 })
               )
             }

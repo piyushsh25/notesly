@@ -30,6 +30,9 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
           backgroundColor={note.backgroundColor}
           pinned={note.pinned}
           tags={note.tags}
+          noteId={note.noteId}
+          createDate= {note.createDate}
+          formatDate={note.formatDate}
         />
       ))}
     </div>
