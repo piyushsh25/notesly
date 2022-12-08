@@ -6,23 +6,22 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { getNoteHandler } from "../../Hooks/slices/NewNote/NoteSlice";
+import {  toast } from 'react-toastify';
+import Spinner from "react-bootstrap/Spinner";
 export const UserNotes = () => {
-  /* font-family: 'Freehand', cursive;
-font-family: 'Lora', serif;
-font-family: 'Nunito Sans', sans-serif;
-font-family: 'PT Sans', sans-serif;
-font-family: 'Fasthand', cursive;
-font-family: 'Fuzzy Bubbles', cursive;
-*/
 
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getNoteHandler());
   }, []);
-  const { allNotes: notes } = useSelector(
+  const { allNotes: notes,getNoteStatus } = useSelector(
     (store: RootState) => store.noteReducer
   );
-  console.log(notes);
+  useEffect(()=>{
+    if(getNoteStatus==="failed"){
+      toast.error("Error loading notes. Please refresh the page")
+    }
+  })
   function pinnedTotal(acc: number, curr: NoteProps) {
     return curr.pinned ? (acc = acc + 1) : acc;
   }
@@ -49,6 +48,8 @@ font-family: 'Fuzzy Bubbles', cursive;
             />
           )
       )}
+      {getNoteStatus==="pending" &&
+      <Spinner animation="grow" variant="dark" />}
       {notes.reduce(pinnedTotal, 0) === 0 && <div>No notes pinned! </div>}
       <div className="h2">OTHER : {notes.reduce(unpinnedTotal, 0)}</div>
       {notes?.map(
@@ -68,6 +69,8 @@ font-family: 'Fuzzy Bubbles', cursive;
           )
       )}
       {notes.reduce(unpinnedTotal, 0) === 0 && <div>No notes to display! </div>}
+      {getNoteStatus==="pending" &&
+      <Spinner animation="grow" variant="dark" />}
     </div>
   );
 };
