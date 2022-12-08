@@ -51,7 +51,6 @@ export const saveNewNoteHandler = createAsyncThunk(
       pinned,
       tags:tagHolder.split(" "),
     };
-    console.log(user)
     const response = await axios.post(
       "https://notesly-backend.onrender.com/notes/add/",
       { user: user },
