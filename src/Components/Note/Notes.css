@@ -77,7 +77,6 @@
   background-color: rgb(144, 164, 153);
   border-radius: 8px;
   padding: 4px 8px;
-  cursor: pointer;
 }
 .tag-header .tag-names div {
   padding: 0;
@@ -86,6 +85,7 @@
   width: 100%;
   padding: 8px 16px;
   border-radius: 8px;
+  cursor: pointer;
 }
 .tag-header .trash-icon {
   margin-top: 0;
