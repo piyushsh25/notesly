@@ -5,6 +5,9 @@
   margin-top: 1.5rem;
   margin-bottom: 5rem;
 }
+.empty{
+  height: 100vh;
+}
 .notes-array .h2 {
   margin-top: 2rem;
 }

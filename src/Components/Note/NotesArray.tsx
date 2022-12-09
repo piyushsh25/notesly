@@ -18,8 +18,9 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
       return notes.tags.find((tag) => tag === tagName);
     }
   });
+  const emotyArray=(todisplayArray.length===0)
   return (
-    <div className="notes-array">
+    <div className={!emotyArray?"notes-array":"notes-array empty"}>
       <Search />
       {HeaderTags(pathname, { todisplayArray }, tagName, setTag)}
       {todisplayArray?.map((note) => (

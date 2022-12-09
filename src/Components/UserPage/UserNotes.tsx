@@ -27,8 +27,10 @@ export const UserNotes = () => {
   function unpinnedTotal(acc: number, curr: NoteProps) {
     return !curr.pinned ? (acc = acc + 1) : acc;
   }
+  const totalPinned=notes.reduce(pinnedTotal, 0)
+  const unPinned=notes.reduce(unpinnedTotal, 0)
   return (
-    <div className="notes-array">
+    <div className={((totalPinned | unPinned)===0?("notes-array empty"):"notes-array")}>
       <Search />
       <div className="h2">Pinned : {notes.reduce(pinnedTotal, 0)}</div>
       {notes?.map(
