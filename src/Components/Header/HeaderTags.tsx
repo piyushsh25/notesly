@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../Hooks/store";
 import { NoteProps } from "../Note/Notes.type";
 
 type DisplayArray = {
@@ -9,9 +11,11 @@ export function HeaderTags(
   tagName: string,
   setTag: React.Dispatch<React.SetStateAction<string>>
 ) {
+  const {allNotes}=useSelector((store:RootState)=>store.noteReducer)
   if (pathname === "/tags") {
-    const tagsFromArr = todisplayArray.map((item) => item.tags);
+    const tagsFromArr = allNotes.map((item) => item.tags);
     const flattenedArray = tagsFromArr.flat(1);
+    console.log(flattenedArray)
     let uniqueTags = flattenedArray.filter(
       (value, index, self) => self.indexOf(value) === index
     );
@@ -26,12 +30,13 @@ export function HeaderTags(
         <div className="array-header-cta-all">
           <div className="tag-names">
             {uniqueTags.map((tags) => (
-              <div onClick={() => setTag(tags)} className="tag-input">
+              <div className="tag-input">
                 <input
                   type="radio"
                   id={tags}
                   name="radios"
                   value="all"
+                  onChange={() => setTag(tags)}
                   checked={tags === tagName}
                 />{" "}
                 <label className="label-tag" htmlFor={tags}>
