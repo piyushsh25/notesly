@@ -33,6 +33,7 @@ function App() {
       );
     }
   },[userError]);
+  document.title="Notesly"
   return (
     <div className="app-container">
       <Toastify />
