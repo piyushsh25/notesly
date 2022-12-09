@@ -43,6 +43,18 @@ export const getArchivedHandler = createAsyncThunk(
     return response.data;
   }
 );
+//get trash notes
+export const getTrashHandler = createAsyncThunk(
+  "getNote/getTrashNotes",
+  async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      "https://notesly-backend.onrender.com/trash/",
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
 export const saveNewNoteHandler = createAsyncThunk(
   "saveNote/saveNewNoteHandler",
   async ({
@@ -137,6 +149,18 @@ const noteSlice = createSlice({
     });
     builder.addCase(getArchivedHandler.rejected, (state, action) => {
       state.getArchiveStatus="failed"
+    });
+    //get trash
+    builder.addCase(getTrashHandler.pending, (state, action) => {
+      state.getTrashStatus="pending"
+    });
+    builder.addCase(getTrashHandler.fulfilled, (state, action) => {
+      state.getTrashStatus="succeeded"
+      state.trashNotes=action.payload.message
+      console.log(action.payload.message)
+    });
+    builder.addCase(getTrashHandler.rejected, (state, action) => {
+      state.getTrashStatus="failed"
     });
   },
 });
