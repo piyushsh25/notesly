@@ -2,107 +2,79 @@ import { Note } from "../Note/Note";
 import { NoteProps } from "../Note/Notes.type";
 import { Search } from "../Search/Search";
 import "../Note/Notes.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../Hooks/store";
+import { getNoteHandler } from "../../Hooks/slices/NewNote/NoteSlice";
+import { toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
 export const UserNotes = () => {
-  /* font-family: 'Freehand', cursive;
-font-family: 'Lora', serif;
-font-family: 'Nunito Sans', sans-serif;
-font-family: 'PT Sans', sans-serif;
-font-family: 'Fasthand', cursive;
-font-family: 'Fuzzy Bubbles', cursive;
-*/
-
-  const notes = [
-    {
-      header: "lol 1",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      backgroundColor: "#FDFDBD",
-      fontFamily: "'PT Sans', sans-serif",
-      pinned: true,
-      tags: ["tag1", "lol", "lmao"],
-    },
-    {
-      header: "lol 2",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      backgroundColor: "#C8FFD4",
-      fontFamily: "'PT Sans', sans-serif",
-      pinned: false,
-      tags: ["tag1"],
-    },
-    {
-      header: "lol 3",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      backgroundColor: "#B8E8FC",
-      fontFamily: "'Nunito Sans', sans-serif",
-      pinned: true,
-      tags: ["lol2", "lmao"],
-    },
-    {
-      header: "lol 4",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      backgroundColor: "#B1AFFF",
-      fontFamily: "'Lora', serif",
-      pinned: false,
-      tags: ["tag1", "lmao"],
-    },
-    {
-      header: "lol5",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      backgroundColor: "white",
-      fontFamily: "'Lora', serif",
-      pinned: true,
-      tags: ["tag1", "lol", "lmao"],
-    },
-    {
-      header: "lol 6",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      backgroundColor: "white",
-      fontFamily: "'Fuzzy Bubbles', cursive",
-      pinned: true,
-      tags: ["tag1", "lol", "lmao"],
-    },
-  ];
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(getNoteHandler());
+  }, []);
+  const { allNotes: notes, getNoteStatus } = useSelector(
+    (store: RootState) => store.noteReducer
+  );
+  useEffect(() => {
+    if (getNoteStatus === "failed") {
+      toast.error("Error loading notes. Please refresh the page");
+    }
+  });
   function pinnedTotal(acc: number, curr: NoteProps) {
     return curr.pinned ? (acc = acc + 1) : acc;
   }
   function unpinnedTotal(acc: number, curr: NoteProps) {
     return !curr.pinned ? (acc = acc + 1) : acc;
   }
+  const totalPinned=notes.reduce(pinnedTotal, 0)
+  const unPinned=notes.reduce(unpinnedTotal, 0)
   return (
-    <div className="notes-array">
+    <div className={((totalPinned | unPinned)===0?("notes-array empty"):"notes-array")}>
       <Search />
       <div className="h2">Pinned : {notes.reduce(pinnedTotal, 0)}</div>
       {notes?.map(
         (note) =>
           note.pinned && (
             <Note
+              key={note.noteId}
               header={note.header}
               content={note.content}
               fontFamily={note.fontFamily}
               backgroundColor={note.backgroundColor}
               pinned={note.pinned}
               tags={note.tags}
+              noteId={note.noteId}
+              formatDate={note.formatDate}
+              createDate={note.createDate}
             />
           )
       )}
+      {getNoteStatus === "pending" && (
+        <Spinner animation="grow" variant="dark" />
+      )}
+      {notes.reduce(pinnedTotal, 0) === 0 && <div>No notes pinned! </div>}
       <div className="h2">OTHER : {notes.reduce(unpinnedTotal, 0)}</div>
       {notes?.map(
         (note) =>
           !note.pinned && (
             <Note
+              key={note.noteId}
               header={note.header}
               content={note.content}
               fontFamily={note.fontFamily}
               backgroundColor={note.backgroundColor}
               pinned={note.pinned}
               tags={note.tags}
+              noteId={note.noteId}
+              formatDate={note.formatDate}
+              createDate={note.createDate}
             />
           )
+      )}
+      {notes.reduce(unpinnedTotal, 0) === 0 && <div>No notes to display! </div>}
+      {getNoteStatus === "pending" && (
+        <Spinner animation="grow" variant="dark" />
       )}
     </div>
   );

@@ -11,33 +11,31 @@ import { Login } from "./Pages/Login";
 import { Signup } from "./Pages/Signup";
 import { RequiresAuth } from "./Hooks/Auth/RequiresAuth";
 import { RedirectAuth } from "./Hooks/Auth/RedirectAuth";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./Hooks/store";
+import {  useDispatch, useSelector } from "react-redux";
 import { ToastComponent } from "./Components/Toast/ToastBody";
 import { Logout } from "./Components/Logout/Logout";
 import { NewNote } from "./Pages/NewNote";
-import { ToastInvokeFunc } from "./Hooks/ToastHelperFunction";
 import { userActions } from "./Hooks/slices/User/UserDetails";
+import { Toastify } from "./Components/ToastContainer/ToastContainer";
+import { toast } from "react-toastify";
+import { AppDispatch, RootState } from "./Hooks/store";
 
 function App() {
   const { showToast } = useSelector((store: RootState) => store.toastReducer);
   const { userError } = useSelector((store: RootState) => store.userReducer);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch=useDispatch<AppDispatch>()
   useEffect(() => {
     //user slice will run everytime a page is loaded to authenticate a user
     if (userError) {
-      localStorage.clear();
-      ToastInvokeFunc(
-        dispatch,
-        "You have been logged out",
+      dispatch(userActions.setUserHandler({}))
+      toast.error(
         "There is some issue with authentication. Please login again :)",
-        "Warning"
       );
-      userActions.setUserHandler({ message: false });
     }
-  }, [userError]);
+  },[userError]);
   return (
     <div className="app-container">
+      <Toastify />
       {showToast && <ToastComponent />}
       <BrowserRouter>
         <Routes>

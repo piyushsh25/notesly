@@ -7,9 +7,8 @@ import {
 } from "../../Hooks/slices/Signup/SignupSlice";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import Spinner from "react-bootstrap/Spinner";
-
+import { toast } from "react-toastify";
 import "./Signup.css";
-import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
 export function SignUpBody() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -18,21 +17,17 @@ export function SignUpBody() {
   useEffect(() => {
     if (signupstatus === "succeeded") {
       navigate("/me");
-      ToastInvokeFunc(
-        dispatch,
-        "Welcome to notesly",
-        "We're excited to have you here.",
-        "Success"
-      );
+      setTimeout(() => {
+        toast.success("Welcome, we're excited to have you here.", {
+          theme: "dark",
+        });
+      }, 100);
       dispatch(signupSlice.setIdleHandler({}));
     }
     if (signupstatus === "failed") {
-      ToastInvokeFunc(
-        dispatch,
-        "Opps!.Something broke. Please try again.",
-        "Username already exists.",
-        "Danger"
-      );
+      toast.error("Username already exists.", {
+        theme: "dark",
+      });
       dispatch(signupSlice.setIdleHandler({}));
     }
   }, [signupstatus]);
@@ -106,6 +101,7 @@ export function SignUpBody() {
         </div>
         {signupstatus === "pending" ? (
           <button className="submit-button">
+            Loading...
             <Spinner
               as="span"
               animation="grow"
@@ -113,7 +109,6 @@ export function SignUpBody() {
               role="status"
               aria-hidden="true"
             />
-            Loading...
           </button>
         ) : (
           <button

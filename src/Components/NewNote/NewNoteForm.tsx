@@ -8,9 +8,8 @@ import {
 } from "../../Hooks/slices/NewNote/NoteSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toastAction } from "../../Hooks/slices/Toast/ToastSlice";
 import Spinner from "react-bootstrap/Spinner";
-import { ToastInvokeFunc } from "../../Hooks/ToastHelperFunction";
+import { toast } from "react-toastify";
 
 export const NewNoteForm = () => {
   const availableFonts = [
@@ -27,6 +26,7 @@ export const NewNoteForm = () => {
     fontFamily,
     backgroundColor,
     pinned,
+    tagHolder,
     tags,
     saveStatus,
   } = useSelector((store: RootState) => store.noteReducer);
@@ -36,21 +36,15 @@ export const NewNoteForm = () => {
     if (saveStatus === "succeeded") {
       // navigate to specific note after route is made
       navigate("/me");
-      ToastInvokeFunc(
-        dispatch,
-        "Success",
-        "Your note has successfully been saved",
-        "Secondary"
-      );
-      dispatch(noteActions.setSaveStatusIdle({}));
+      setTimeout(() => {
+        toast.success("Successfully added.", {
+          theme: "dark",
+        });
+        dispatch(noteActions.setSaveStatusIdle({}));
+      }, 100);
     }
     if (saveStatus === "failed") {
-      ToastInvokeFunc(
-        dispatch,
-        "Error",
-        "Something went wrong, please try again.",
-        "Warning"
-      );
+      toast.error("Something went wrong, please try again.");
       dispatch(noteActions.setSaveStatusIdle({}));
     }
   }, [saveStatus]);
@@ -182,7 +176,7 @@ export const NewNoteForm = () => {
                   backgroundColor,
                   pinned,
                   tags,
-                  saveStatus,
+                  tagHolder,
                 })
               )
             }

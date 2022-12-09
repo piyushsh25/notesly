@@ -5,6 +5,9 @@
   margin-top: 1.5rem;
   margin-bottom: 5rem;
 }
+.empty{
+  height: 100vh;
+}
 .notes-array .h2 {
   margin-top: 2rem;
 }
@@ -70,6 +73,7 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+  width: 70%;
 }
 
 .tag-names div {
@@ -84,6 +88,7 @@
   width: 100%;
   padding: 8px 16px;
   border-radius: 8px;
+  cursor: pointer;
 }
 .tag-header .trash-icon {
   margin-top: 0;
@@ -94,7 +99,9 @@
 }
 .tag-input input[type="radio"]:checked + label {
   background-image: none;
-  border: 2px solid #000000;
+  background-color: rgb(39, 231, 125);
+  color: #ffffff;
+
 }
 
 @media only screen and (max-width: 768px) {

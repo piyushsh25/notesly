@@ -18,20 +18,27 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
       return notes.tags.find((tag) => tag === tagName);
     }
   });
+  const emotyArray=(todisplayArray.length===0)
   return (
-    <div className="notes-array">
+    <div className={!emotyArray?"notes-array":"notes-array empty"}>
       <Search />
       {HeaderTags(pathname, { todisplayArray }, tagName, setTag)}
       {todisplayArray?.map((note) => (
         <Note
+          key={note.noteId}
           header={note.header}
           content={note.content}
           fontFamily={note.fontFamily}
           backgroundColor={note.backgroundColor}
           pinned={note.pinned}
           tags={note.tags}
+          noteId={note.noteId}
+          createDate={note.createDate}
+          formatDate={note.formatDate}
         />
       ))}
+
+      {todisplayArray.length === 0 && <div>This section is empty !</div>}
     </div>
   );
 };
