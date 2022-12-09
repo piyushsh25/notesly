@@ -21,7 +21,7 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
   return (
     <div className="notes-array">
       <Search />
-      {HeaderTags(pathname, { todisplayArray }, tagName, setTag)}
+      {HeaderTags(pathname, tagName, setTag)}
       {todisplayArray?.map((note) => (
         <Note
           header={note.header}

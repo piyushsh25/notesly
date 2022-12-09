@@ -7,7 +7,6 @@ type DisplayArray = {
 };
 export function HeaderTags(
   pathname: string,
-  { todisplayArray }: DisplayArray,
   tagName: string,
   setTag: React.Dispatch<React.SetStateAction<string>>
 ) {
@@ -15,7 +14,6 @@ export function HeaderTags(
   if (pathname === "/tags") {
     const tagsFromArr = allNotes.map((item) => item.tags);
     const flattenedArray = tagsFromArr.flat(1);
-    console.log(flattenedArray)
     let uniqueTags = flattenedArray.filter(
       (value, index, self) => self.indexOf(value) === index
     );
@@ -57,7 +55,7 @@ export function HeaderTags(
       <div className="array-header-cta-all">
         <div className="h2">
           {pathname.slice(1, pathname.length).toLocaleUpperCase()} :{" "}
-          {todisplayArray.length}
+          {allNotes.length}
         </div>
         <div className="trash-icon">
           <i className="bi bi-trash"></i>
