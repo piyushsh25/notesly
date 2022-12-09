@@ -1,24 +1,25 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getTrashHandler, noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
 import { getDetails } from "../../Hooks/slices/User/UserDetails";
-import { AppDispatch } from "../../Hooks/store";
+import { AppDispatch, RootState } from "../../Hooks/store";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { NotesArray } from "../Note/NotesArray";
 import { DashboardCTA } from "../UserCTA/DashboardCTA";
-const TrashArray = [
-  {
-    header: "lol 1",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    backgroundColor: "#FDFDBD",
-    fontFamily: "'PT Sans', sans-serif",
-    pinned: true,
-    tags:["tag1","lol","lmao"],
-    noteId: "string",
-    createDate: "string",
-    formatDate:"string"
-  },
+// const TrashArray = [
+//   {
+//     header: "lol 1",
+//     content:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+//     backgroundColor: "#FDFDBD",
+//     fontFamily: "'PT Sans', sans-serif",
+//     pinned: true,
+//     tags:["tag1","lol","lmao"],
+//     noteId: "string",
+//     createDate: "string",
+//     formatDate:"string"
+//   },
   // {
   //   header: "lol 2",
   //   content:
@@ -65,18 +66,20 @@ const TrashArray = [
     
   //   tags:["tag1"]
   // },
-];
+// ];
 export const TrashPage = () => {
   const dispatch=useDispatch<AppDispatch>()
+  const {archiveNotes}=useSelector((store:RootState)=>store.noteReducer)
   useEffect(() => {
     dispatch(getDetails());
+    dispatch(getTrashHandler())
   }, []);
   return (
     <div>
       <Header />
       <div className="user-body">
         <DashboardCTA />
-        <NotesArray todisplayArray={TrashArray} />
+        <NotesArray todisplayArray={archiveNotes} />
       </div>
       <Footer />
     </div>
