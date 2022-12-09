@@ -1,0 +1,6 @@
+.center-spinner{
+    display: flex;
+    margin: auto;
+    align-items: center;
+    height: 100vh;
+}

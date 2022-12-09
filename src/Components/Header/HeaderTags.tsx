@@ -7,6 +7,7 @@ type DisplayArray = {
 };
 export function HeaderTags(
   pathname: string,
+  { todisplayArray }: DisplayArray,
   tagName: string,
   setTag: React.Dispatch<React.SetStateAction<string>>
 ) {
@@ -27,8 +28,8 @@ export function HeaderTags(
         </div>
         <div className="array-header-cta-all">
           <div className="tag-names">
-            {uniqueTags.map((tags) => (
-              <div className="tag-input">
+            {uniqueTags.map((tags,id) => (
+              <div className="tag-input" key={id}> 
                 <input
                   type="radio"
                   id={tags}
@@ -55,7 +56,7 @@ export function HeaderTags(
       <div className="array-header-cta-all">
         <div className="h2">
           {pathname.slice(1, pathname.length).toLocaleUpperCase()} :{" "}
-          {allNotes.length}
+          {todisplayArray.length}
         </div>
         <div className="trash-icon">
           <i className="bi bi-trash"></i>

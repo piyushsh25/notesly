@@ -1,4 +1,5 @@
 import { NoteProps } from "./Notes.type";
+import { Time } from "./Time";
 export const Note = ({
   header,
   content,
@@ -8,7 +9,7 @@ export const Note = ({
   tags,
   noteId,
   createDate,
-  formatDate
+  formatDate,
 }: NoteProps) => {
   const style = {
     fontFamily: fontFamily,
@@ -33,14 +34,19 @@ export const Note = ({
         <hr />
 
         <div className="tag-names">
-          {tags?.map((tag) => {
-            return <div>#{tag}</div>;
+          {tags?.map((tag, id) => {
+            return <div key={id}>#{tag}</div>;
           })}
         </div>
         <hr />
 
         <div className="note-cta">
-          <div className="note-date">{createDate}</div>
+          <div className="note-date">
+              <Time
+                createDate={createDate}
+              />
+            
+          </div>
           <div className="note-icons">
             <button>
               <i className="bi bi-palette"></i>

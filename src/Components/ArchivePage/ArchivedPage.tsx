@@ -7,82 +7,40 @@ import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { NotesArray } from "../Note/NotesArray";
 import { DashboardCTA } from "../UserCTA/DashboardCTA";
-// const ArchiveArray = [
-//   {
-//     header: "lol 1",
-//     content:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-//     backgroundColor: "#FDFDBD",
-//     fontFamily: "'PT Sans', sans-serif",
-//     pinned: true,
-//     tags: ["tag1", "lol", "lmao"],
-//     noteId: "string",
-//     createDate: "string",
-//     formatDate:"string"
-//   }
-  // },
-  // {
-  //   header: "lol 2",
-  //   content:
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-  //   backgroundColor: "#C8FFD4",
-  //   fontFamily: "'PT Sans', sans-serif",
-  //   pinned: false,
-  //   tags: ["tag1", "lol", "lmao"],
-  // },
-  // {
-  //   header: "lol 3",
-  //   content:
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-  //   backgroundColor: "#B8E8FC",
-  //   fontFamily: "'Nunito Sans', sans-serif",
-  //   pinned: true,
-  //   tags: ["tag1", "lol", "lmao"],
-  // },
-  // {
-  //   header: "lol 4",
-  //   content:
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-  //   backgroundColor: "#B1AFFF",
-  //   fontFamily: "'Lora', serif",
-  //   pinned: false,
-  //   tags: ["tag1", "lol", "lmao"],
-  // },
-  // {
-  //   header: "lol5",
-  //   content:
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-  //   backgroundColor: "white",
-  //   fontFamily: "'Lora', serif",
-  //   pinned: true,
-  //   tags: ["tag1", "lol", "lmao"],
-  // },
-  // {
-  //   header: "lol 6",
-  //   content:
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-  //   backgroundColor: "white",
-  //   fontFamily: "'Fuzzy Bubbles', cursive",
-  //   pinned: true,
-  //   tags: ["tag1", "lol", "lmao"],
-  // },
-// ];
-
+import { Spinner } from "react-bootstrap";
+import "./Archive.css"
 export const ArchivedPage = () => {
-  const dispatch=useDispatch<AppDispatch>()
-  const {archiveNotes:ArchiveArray}=useSelector((store:RootState)=>store.noteReducer)
-  useEffect(()=>{
-    dispatch(getArchivedHandler())
-    //user details for auth
+  const dispatch = useDispatch<AppDispatch>();
+  const { archiveNotes: ArchiveArray, getArchiveStatus } = useSelector(
+    (store: RootState) => store.noteReducer
+  );
+  useEffect(() => {
+    dispatch(getArchivedHandler());
     dispatch(getDetails());
-  },[])
+  }, []);
 
   return (
     <div>
       <Header />
       <div className="user-body">
         <DashboardCTA />
-        <NotesArray todisplayArray={ArchiveArray} />
+        {getArchiveStatus === "pending" ? (
+          <div className="center-spinner">
+            Hold tight.. loading archives
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          </div>
+        ) : (
+          <>
+            {" "}
+            <NotesArray todisplayArray={ArchiveArray} />
+          </>
+        )}
       </div>
       <Footer />
     </div>

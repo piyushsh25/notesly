@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { Spinner } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { RootState } from "../../Hooks/store";
 import { HeaderTags } from "../Header/HeaderTags";
 import { Search } from "../Search/Search";
 import { Note } from "./Note";
@@ -13,7 +10,6 @@ type DisplayArray = {
 };
 export const NotesArray = ({ todisplayArray }: DisplayArray) => {
   const { pathname } = useLocation();
-  const {getNoteStatus}=useSelector((store:RootState)=>store.noteReducer)
   const [tagName, setTag] = useState<string>("All");
   todisplayArray = todisplayArray.filter((notes) => {
     if (tagName === "All") {
@@ -25,10 +21,10 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
   return (
     <div className="notes-array">
       <Search />
-      {HeaderTags(pathname, tagName, setTag)}
-      {getNoteStatus!=="pending"?<>
+      {HeaderTags(pathname, { todisplayArray }, tagName, setTag)}
       {todisplayArray?.map((note) => (
         <Note
+          key={note.noteId}
           header={note.header}
           content={note.content}
           fontFamily={note.fontFamily}
@@ -36,18 +32,12 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
           pinned={note.pinned}
           tags={note.tags}
           noteId={note.noteId}
-          createDate= {note.createDate}
+          createDate={note.createDate}
           formatDate={note.formatDate}
         />
-      ))}</>:<> <Spinner
-      as="span"
-      animation="grow"
-      size="sm"
-      role="status"
-      aria-hidden="true"
-    /></>}
-     
-      {todisplayArray.length===0 && <div>This section is empty !</div>}
+      ))}
+
+      {todisplayArray.length === 0 && <div>This section is empty !</div>}
     </div>
   );
 };
