@@ -19,7 +19,6 @@ export const Note = ({
   };
   const location = useLocation();
   const presentLocation = location.pathname.slice(1, location.pathname.length);
-  const [userLocation, setUserLocation] = useState(presentLocation);
   return (
     <div className="note-container" style={style} id={noteId}>
       <div>
@@ -46,22 +45,28 @@ export const Note = ({
         <hr />
 
         <div className="note-cta">
+          {/* time component */}
           <div className="note-date">
             <Time createDate={createDate} />
           </div>
+          {/* cta */}
           <div className="note-icons">
+            {/* color icon cta */}
             <button>
               <i className="bi bi-palette"></i>
             </button>
-            {userLocation === "archives" ? (
+            {presentLocation === "archives" ? (
+              // add to home/main notes page
               <button>
                 <i className="bi bi-house"></i>
               </button>
             ) : (
+              // add to archives
               <button>
                 <i className="bi bi-calendar-plus"></i>
               </button>
             )}
+            {/* add to trash */}
             <button>
               <i className="bi bi-trash"></i>
             </button>
