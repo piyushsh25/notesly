@@ -19,6 +19,7 @@ import { userActions } from "./Hooks/slices/User/UserDetails";
 import { Toastify } from "./Components/ToastContainer/ToastContainer";
 import { toast } from "react-toastify";
 import { AppDispatch, RootState } from "./Hooks/store";
+import { ErrorPage } from "./Pages/Error";
 
 function App() {
   const { showToast } = useSelector((store: RootState) => store.toastReducer);
@@ -41,6 +42,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="*" element={<ErrorPage/>}/>
           <Route element={<RequiresAuth />}>
             <Route path="/me" element={<User />} />
             <Route path="/archives" element={<Archive />} />

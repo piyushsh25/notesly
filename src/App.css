@@ -12,6 +12,14 @@
 div a {
   text-decoration: none;
 }
+/* error body */
+.error-body{
+  height: 100vh;
+  display: flex;
+  margin-top: 5rem;
+  padding-left: 2rem;
+  font-size: 1.5rem;
+}
 /* available fonts */
 /* font-family: 'Freehand', cursive;
 font-family: 'Lora', serif;
