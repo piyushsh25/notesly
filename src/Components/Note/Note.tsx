@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { NoteProps } from "./Notes.type";
 import { Time } from "./Time";
 export const Note = ({
@@ -15,6 +17,9 @@ export const Note = ({
     fontFamily: fontFamily,
     backgroundColor: backgroundColor,
   };
+  const location = useLocation();
+  const presentLocation = location.pathname.slice(1, location.pathname.length);
+  const [userLocation, setUserLocation] = useState(presentLocation);
   return (
     <div className="note-container" style={style} id={noteId}>
       <div>
@@ -42,22 +47,21 @@ export const Note = ({
 
         <div className="note-cta">
           <div className="note-date">
-              <Time
-                createDate={createDate}
-              />
-            
+            <Time createDate={createDate} />
           </div>
           <div className="note-icons">
             <button>
               <i className="bi bi-palette"></i>
             </button>
-            <button>
-              <i className="bi bi-calendar-plus"></i>
-            </button>
-            <button>
-              <i className="bi bi-bookmarks-fill"></i>
-              {/* <i className="bi bi-bookmarks"></i> */}
-            </button>
+            {userLocation === "archives" ? (
+              <button>
+                <i className="bi bi-house"></i>
+              </button>
+            ) : (
+              <button>
+                <i className="bi bi-calendar-plus"></i>
+              </button>
+            )}
             <button>
               <i className="bi bi-trash"></i>
             </button>
