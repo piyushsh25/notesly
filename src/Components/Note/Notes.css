@@ -74,7 +74,9 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
-  width: 70%;
+}
+.array-header-cta-all .tag-names{
+  width:70%;
 }
 
 .tag-names div {

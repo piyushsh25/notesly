@@ -105,6 +105,8 @@ export const NewNoteForm = () => {
                 dispatch(noteActions.setColorHandler(e.target.value))
               }
             />
+            
+            <Form.Label> Use light color for better visibility. :{`${`)`}`}</Form.Label>
           </Form.Group>
           <Form.Group className="pin-note-form-container">
             <Form.Label> Pin note ?</Form.Label>
