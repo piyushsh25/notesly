@@ -18,7 +18,6 @@ export const ArchivedPage = () => {
     dispatch(getArchivedHandler());
     dispatch(getDetails());
   }, []);
-
   return (
     <div>
       <Header />

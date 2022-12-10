@@ -5,14 +5,15 @@ import {
   getNoteHandler,
   getTrashHandler,
   saveNewNoteHandler,
+  addToArchiveHandler,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
   getNoteHandler,
   getTrashHandler,
   saveNewNoteHandler,
+  addToArchiveHandler,
 } from "./NoteReducer";
-
 
 const noteSlice = createSlice({
   name: "new-note",
@@ -40,6 +41,9 @@ const noteSlice = createSlice({
     setSaveStatusIdle: (state, action) => {
       state.saveStatus = "idle";
     },
+    setArchiveCTAstatusIdle:(state,action)=>{
+      state.archiveCTAstatus="idle"
+    }
   },
   extraReducers: (builder) => {
     // save note
@@ -91,6 +95,18 @@ const noteSlice = createSlice({
     });
     builder.addCase(getTrashHandler.rejected, (state, action) => {
       state.getTrashStatus = "failed";
+    });
+    //add to archives
+    builder.addCase(addToArchiveHandler.pending, (state, action) => {
+      state.archiveCTAstatus="pending"
+    });
+    builder.addCase(addToArchiveHandler.fulfilled, (state, action) => {
+      state.allNotes=action.payload.message.userNotes
+      state.archiveNotes=action.payload.message.archiveNotes
+      state.archiveCTAstatus="succeeded"
+    });
+    builder.addCase(addToArchiveHandler.rejected, (state, action) => {
+      state.archiveCTAstatus="failed"
     });
   },
 });

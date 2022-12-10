@@ -20,15 +20,15 @@ export const UserNotes = () => {
     if (getNoteStatus === "failed") {
       toast.error("Error loading notes. Please refresh the page");
     }
-  });
+  },[getNoteStatus]);
   function pinnedTotal(acc: number, curr: NoteProps) {
     return curr.pinned ? (acc = acc + 1) : acc;
   }
   function unpinnedTotal(acc: number, curr: NoteProps) {
     return !curr.pinned ? (acc = acc + 1) : acc;
   }
-  const totalPinned=notes.reduce(pinnedTotal, 0)
-  const unPinned=notes.reduce(unpinnedTotal, 0)
+  const totalPinned=notes?.reduce(pinnedTotal, 0)
+  const unPinned=notes?.reduce(unpinnedTotal, 0)
   return (
     <div className={((totalPinned | unPinned)===0?("notes-array empty"):"notes-array")}>
       <Search />
@@ -53,7 +53,7 @@ export const UserNotes = () => {
       {getNoteStatus === "pending" && (
         <Spinner animation="grow" variant="dark" />
       )}
-      {notes.reduce(pinnedTotal, 0) === 0 && <div>No notes pinned! </div>}
+      {totalPinned === 0 && <div>No notes pinned! </div>}
       <div className="h2">OTHER : {notes.reduce(unpinnedTotal, 0)}</div>
       {notes?.map(
         (note) =>
@@ -72,7 +72,7 @@ export const UserNotes = () => {
             />
           )
       )}
-      {notes.reduce(unpinnedTotal, 0) === 0 && <div>No notes to display! </div>}
+      {unPinned === 0 && <div>No notes to display! </div>}
       {getNoteStatus === "pending" && (
         <Spinner animation="grow" variant="dark" />
       )}
