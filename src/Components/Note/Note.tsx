@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
-import { archiveButtonHandler, noteDeleteHandler } from "./NoteHelperFunctions";
+import { archiveButtonHandler, noteDeleteHandler, pinButtonHandler } from "./NoteHelperFunctions";
 import { NoteProps } from "./Notes.type";
 import { Time } from "./Time";
 export const Note = ({
@@ -115,7 +115,18 @@ export const Note = ({
       <div>
         <div className="note-upper-container">
           <div className="note-header">{header}</div>
-          <button className="pin-icon">
+          <button className="pin-icon" onClick={()=>pinButtonHandler({      header,
+                  content,
+                  fontFamily,
+                  backgroundColor,
+                  noteId,
+                  pinned,
+                  tags,
+                  createDate,
+                  formatDate,
+                  isSelected,
+                  setIsSelected,
+                  dispatch})}>
             {!pinned ? (
               <i className="bi bi-pin-angle"></i>
             ) : (

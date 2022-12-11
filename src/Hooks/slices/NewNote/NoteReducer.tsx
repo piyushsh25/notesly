@@ -93,3 +93,34 @@ export const deleteNoteHandler = createAsyncThunk(
     return response.data;
   }
 );
+
+export const editNoteHandler = createAsyncThunk(
+  "editNote/editNoteHandler",
+  async ({
+    noteId: id,
+    header,
+    content,
+    fontFamily,
+    backgroundColor,
+    pinned,
+    tags,
+    noteId,
+  }: NoteProps) => {
+    const token = localStorage.getItem("token");
+    const user = {
+      noteId,
+      header,
+      content,
+      fontFamily,
+      backgroundColor,
+      pinned,
+      tags,
+    };
+    const response = await axios.post(
+      `https://notesly-backend.onrender.com/notes/edit/${id}`,
+      { user },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);

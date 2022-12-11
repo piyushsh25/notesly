@@ -1,8 +1,9 @@
 import {
   addToArchiveHandler,
   deleteNoteHandler,
+  editNoteHandler,
 } from "../../Hooks/slices/NewNote/NoteReducer";
-import { NoteEditProps } from "./Notes.type";
+import { NoteEditProps, NoteProps } from "./Notes.type";
 
 export const archiveButtonHandler = ({
   header,
@@ -61,4 +62,33 @@ export const noteDeleteHandler = ({
       formatDate,
     })
   );
+};
+
+export const pinButtonHandler = ({
+  header,
+  content,
+  fontFamily,
+  backgroundColor,
+  noteId,
+  pinned,
+  tags,
+  createDate,
+  formatDate,
+  isSelected,
+  setIsSelected,
+  dispatch,
+}: NoteEditProps) => {
+  const noteData: NoteProps = {
+    noteId,
+    header,
+    content,
+    fontFamily,
+    backgroundColor,
+    pinned: !pinned,
+    tags,
+    createDate,
+    formatDate,
+  };
+  setIsSelected(noteId);
+  dispatch(editNoteHandler(noteData));
 };

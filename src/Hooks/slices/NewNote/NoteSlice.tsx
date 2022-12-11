@@ -7,6 +7,7 @@ import {
   saveNewNoteHandler,
   addToArchiveHandler,
   deleteNoteHandler,
+  editNoteHandler,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -15,6 +16,7 @@ export {
   saveNewNoteHandler,
   addToArchiveHandler,
   deleteNoteHandler,
+  editNoteHandler
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -111,7 +113,7 @@ const noteSlice = createSlice({
       state.CTAstatus = "failed";
       state.CTAmessage = "Error. Could not add to archive.";
     });
-    //delet note by id
+    //delete note by id
     builder.addCase(deleteNoteHandler.pending, (state, action) => {
       state.CTAstatus = "pending";
     });
@@ -123,6 +125,19 @@ const noteSlice = createSlice({
     builder.addCase(deleteNoteHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";
       state.CTAmessage = "Error. Couldn't delete note.";
+    });
+    //edit note handler
+    builder.addCase(editNoteHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(editNoteHandler.fulfilled, (state, action) => {
+      state.allNotes = action.payload.message;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Note edited.";
+    });
+    builder.addCase(editNoteHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't edit note.";
     });
   },
 });
