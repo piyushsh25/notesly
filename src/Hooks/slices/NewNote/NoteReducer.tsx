@@ -82,6 +82,7 @@ export const addToArchiveHandler = createAsyncThunk(
     return response.data;
   }
 );
+//  delete note should go to trash . wrong api call here?
 export const deleteNoteHandler = createAsyncThunk(
   "deleteNote/deleteNoteHandler",
   async ({ noteId: id }: NoteProps) => {
