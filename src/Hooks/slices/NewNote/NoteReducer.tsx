@@ -84,10 +84,10 @@ export const addToArchiveHandler = createAsyncThunk(
 );
 export const deleteNoteHandler = createAsyncThunk(
   "deleteNote/deleteNoteHandler",
-  async ({ noteId:id }: NoteProps) => {
+  async ({ noteId: id }: NoteProps) => {
     const token = localStorage.getItem("token");
     const response = await axios.delete(
-      `http://localhost:5000/notes/delete/${id}`,
+      `https://notesly-backend.onrender.com/notes/delete/${id}`,
       { headers: { authorization: token } }
     );
     return response.data;
