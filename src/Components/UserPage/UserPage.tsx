@@ -11,7 +11,7 @@ import "./User.css";
 import { UserNotes } from "./UserNotes";
 export const UserPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { CTAstatus } = useSelector(
+  const { CTAstatus,CTAmessage } = useSelector(
     (store: RootState) => store.noteReducer
   );
   useEffect(() => {
@@ -19,11 +19,11 @@ export const UserPage = () => {
   }, []);
   useEffect(() => {
     if (CTAstatus === "failed") {
-      toast.error("Note action error.");
+      toast.error(CTAmessage);
       dispatch(noteActions.setCTAstatusIdle({}))
     }
     if (CTAstatus === "succeeded") {
-      toast.success("Note action success.");
+      toast.success(CTAmessage);
       dispatch(noteActions.setCTAstatusIdle({}))
     }
   }, [CTAstatus]);

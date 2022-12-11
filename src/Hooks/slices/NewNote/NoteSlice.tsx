@@ -105,9 +105,11 @@ const noteSlice = createSlice({
       state.allNotes = action.payload.message.userNotes;
       state.archiveNotes = action.payload.message.archiveNotes;
       state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Added to archive.";
     });
     builder.addCase(addToArchiveHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Could not add to archive.";
     });
     //delet note by id
     builder.addCase(deleteNoteHandler.pending, (state, action) => {
@@ -116,9 +118,11 @@ const noteSlice = createSlice({
     builder.addCase(deleteNoteHandler.fulfilled, (state, action) => {
       state.allNotes = action.payload.message;
       state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Note deleted.";
     });
     builder.addCase(deleteNoteHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't delete note.";
     });
   },
 });
