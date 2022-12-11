@@ -72,14 +72,24 @@ export const saveNewNoteHandler = createAsyncThunk(
 //add to archives
 export const addToArchiveHandler = createAsyncThunk(
   "addArchive/addToArchiveHandler",
-  async ({ noteId }:NoteProps) => {
-    const token=localStorage.getItem("token")
+  async ({ noteId }: NoteProps) => {
+    const token = localStorage.getItem("token");
     const response = await axios.post(
       "https://notesly-backend.onrender.com/archive/add/",
       { user: { noteId: noteId } },
       { headers: { authorization: token } }
     );
-    return response.data
-    
+    return response.data;
+  }
+);
+export const deleteNoteHandler = createAsyncThunk(
+  "deleteNote/deleteNoteHandler",
+  async ({ noteId:id }: NoteProps) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.delete(
+      `http://localhost:5000/notes/delete/${id}`,
+      { headers: { authorization: token } }
+    );
+    return response.data;
   }
 );

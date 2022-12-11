@@ -6,6 +6,7 @@ import {
   getTrashHandler,
   saveNewNoteHandler,
   addToArchiveHandler,
+  deleteNoteHandler,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -13,6 +14,7 @@ export {
   getTrashHandler,
   saveNewNoteHandler,
   addToArchiveHandler,
+  deleteNoteHandler,
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -41,9 +43,9 @@ const noteSlice = createSlice({
     setSaveStatusIdle: (state, action) => {
       state.saveStatus = "idle";
     },
-    setArchiveCTAstatusIdle:(state,action)=>{
-      state.archiveCTAstatus="idle"
-    }
+    setCTAstatusIdle: (state, action) => {
+      state.CTAstatus = "idle";
+    },
   },
   extraReducers: (builder) => {
     // save note
@@ -91,22 +93,32 @@ const noteSlice = createSlice({
     builder.addCase(getTrashHandler.fulfilled, (state, action) => {
       state.getTrashStatus = "succeeded";
       state.trashNotes = action.payload.message;
-      console.log(action.payload.message);
     });
     builder.addCase(getTrashHandler.rejected, (state, action) => {
       state.getTrashStatus = "failed";
     });
     //add to archives
     builder.addCase(addToArchiveHandler.pending, (state, action) => {
-      state.archiveCTAstatus="pending"
+      state.CTAstatus = "pending";
     });
     builder.addCase(addToArchiveHandler.fulfilled, (state, action) => {
-      state.allNotes=action.payload.message.userNotes
-      state.archiveNotes=action.payload.message.archiveNotes
-      state.archiveCTAstatus="succeeded"
+      state.allNotes = action.payload.message.userNotes;
+      state.archiveNotes = action.payload.message.archiveNotes;
+      state.CTAstatus = "succeeded";
     });
     builder.addCase(addToArchiveHandler.rejected, (state, action) => {
-      state.archiveCTAstatus="failed"
+      state.CTAstatus = "failed";
+    });
+    //delet note by id
+    builder.addCase(deleteNoteHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(deleteNoteHandler.fulfilled, (state, action) => {
+      state.allNotes = action.payload.message;
+      state.CTAstatus = "succeeded";
+    });
+    builder.addCase(deleteNoteHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
     });
   },
 });

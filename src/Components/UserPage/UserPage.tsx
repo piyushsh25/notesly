@@ -11,22 +11,22 @@ import "./User.css";
 import { UserNotes } from "./UserNotes";
 export const UserPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { archiveCTAstatus } = useSelector(
+  const { CTAstatus } = useSelector(
     (store: RootState) => store.noteReducer
   );
   useEffect(() => {
     dispatch(getDetails());
   }, []);
   useEffect(() => {
-    if (archiveCTAstatus === "failed") {
-      toast.error("Failed to archive note.");
-      dispatch(noteActions.setArchiveCTAstatusIdle({}))
+    if (CTAstatus === "failed") {
+      toast.error("Note action error.");
+      dispatch(noteActions.setCTAstatusIdle({}))
     }
-    if (archiveCTAstatus === "succeeded") {
-      toast.success("Note archive success.");
-      dispatch(noteActions.setArchiveCTAstatusIdle({}))
+    if (CTAstatus === "succeeded") {
+      toast.success("Note action success.");
+      dispatch(noteActions.setCTAstatusIdle({}))
     }
-  }, [archiveCTAstatus]);
+  }, [CTAstatus]);
   return (
     <div>
       <Header />

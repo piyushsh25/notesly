@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
-import { addToArchiveHandler } from "../../Hooks/slices/NewNote/NoteReducer";
 import { AppDispatch, RootState } from "../../Hooks/store";
+import { archiveButtonHandler, noteDeleteHandler } from "./NoteHelperFunctions";
 import { NoteProps } from "./Notes.type";
 import { Time } from "./Time";
 export const Note = ({
@@ -25,37 +24,10 @@ export const Note = ({
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const presentLocation = location.pathname.slice(1, location.pathname.length);
-  const { archiveCTAstatus } = useSelector(
-    (store: RootState) => store.noteReducer
-  );
-
+  const { CTAstatus } = useSelector((store: RootState) => store.noteReducer);
+// isSelected will store note id for a specific note, when an action is performed. that noteid will be use for spinner component for a specific note
   const [isSelected, setIsSelected] = useState("");
-  const archiveButtonHandler = ({
-    header,
-    content,
-    fontFamily,
-    backgroundColor,
-    pinned,
-    tags,
-    noteId,
-    createDate,
-    formatDate,
-  }: NoteProps) => {
-    setIsSelected(noteId);
-    dispatch(
-      addToArchiveHandler({
-        header,
-        content,
-        fontFamily,
-        backgroundColor,
-        pinned,
-        tags,
-        noteId,
-        createDate,
-        formatDate,
-      })
-    );
-  };
+
   function CTAcomponent() {
     return (
       <div className="note-cta">
@@ -65,11 +37,6 @@ export const Note = ({
         </div>
         {/* cta */}
         <div className="note-icons">
-          {/* color icon cta */}
-          <button>
-            <i className="bi bi-palette"></i>
-          </button>
-
           {presentLocation === "archives" ? (
             // add to home/main notes page
             <button>
@@ -89,6 +56,9 @@ export const Note = ({
                   noteId,
                   createDate,
                   formatDate,
+                  isSelected,
+                  setIsSelected,
+                  dispatch,
                 })
               }
             >
@@ -96,9 +66,32 @@ export const Note = ({
             </button>
           )}
           {/* add to trash */}
-          <button>
-            <i className="bi bi-trash"></i>
-          </button>
+          {presentLocation === "archives" ? (
+            <button>
+              <i className="bi bi-trash"></i>
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                noteDeleteHandler({
+                  header,
+                  content,
+                  fontFamily,
+                  backgroundColor,
+                  noteId,
+                  pinned,
+                  tags,
+                  createDate,
+                  formatDate,
+                  isSelected,
+                  setIsSelected,
+                  dispatch,
+                })
+              }
+            >
+              <i className="bi bi-trash"></i>
+            </button>
+          )}
         </div>
       </div>
     );
@@ -142,7 +135,7 @@ export const Note = ({
         </div>
         <hr />
 
-        {archiveCTAstatus === "pending" && isSelected === noteId ? (
+        {CTAstatus === "pending" && isSelected === noteId ? (
           <SpinnerComponent />
         ) : (
           <CTAcomponent />

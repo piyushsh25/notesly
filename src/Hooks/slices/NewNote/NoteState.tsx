@@ -15,6 +15,5 @@ export const initialState: Note = {
     trashNotes: [],
     getArchiveStatus:"idle",
     getTrashStatus:"idle",
-    archiveCTAstatus:"idle",
-    trashCTAstatus:"idle"
+    CTAstatus:"idle",
   };

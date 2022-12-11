@@ -37,7 +37,7 @@
 .note-cta {
   display: flex;
   justify-content: space-between;
-  color: rgb(128, 128, 128);
+  color: rgb(0, 0, 0);
   margin-top: 1rem;
   flex-wrap: wrap;
 }
@@ -60,7 +60,7 @@
 }
 .note-upper-container .pin-icon {
   font-size: 2rem;
-  color: rgb(128, 128, 128);
+  color: rgb(0, 0, 0);
   position: absolute;
   right: 5%;
   border: none;
