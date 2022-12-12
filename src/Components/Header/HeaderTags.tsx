@@ -45,9 +45,6 @@ export function HeaderTags(
               // <div onClick={() => setTag(tags)}>#{tags}</div>
             ))}
           </div>
-          <div className="trash-icon">
-            <i className="bi bi-trash"></i>
-          </div>
         </div>
       </div>
     );
@@ -58,9 +55,9 @@ export function HeaderTags(
           {pathname.slice(1, pathname.length).toLocaleUpperCase()} :{" "}
           {todisplayArray.length}
         </div>
-        <div className="trash-icon">
+       {pathname==="/trash" &&<div className="trash-icon">
           <i className="bi bi-trash"></i>
-        </div>
+        </div>}
       </div>
     );
   }
