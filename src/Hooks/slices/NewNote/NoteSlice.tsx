@@ -1,89 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import { NoteProps } from "../../../Components/Note/Notes.type";
-import { NewNote, Note } from "./NewNote.types";
-const initialState: Note = {
-  header: "",
-  content: "",
-  fontFamily: "'Nunito Sans', sans-serif",
-  backgroundColor: "#ffffff",
-  pinned: false,
-  tags: [],
-  tagHolder:"",
-  saveStatus: "idle",
-  allNotes: [],
-  getNoteStatus: "idle",
-  archiveNotes: [],
-  trashNotes: [],
-  getArchiveStatus:"idle",
-  getTrashStatus:"idle"
-};
-//get notes
-export const getNoteHandler = createAsyncThunk(
-  "getNote/getNoteHandler",
-  async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(
-      "https://notesly-backend.onrender.com/notes/",
-      { headers: { authorization: token } }
-    );
-    return response.data;
-  }
-);
-// get archived notes
-export const getArchivedHandler = createAsyncThunk(
-  "getNote/getArchivedHandler",
-  async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(
-      "https://notesly-backend.onrender.com/archive/",
-      { headers: { authorization: token } }
-    );
-    return response.data;
-  }
-);
-//get trash notes
-export const getTrashHandler = createAsyncThunk(
-  "getNote/getTrashNotes",
-  async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(
-      "https://notesly-backend.onrender.com/trash/",
-      { headers: { authorization: token } }
-    );
-    return response.data;
-  }
-);
-export const saveNewNoteHandler = createAsyncThunk(
-  "saveNote/saveNewNoteHandler",
-  async ({
-    header,
-    content,
-    fontFamily,
-    backgroundColor,
-    pinned,
-    tagHolder,
-  }: NewNote) => {
-    const noteId = uuidv4();
-    const token = localStorage.getItem("token");
-    const user = {
-      noteId,
-      header,
-      content,
-      fontFamily,
-      backgroundColor,
-      pinned,
-      tags:tagHolder.split(" "),
-    };
-    const response = await axios.post(
-      "https://notesly-backend.onrender.com/notes/add/",
-      { user: user },
-      { headers: { authorization: token } }
-    );
-    return response.data;
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
+import { initialState } from "./NoteState";
+import {
+  getArchivedHandler,
+  getNoteHandler,
+  getTrashHandler,
+  saveNewNoteHandler,
+  addToArchiveHandler,
+  deleteNoteHandler,
+  editNoteHandler,
+} from "./NoteReducer";
+export {
+  getArchivedHandler,
+  getNoteHandler,
+  getTrashHandler,
+  saveNewNoteHandler,
+  addToArchiveHandler,
+  deleteNoteHandler,
+  editNoteHandler
+} from "./NoteReducer";
+
 const noteSlice = createSlice({
   name: "new-note",
   initialState,
@@ -110,6 +45,9 @@ const noteSlice = createSlice({
     setSaveStatusIdle: (state, action) => {
       state.saveStatus = "idle";
     },
+    setCTAstatusIdle: (state, action) => {
+      state.CTAstatus = "idle";
+    },
   },
   extraReducers: (builder) => {
     // save note
@@ -130,37 +68,76 @@ const noteSlice = createSlice({
     });
     //get note
     builder.addCase(getNoteHandler.pending, (state, action) => {
-      state.getNoteStatus="pending"
+      state.getNoteStatus = "pending";
     });
     builder.addCase(getNoteHandler.fulfilled, (state, action) => {
-      state.getNoteStatus="succeeded"
-      state.allNotes=action.payload.message
+      state.getNoteStatus = "succeeded";
+      state.allNotes = action.payload.message;
     });
     builder.addCase(getNoteHandler.rejected, (state, action) => {
-      state.getNoteStatus="failed"
+      state.getNoteStatus = "failed";
     });
     //get archive
     builder.addCase(getArchivedHandler.pending, (state, action) => {
-      state.getArchiveStatus="pending"
+      state.getArchiveStatus = "pending";
     });
     builder.addCase(getArchivedHandler.fulfilled, (state, action) => {
-      state.getArchiveStatus="succeeded"
-      state.archiveNotes=action.payload.message
+      state.getArchiveStatus = "succeeded";
+      state.archiveNotes = action.payload.message;
     });
     builder.addCase(getArchivedHandler.rejected, (state, action) => {
-      state.getArchiveStatus="failed"
+      state.getArchiveStatus = "failed";
     });
     //get trash
     builder.addCase(getTrashHandler.pending, (state, action) => {
-      state.getTrashStatus="pending"
+      state.getTrashStatus = "pending";
     });
     builder.addCase(getTrashHandler.fulfilled, (state, action) => {
-      state.getTrashStatus="succeeded"
-      state.trashNotes=action.payload.message
-      console.log(action.payload.message)
+      state.getTrashStatus = "succeeded";
+      state.trashNotes = action.payload.message;
     });
     builder.addCase(getTrashHandler.rejected, (state, action) => {
-      state.getTrashStatus="failed"
+      state.getTrashStatus = "failed";
+    });
+    //add to archives
+    builder.addCase(addToArchiveHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(addToArchiveHandler.fulfilled, (state, action) => {
+      state.allNotes = action.payload.message.userNotes;
+      state.archiveNotes = action.payload.message.archiveNotes;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Added to archive.";
+    });
+    builder.addCase(addToArchiveHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Could not add to archive.";
+    });
+    //delete note by id
+    builder.addCase(deleteNoteHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(deleteNoteHandler.fulfilled, (state, action) => {
+      state.allNotes = action.payload.message;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Note deleted.";
+    });
+    builder.addCase(deleteNoteHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't delete note.";
+    });
+    //edit note handler
+    builder.addCase(editNoteHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(editNoteHandler.fulfilled, (state, action) => {
+      state.allNotes = action.payload.message;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Note edited.";
+    });
+    builder.addCase(editNoteHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't edit note.";
     });
   },
 });

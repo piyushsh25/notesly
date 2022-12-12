@@ -1,3 +1,5 @@
+import { AppDispatch } from "../../Hooks/store";
+
 //
 export type NoteProps = {
   header: string;
@@ -8,6 +10,11 @@ export type NoteProps = {
   tags: string[];
   noteId: string;
   createDate: string;
-  formatDate:string;
-  
+  formatDate: string;
 };
+
+export interface NoteEditProps extends NoteProps {
+  isSelected: string;
+  setIsSelected: React.Dispatch<React.SetStateAction<string>>;
+  dispatch:AppDispatch
+}

@@ -7,7 +7,7 @@ export type NewNote = {
   backgroundColor: string;
   pinned: boolean;
   tags: string[];
-  tagHolder:string;
+  tagHolder: string;
 };
 export interface Note extends NewNote {
   allNotes: NoteProps[];
@@ -17,4 +17,6 @@ export interface Note extends NewNote {
   getNoteStatus: "idle" | "pending" | "succeeded" | "failed";
   getArchiveStatus: "idle" | "pending" | "succeeded" | "failed";
   getTrashStatus: "idle" | "pending" | "succeeded" | "failed";
+  CTAstatus: "idle" | "pending" | "succeeded" | "failed";
+  CTAmessage:string
 }
