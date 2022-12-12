@@ -70,8 +70,8 @@ export const Note = ({
             </button>
           )}
           {/* add to trash */}
-          {presentLocation === "archives" ? (
-            <button>
+          {presentLocation === "trash" ? (
+          <button>
               <i className="bi bi-trash"></i>
             </button>
           ) : (

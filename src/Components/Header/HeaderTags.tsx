@@ -11,7 +11,7 @@ export function HeaderTags(
   tagName: string,
   setTag: React.Dispatch<React.SetStateAction<string>>
 ) {
-  const {allNotes}=useSelector((store:RootState)=>store.noteReducer)
+  const { allNotes } = useSelector((store: RootState) => store.noteReducer);
   if (pathname === "/tags") {
     const tagsFromArr = allNotes.map((item) => item.tags);
     const flattenedArray = tagsFromArr.flat(1);
@@ -28,8 +28,8 @@ export function HeaderTags(
         </div>
         <div className="array-header-cta-all">
           <div className="tag-names">
-            {uniqueTags.map((tags,id) => (
-              <div className="tag-input" key={id}> 
+            {uniqueTags.map((tags, id) => (
+              <div className="tag-input" key={id}>
                 <input
                   type="radio"
                   id={tags}
@@ -55,9 +55,11 @@ export function HeaderTags(
           {pathname.slice(1, pathname.length).toLocaleUpperCase()} :{" "}
           {todisplayArray.length}
         </div>
-       {pathname==="/trash" &&<div className="trash-icon">
-          <i className="bi bi-trash"></i>
-        </div>}
+        {pathname === "/trash" && (
+          <div className="trash-icon">
+            <i className="bi bi-trash"></i>
+          </div>
+        )}
       </div>
     );
   }
