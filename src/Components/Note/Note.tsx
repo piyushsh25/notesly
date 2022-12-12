@@ -119,31 +119,33 @@ export const Note = ({
       <div>
         <div className="note-upper-container">
           <div className="note-header">{header}</div>
-          <button
-            className="pin-icon"
-            onClick={() =>
-              pinButtonHandler({
-                header,
-                content,
-                fontFamily,
-                backgroundColor,
-                noteId,
-                pinned,
-                tags,
-                createDate,
-                formatDate,
-                isSelected,
-                setIsSelected,
-                dispatch,
-              })
-            }
-          >
-            {!pinned ? (
-              <i className="bi bi-pin-angle"></i>
-            ) : (
-              <i className="bi bi-pin-angle-fill"></i>
-            )}
-          </button>
+          {presentLocation === "me" && (
+            <button
+              className="pin-icon"
+              onClick={() =>
+                pinButtonHandler({
+                  header,
+                  content,
+                  fontFamily,
+                  backgroundColor,
+                  noteId,
+                  pinned,
+                  tags,
+                  createDate,
+                  formatDate,
+                  isSelected,
+                  setIsSelected,
+                  dispatch,
+                })
+              }
+            >
+              {!pinned ? (
+                <i className="bi bi-pin-angle"></i>
+              ) : (
+                <i className="bi bi-pin-angle-fill"></i>
+              )}
+            </button>
+          )}
         </div>
         <div className="note-content">{content.slice(0, 70)}......</div>
       </div>
