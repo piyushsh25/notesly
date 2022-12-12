@@ -21,16 +21,15 @@ export function LoginBody() {
   useEffect(() => {
     if (loginLoadState === "succeeded") {
       navigate("/me");
-      setTimeout(()=>{
+      setTimeout(() => {
         toast.success("Welcome back, we missed you.", {
           theme: "dark",
         });
-      },100)
+      }, 100);
 
       dispatch(loginActions.setIdleHandler({}));
     }
     if (loginLoadState === "failed") {
-
       toast.error("login issue. Check username and passeord", {
         theme: "dark",
       });

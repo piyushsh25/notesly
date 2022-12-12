@@ -3,7 +3,11 @@ import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
-import { archiveButtonHandler, noteDeleteHandler, pinButtonHandler } from "./NoteHelperFunctions";
+import {
+  archiveButtonHandler,
+  noteDeleteHandler,
+  pinButtonHandler,
+} from "./NoteHelperFunctions";
 import { NoteProps } from "./Notes.type";
 import { Time } from "./Time";
 export const Note = ({
@@ -25,7 +29,7 @@ export const Note = ({
   const location = useLocation();
   const presentLocation = location.pathname.slice(1, location.pathname.length);
   const { CTAstatus } = useSelector((store: RootState) => store.noteReducer);
-// isSelected will store note id for a specific note, when an action is performed. that noteid will be use for spinner component for a specific note
+  // isSelected will store note id for a specific note, when an action is performed. that noteid will be use for spinner component for a specific note
   const [isSelected, setIsSelected] = useState("");
 
   function CTAcomponent() {
@@ -37,7 +41,7 @@ export const Note = ({
         </div>
         {/* cta */}
         <div className="note-icons">
-          {presentLocation === "archives" ? (
+          {presentLocation === "archives" || presentLocation === "trash" ? (
             // add to home/main notes page
             <button>
               <i className="bi bi-house"></i>
@@ -115,7 +119,12 @@ export const Note = ({
       <div>
         <div className="note-upper-container">
           <div className="note-header">{header}</div>
-          <button className="pin-icon" onClick={()=>pinButtonHandler({      header,
+          {presentLocation === "me" && (
+            <button
+              className="pin-icon"
+              onClick={() =>
+                pinButtonHandler({
+                  header,
                   content,
                   fontFamily,
                   backgroundColor,
@@ -126,13 +135,17 @@ export const Note = ({
                   formatDate,
                   isSelected,
                   setIsSelected,
-                  dispatch})}>
-            {!pinned ? (
-              <i className="bi bi-pin-angle"></i>
-            ) : (
-              <i className="bi bi-pin-angle-fill"></i>
-            )}
-          </button>
+                  dispatch,
+                })
+              }
+            >
+              {!pinned ? (
+                <i className="bi bi-pin-angle"></i>
+              ) : (
+                <i className="bi bi-pin-angle-fill"></i>
+              )}
+            </button>
+          )}
         </div>
         <div className="note-content">{content.slice(0, 70)}......</div>
       </div>
