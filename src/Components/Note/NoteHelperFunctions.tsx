@@ -2,6 +2,7 @@ import {
   addToArchiveHandler,
   deleteNoteHandler,
   editNoteHandler,
+  moveToNoteHandler,
 } from "../../Hooks/slices/NewNote/NoteReducer";
 import { NoteEditProps, NoteProps } from "./Notes.type";
 
@@ -91,4 +92,35 @@ export const pinButtonHandler = ({
   };
   setIsSelected(noteId);
   dispatch(editNoteHandler(noteData));
+};
+
+// move to home
+export const addToHomeHandler = ({
+  header,
+  content,
+  fontFamily,
+  backgroundColor,
+  pinned,
+  tags,
+  noteId,
+  createDate,
+  formatDate,
+  isSelected,
+  setIsSelected,
+  dispatch,
+}: NoteEditProps) => {
+  setIsSelected(noteId);
+  dispatch(
+    moveToNoteHandler({
+      noteId,
+      header,
+      content,
+      fontFamily,
+      backgroundColor,
+      pinned,
+      tags,
+      createDate,
+      formatDate,
+    })
+  );
 };

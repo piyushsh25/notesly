@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
+import { AppDispatch, RootState } from "../../Hooks/store";
 import { HeaderTags } from "../Header/HeaderTags";
 import { Search } from "../Search/Search";
 import { Note } from "./Note";
@@ -11,6 +15,8 @@ type DisplayArray = {
 export const NotesArray = ({ todisplayArray }: DisplayArray) => {
   const { pathname } = useLocation();
   const [tagName, setTag] = useState<string>("All");
+  const {CTAstatus,CTAmessage}=useSelector((store:RootState)=>store.noteReducer)
+  const dispatch=useDispatch<AppDispatch>()
   todisplayArray = todisplayArray.filter((notes) => {
     if (tagName === "All") {
       return notes;
@@ -18,6 +24,16 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
       return notes.tags.find((tag) => tag === tagName);
     }
   });
+  useEffect(() => {
+    if (CTAstatus === "failed") {
+      toast.error(CTAmessage);
+      dispatch(noteActions.setCTAstatusIdle({}))
+    }
+    if (CTAstatus === "succeeded") {
+      toast.success(CTAmessage);
+      dispatch(noteActions.setCTAstatusIdle({}))
+    }
+  }, [CTAstatus]);
   const emotyArray=(todisplayArray.length===0)
   return (
     <div className={!emotyArray?"notes-array":"notes-array empty"}>

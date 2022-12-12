@@ -104,7 +104,7 @@ export const deleteNoteHandler = createAsyncThunk(
       fontFamily,
       backgroundColor,
       pinned,
-      tags
+      tags,
     };
     const response = await axios.post(
       `https://notesly-backend.onrender.com/trash/add/${id}`,
@@ -140,6 +140,39 @@ export const editNoteHandler = createAsyncThunk(
     const response = await axios.post(
       `https://notesly-backend.onrender.com/notes/edit/${id}`,
       { user },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+
+// move to main notes
+
+export const moveToNoteHandler = createAsyncThunk(
+  "moveToNote/moveToNoteHandler",
+  async ({
+    noteId: id,
+    header,
+    content,
+    fontFamily,
+    backgroundColor,
+    pinned,
+    tags,
+    createDate,
+  }: NoteProps) => {
+    const token = localStorage.getItem("token");
+    const user = {
+      header,
+      content,
+      fontFamily,
+      backgroundColor,
+      pinned,
+      tags,
+      createDate
+    };
+    const response = await axios.post(
+      `https://notesly-backend.onrender.com/notes/add/${id}`,
+      { user: user },
       { headers: { authorization: token } }
     );
     return response.data;

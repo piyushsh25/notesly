@@ -8,6 +8,7 @@ import {
   addToArchiveHandler,
   deleteNoteHandler,
   editNoteHandler,
+  moveToNoteHandler,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -16,7 +17,7 @@ export {
   saveNewNoteHandler,
   addToArchiveHandler,
   deleteNoteHandler,
-  editNoteHandler
+  editNoteHandler,moveToNoteHandler
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -119,8 +120,8 @@ const noteSlice = createSlice({
     });
     builder.addCase(deleteNoteHandler.fulfilled, (state, action) => {
       state.allNotes = action.payload.message.notes;
-      state.archiveNotes=action.payload.message.archiveNotes;
-      state.trashNotes=action.payload.message.trashNotes
+      state.archiveNotes = action.payload.message.archiveNotes;
+      state.trashNotes = action.payload.message.trashNotes;
       state.CTAstatus = "succeeded";
       state.CTAmessage = "Success. Added to trash.";
     });
@@ -140,6 +141,21 @@ const noteSlice = createSlice({
     builder.addCase(editNoteHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";
       state.CTAmessage = "Error. Couldn't edit note.";
+    });
+    // move to main notes handler
+    builder.addCase(moveToNoteHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(moveToNoteHandler.fulfilled, (state, action) => {
+      state.allNotes = action.payload.message.notes;
+      state.archiveNotes = action.payload.message.archiveNotes;
+      state.trashNotes = action.payload.message.trashNotes;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Note moved to notes.";
+    });
+    builder.addCase(moveToNoteHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't move not.";
     });
   },
 });

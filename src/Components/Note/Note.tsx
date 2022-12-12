@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import {
+  addToHomeHandler,
   archiveButtonHandler,
   noteDeleteHandler,
   pinButtonHandler,
@@ -43,7 +44,24 @@ export const Note = ({
         <div className="note-icons">
           {presentLocation === "archives" || presentLocation === "trash" ? (
             // add to home/main notes page
-            <button>
+            <button
+              onClick={() =>
+                addToHomeHandler({
+                  header,
+                  content,
+                  fontFamily,
+                  backgroundColor,
+                  pinned,
+                  tags,
+                  noteId,
+                  createDate,
+                  formatDate,
+                  isSelected,
+                  setIsSelected,
+                  dispatch,
+                })
+              }
+            >
               <i className="bi bi-house"></i>
             </button>
           ) : (
@@ -70,7 +88,7 @@ export const Note = ({
             </button>
           )}
           {/* add to trash */}
-          {presentLocation === "archives" ? (
+          {presentLocation === "trash" ? (
             <button>
               <i className="bi bi-trash"></i>
             </button>
