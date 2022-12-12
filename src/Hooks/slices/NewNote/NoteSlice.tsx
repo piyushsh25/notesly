@@ -118,9 +118,11 @@ const noteSlice = createSlice({
       state.CTAstatus = "pending";
     });
     builder.addCase(deleteNoteHandler.fulfilled, (state, action) => {
-      state.allNotes = action.payload.message;
+      state.allNotes = action.payload.message.notes;
+      state.archiveNotes=action.payload.message.archiveNotes;
+      state.trashNotes=action.payload.message.trashNotes
       state.CTAstatus = "succeeded";
-      state.CTAmessage = "Success. Note deleted.";
+      state.CTAmessage = "Success. Added to trash.";
     });
     builder.addCase(deleteNoteHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";

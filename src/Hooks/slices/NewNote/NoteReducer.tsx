@@ -85,10 +85,30 @@ export const addToArchiveHandler = createAsyncThunk(
 //  delete note should go to trash . wrong api call here?
 export const deleteNoteHandler = createAsyncThunk(
   "deleteNote/deleteNoteHandler",
-  async ({ noteId: id }: NoteProps) => {
+  async ({
+    noteId: id,
+    header,
+    content,
+    fontFamily,
+    backgroundColor,
+    pinned,
+    tags,
+    createDate,
+    formatDate,
+  }: NoteProps) => {
     const token = localStorage.getItem("token");
-    const response = await axios.delete(
-      `https://notesly-backend.onrender.com/notes/delete/${id}`,
+    const user = {
+      noteId: id,
+      header,
+      content,
+      fontFamily,
+      backgroundColor,
+      pinned,
+      tags
+    };
+    const response = await axios.post(
+      `https://notesly-backend.onrender.com/trash/add/${id}`,
+      { user: user },
       { headers: { authorization: token } }
     );
     return response.data;
