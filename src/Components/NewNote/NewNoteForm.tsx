@@ -151,7 +151,7 @@ export const NewNoteForm = () => {
               }
             />
             <Form.Text className="text-muted">
-              Add keywords seperated by spaces
+              Add keywords separated by spaces
             </Form.Text>
           </Form.Group>
         </Form>
