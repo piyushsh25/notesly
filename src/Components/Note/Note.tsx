@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../Hooks/store";
 import {
   addToHomeHandler,
   archiveButtonHandler,
+  deleteTrashButton,
   noteDeleteHandler,
   pinButtonHandler,
 } from "./NoteHelperFunctions";
@@ -90,7 +91,25 @@ export const Note = ({
           {/* add to trash */}
           {presentLocation === "trash" ? (
             <button>
-              <i className="bi bi-trash"></i>
+              <i
+                className="bi bi-trash"
+                onClick={() =>
+                  deleteTrashButton({
+                    header,
+                    content,
+                    fontFamily,
+                    backgroundColor,
+                    pinned,
+                    tags,
+                    noteId,
+                    createDate,
+                    formatDate,
+                    isSelected,
+                    setIsSelected,
+                    dispatch,
+                  })
+                }
+              ></i>
             </button>
           ) : (
             <button

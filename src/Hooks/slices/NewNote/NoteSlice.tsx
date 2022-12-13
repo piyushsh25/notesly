@@ -9,6 +9,7 @@ import {
   deleteNoteHandler,
   editNoteHandler,
   moveToNoteHandler,
+  deleteTrashHandler,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -17,7 +18,7 @@ export {
   saveNewNoteHandler,
   addToArchiveHandler,
   deleteNoteHandler,
-  editNoteHandler,moveToNoteHandler
+  editNoteHandler,moveToNoteHandler,deleteTrashHandler
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -151,11 +152,24 @@ const noteSlice = createSlice({
       state.archiveNotes = action.payload.message.archiveNotes;
       state.trashNotes = action.payload.message.trashNotes;
       state.CTAstatus = "succeeded";
-      state.CTAmessage = "Success. Note moved to notes.";
+      state.CTAmessage = "Success. Moved to notes.";
     });
     builder.addCase(moveToNoteHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";
-      state.CTAmessage = "Error. Couldn't move not.";
+      state.CTAmessage = "Error. Couldn't move note.";
+    });
+    // delete individual note from trash
+    builder.addCase(deleteTrashHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(deleteTrashHandler.fulfilled, (state, action) => {
+      state.trashNotes = action.payload.message.trashNotes;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. Note deleted permanently.";
+    });
+    builder.addCase(deleteTrashHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't delete note.";
     });
   },
 });

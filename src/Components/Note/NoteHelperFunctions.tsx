@@ -1,6 +1,8 @@
 import {
   addToArchiveHandler,
+  deleteAllTrashHandler,
   deleteNoteHandler,
+  deleteTrashHandler,
   editNoteHandler,
   moveToNoteHandler,
 } from "../../Hooks/slices/NewNote/NoteReducer";
@@ -123,4 +125,42 @@ export const addToHomeHandler = ({
       formatDate,
     })
   );
+};
+
+// delete specific note from trash.
+export const deleteTrashButton = ({
+  header,
+  content,
+  fontFamily,
+  backgroundColor,
+  pinned,
+  tags,
+  noteId,
+  createDate,
+  formatDate,
+  isSelected,
+  setIsSelected,
+  dispatch,
+}: NoteEditProps) => {
+  setIsSelected(noteId);
+  dispatch(
+    deleteTrashHandler({
+      noteId,
+      header,
+      content,
+      fontFamily,
+      backgroundColor,
+      pinned,
+      tags,
+      createDate,
+      formatDate,
+    })
+  );
+};
+
+// delete all notes from trash
+export const deleteAllTrash = ({
+  dispatch,
+}: NoteEditProps) => {
+  dispatch(deleteAllTrashHandler());
 };
