@@ -18,3 +18,8 @@
     background-color: inherit;
     border: none;
 }
+.trash-icon{
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+}

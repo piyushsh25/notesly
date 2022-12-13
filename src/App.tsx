@@ -12,7 +12,6 @@ import { Signup } from "./Pages/Signup";
 import { RequiresAuth } from "./Hooks/Auth/RequiresAuth";
 import { RedirectAuth } from "./Hooks/Auth/RedirectAuth";
 import {  useDispatch, useSelector } from "react-redux";
-import { ToastComponent } from "./Components/Toast/ToastBody";
 import { Logout } from "./Components/Logout/Logout";
 import { NewNote } from "./Pages/NewNote";
 import { userActions } from "./Hooks/slices/User/UserDetails";
@@ -34,11 +33,9 @@ function App() {
       );
     }
   },[userError]);
-  document.title="Notesly"
   return (
     <div className="app-container">
       <Toastify />
-      {showToast && <ToastComponent />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />

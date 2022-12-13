@@ -18,5 +18,6 @@ export interface Note extends NewNote {
   getArchiveStatus: "idle" | "pending" | "succeeded" | "failed";
   getTrashStatus: "idle" | "pending" | "succeeded" | "failed";
   CTAstatus: "idle" | "pending" | "succeeded" | "failed";
-  CTAmessage:string
+  CTAmessage:string;
+  showDeleteAll:boolean
 }

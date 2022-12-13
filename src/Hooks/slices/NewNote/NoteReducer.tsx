@@ -168,11 +168,37 @@ export const moveToNoteHandler = createAsyncThunk(
       backgroundColor,
       pinned,
       tags,
-      createDate
+      createDate,
     };
     const response = await axios.post(
       `https://notesly-backend.onrender.com/notes/add/${id}`,
       { user: user },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+
+// delete individual note from trash
+export const deleteTrashHandler = createAsyncThunk(
+  "moveToNote/deleteTrashHandler",
+  async ({ noteId: id }: NoteProps) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.delete(
+      `https://notesly-backend.onrender.com/trash/delete/${id}`,
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+
+// delete all from trash
+export const deleteAllTrashHandler = createAsyncThunk(
+  "moveToNote/deleteAllTrashHandler",
+  async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.delete(
+      `https://notesly-backend.onrender.com/trash/delete/`,
       { headers: { authorization: token } }
     );
     return response.data;

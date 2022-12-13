@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../Hooks/store";
+import { useDispatch, useSelector } from "react-redux";
+import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
+import { AppDispatch, RootState } from "../../Hooks/store";
 import { NoteProps } from "../Note/Notes.type";
 
 type DisplayArray = {
@@ -11,7 +12,10 @@ export function HeaderTags(
   tagName: string,
   setTag: React.Dispatch<React.SetStateAction<string>>
 ) {
-  const { allNotes } = useSelector((store: RootState) => store.noteReducer);
+  const { allNotes, trashNotes } = useSelector(
+    (store: RootState) => store.noteReducer
+  );
+  const dispatch = useDispatch<AppDispatch>();
   if (pathname === "/tags") {
     const tagsFromArr = allNotes.map((item) => item.tags);
     const flattenedArray = tagsFromArr.flat(1);
@@ -55,10 +59,15 @@ export function HeaderTags(
           {pathname.slice(1, pathname.length).toLocaleUpperCase()} :{" "}
           {todisplayArray.length}
         </div>
-        {pathname === "/trash" && (
-          <div className="trash-icon">
+        {pathname === "/trash" && trashNotes.length !== 0 && (
+          <button
+            className="trash-icon"
+            onClick={() =>
+              dispatch(noteActions.setDeleteAllModal({ message: true }))
+            }
+          >
             <i className="bi bi-trash"></i>
-          </div>
+          </button>
         )}
       </div>
     );
