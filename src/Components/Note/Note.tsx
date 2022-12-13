@@ -1,17 +1,13 @@
 import { useState } from "react";
-import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
+import { CTAcomponent } from "./CTAComponent";
 import {
-  addToHomeHandler,
-  archiveButtonHandler,
-  deleteTrashButton,
-  noteDeleteHandler,
   pinButtonHandler,
 } from "./NoteHelperFunctions";
 import { NoteProps } from "./Notes.type";
-import { Time } from "./Time";
+import { SpinnerComponent } from "./SpinnerComponent";
 export const Note = ({
   header,
   content,
@@ -34,123 +30,6 @@ export const Note = ({
   // isSelected will store note id for a specific note, when an action is performed. that noteid will be use for spinner component for a specific note
   const [isSelected, setIsSelected] = useState("");
 
-  function CTAcomponent() {
-    return (
-      <div className="note-cta">
-        {/* time component */}
-        <div className="note-date">
-          <Time createDate={createDate} />
-        </div>
-        {/* cta */}
-        <div className="note-icons">
-          {presentLocation === "archives" || presentLocation === "trash" ? (
-            // add to home/main notes page
-            <button
-              onClick={() =>
-                addToHomeHandler({
-                  header,
-                  content,
-                  fontFamily,
-                  backgroundColor,
-                  pinned,
-                  tags,
-                  noteId,
-                  createDate,
-                  formatDate,
-                  isSelected,
-                  setIsSelected,
-                  dispatch,
-                })
-              }
-            >
-              <i className="bi bi-house"></i>
-            </button>
-          ) : (
-            // add to archives
-            <button
-              onClick={() =>
-                archiveButtonHandler({
-                  header,
-                  content,
-                  fontFamily,
-                  backgroundColor,
-                  pinned,
-                  tags,
-                  noteId,
-                  createDate,
-                  formatDate,
-                  isSelected,
-                  setIsSelected,
-                  dispatch,
-                })
-              }
-            >
-              <i className="bi bi-calendar-plus"></i>
-            </button>
-          )}
-          {/* add to trash */}
-          {presentLocation === "trash" ? (
-            <button>
-              <i
-                className="bi bi-trash"
-                onClick={() =>
-                  deleteTrashButton({
-                    header,
-                    content,
-                    fontFamily,
-                    backgroundColor,
-                    pinned,
-                    tags,
-                    noteId,
-                    createDate,
-                    formatDate,
-                    isSelected,
-                    setIsSelected,
-                    dispatch,
-                  })
-                }
-              ></i>
-            </button>
-          ) : (
-            <button
-              onClick={() =>
-                noteDeleteHandler({
-                  header,
-                  content,
-                  fontFamily,
-                  backgroundColor,
-                  noteId,
-                  pinned,
-                  tags,
-                  createDate,
-                  formatDate,
-                  isSelected,
-                  setIsSelected,
-                  dispatch,
-                })
-              }
-            >
-              <i className="bi bi-trash"></i>
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
-  function SpinnerComponent() {
-    return (
-      <div className="note-cta">
-        Hold tight.. we are working on it...
-        <Spinner
-          as="span"
-          animation="border"
-          size="sm"
-          role="status"
-          aria-hidden="true"
-        />
-      </div>
-    );
-  }
   return (
     <div className="note-container" style={style} id={noteId}>
       <div>
@@ -199,7 +78,20 @@ export const Note = ({
         {CTAstatus === "pending" && isSelected === noteId ? (
           <SpinnerComponent />
         ) : (
-          <CTAcomponent />
+          <CTAcomponent
+            header={header}
+            content={content}
+            fontFamily={fontFamily}
+            backgroundColor={backgroundColor}
+            pinned={pinned}
+            tags={tags}
+            noteId={noteId}
+            createDate={createDate}
+            formatDate={formatDate}
+            isSelected={isSelected}
+            setIsSelected={setIsSelected}
+            dispatch={dispatch}
+          />
         )}
       </div>
     </div>

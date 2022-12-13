@@ -1,5 +1,4 @@
 import { Note } from "../Note/Note";
-import { NoteProps } from "../Note/Notes.type";
 import { Search } from "../Search/Search";
 import "../Note/Notes.css";
 import { useEffect } from "react";
@@ -8,6 +7,7 @@ import { AppDispatch, RootState } from "../../Hooks/store";
 import { getNoteHandler } from "../../Hooks/slices/NewNote/NoteSlice";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
+import { pinnedTotal, unpinnedTotal } from "./UserHelperFunction";
 export const UserNotes = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -21,22 +21,17 @@ export const UserNotes = () => {
       toast.error("Error loading notes. Please refresh the page");
     }
   }, [getNoteStatus]);
-  function pinnedTotal(acc: number, curr: NoteProps) {
-    return curr.pinned ? (acc = acc + 1) : acc;
-  }
-  function unpinnedTotal(acc: number, curr: NoteProps) {
-    return !curr.pinned ? (acc = acc + 1) : acc;
-  }
+
   const totalPinned = notes?.reduce(pinnedTotal, 0);
   const unPinned = notes?.reduce(unpinnedTotal, 0);
   return (
     <div
       className={
-        (totalPinned | unPinned) === 0 ? "notes-array empty" : "notes-array"
+        (totalPinned || unPinned) === 0 ? "notes-array empty" : "notes-array"
       }
     >
       <Search />
-      <div className="h2">Pinned : {notes.reduce(pinnedTotal, 0)}</div>
+      <div className="h2">Pinned : {totalPinned}</div>
       {notes?.map(
         (note) =>
           note.pinned && (
@@ -60,7 +55,7 @@ export const UserNotes = () => {
       {getNoteStatus === "succeeded" && totalPinned === 0 && (
         <div>No notes pinned! </div>
       )}
-      <div className="h2">OTHER : {notes.reduce(unpinnedTotal, 0)}</div>
+      <div className="h2">OTHER : {unPinned}</div>
       {notes?.map(
         (note) =>
           !note.pinned && (
