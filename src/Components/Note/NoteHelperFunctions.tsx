@@ -6,6 +6,8 @@ import {
   editNoteHandler,
   moveToNoteHandler,
 } from "../../Hooks/slices/NewNote/NoteReducer";
+import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
+import { AppDispatch } from "../../Hooks/store";
 import { NoteEditProps, NoteProps } from "./Notes.type";
 
 export const archiveButtonHandler = ({
@@ -159,8 +161,9 @@ export const deleteTrashButton = ({
 };
 
 // delete all notes from trash
-export const deleteAllTrash = ({
-  dispatch,
-}: NoteEditProps) => {
+type DeleteAllProps = {
+  dispatch: AppDispatch;
+};
+export const deleteAllTrash = ({ dispatch }: DeleteAllProps) => {
   dispatch(deleteAllTrashHandler());
 };

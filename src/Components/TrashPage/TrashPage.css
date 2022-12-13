@@ -1,0 +1,34 @@
+.trash-body {
+  position: relative;
+}
+.delete-all-modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0rem;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(221, 227, 231, 0.701);
+  align-items: center;
+}
+.delete-all-body {
+  background-color: white;
+  width: auto;
+  font-size: 1.5rem;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.delete-content {
+  display: flex;
+  justify-content: space-evenly;
+}
+.delete-content .dashboard-button{
+    border: 2px solid #5348c7;
+}
+.delete-content .dashboard-button.reject{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}

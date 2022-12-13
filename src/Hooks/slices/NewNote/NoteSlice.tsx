@@ -10,6 +10,7 @@ import {
   editNoteHandler,
   moveToNoteHandler,
   deleteTrashHandler,
+  deleteAllTrashHandler,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -50,6 +51,9 @@ const noteSlice = createSlice({
     setCTAstatusIdle: (state, action) => {
       state.CTAstatus = "idle";
     },
+    setDeleteAllModal:(state,action)=>{
+      state.showDeleteAll=action.payload.message
+    }
   },
   extraReducers: (builder) => {
     // save note
@@ -168,6 +172,20 @@ const noteSlice = createSlice({
       state.CTAmessage = "Success. Note deleted permanently.";
     });
     builder.addCase(deleteTrashHandler.rejected, (state, action) => {
+      state.CTAstatus = "failed";
+      state.CTAmessage = "Error. Couldn't delete note.";
+    });
+    // delete all trash notes
+    builder.addCase(deleteAllTrashHandler.pending, (state, action) => {
+      state.CTAstatus = "pending";
+    });
+    builder.addCase(deleteAllTrashHandler.fulfilled, (state, action) => {
+      state.trashNotes = action.payload.message.trashNotes;
+      state.CTAstatus = "succeeded";
+      state.CTAmessage = "Success. All note deleted permanently.";
+      state.showDeleteAll=false
+    });
+    builder.addCase(deleteAllTrashHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";
       state.CTAmessage = "Error. Couldn't delete note.";
     });
