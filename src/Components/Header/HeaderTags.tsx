@@ -60,14 +60,14 @@ export function HeaderTags(
           {todisplayArray.length}
         </div>
         {pathname === "/trash" && trashNotes.length !== 0 && (
-          <div
+          <button
             className="trash-icon"
             onClick={() =>
               dispatch(noteActions.setDeleteAllModal({ message: true }))
             }
           >
             <i className="bi bi-trash"></i>
-          </div>
+          </button>
         )}
       </div>
     );
