@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { CTAcomponent } from "./CTAComponent";
-import {
-  pinButtonHandler,
-} from "./NoteHelperFunctions";
+import { pinButtonHandler } from "./NoteHelperFunctions";
 import { NoteProps } from "./Notes.type";
 import { SpinnerComponent } from "./SpinnerComponent";
 export const Note = ({
