@@ -1,4 +1,3 @@
-import Card from "react-bootstrap/Card";
 type NoteSummaryProps = {
   headerName: string;
   lengthNote: number;
