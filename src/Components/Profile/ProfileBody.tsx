@@ -39,7 +39,7 @@ export const ProfileBody = () => {
         </div>
         <div className="profile-name">@{name}</div>
         <div className="profile-bio">
-          {bio.length !== 0 ? bio : "404 bio missing"}
+          {bio.length !== 0 ? bio : "404 bio missing!"}
         </div>
         <hr />
         <div>Note Summary</div>

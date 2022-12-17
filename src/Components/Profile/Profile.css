@@ -1,7 +1,6 @@
 .user-body.profile-page {
   height: 100%;
   position: relative;
-  width: 100vw;
 }
 .profile-body {
   display: flex;
@@ -46,9 +45,14 @@ hr {
 .note-gist {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap: 10px;
+
 }
-.card {
-  box-shadow: 1px 1px 22px #afa7a7;
+
+.card-summary {
+  background-color: rgb(157, 211, 255);
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 1rem;
 }
