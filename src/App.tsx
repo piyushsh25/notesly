@@ -19,6 +19,7 @@ import { Toastify } from "./Components/ToastContainer/ToastContainer";
 import { toast } from "react-toastify";
 import { AppDispatch, RootState } from "./Hooks/store";
 import { ErrorPage } from "./Pages/Error";
+import { Profile } from "./Pages/Profile";
 
 function App() {
   const { showToast } = useSelector((store: RootState) => store.toastReducer);
@@ -47,6 +48,7 @@ function App() {
             <Route path="/tags" element={<Tags />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/newnote" element={<NewNote />} />
+            <Route path="/profile/" element={<Profile/>}/>
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />
