@@ -28,7 +28,7 @@ export const ProfileBody = () => {
       <div className="profile-image">
         <img
           className="img-responsive"
-          src={require("../../assets/test-img.png")}
+          src={"	https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg"}
           alt="userimage"
         />
       </div>

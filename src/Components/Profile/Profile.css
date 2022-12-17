@@ -8,12 +8,13 @@
   width: 100vw;
   margin-bottom: 2rem;
 }
-.profile-image {
-  width: 15rem;
-  height: 15rem;
+.profile-image,
+.img-responsive {
+  width: 12rem;
+  height: 12rem;
   border-radius: 50%;
   position: absolute;
-  top: 0;
+  top: 0.5rem;
 }
 .profile-content {
   width: 60vw;
@@ -47,7 +48,6 @@ hr {
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 10px;
-
 }
 
 .card-summary {
