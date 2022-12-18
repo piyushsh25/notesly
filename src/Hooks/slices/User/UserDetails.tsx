@@ -6,7 +6,11 @@ const initialState: UserState = {
   name: "",
   userstatus: "idle",
   bio: [],
-  userError:false
+  userError: false,
+  firstName: "",
+  lastName: "",
+  email: "",
+  createDate: "",
 };
 export const getDetails = createAsyncThunk("user/getDetails", async () => {
   const token = localStorage.getItem("token");
@@ -19,9 +23,9 @@ const UserSlice = createSlice({
   name: "userdetails",
   initialState,
   reducers: {
-    setUserHandler:(state,action)=>{
-      state.userError=false
-    }
+    setUserHandler: (state, action) => {
+      state.userError = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getDetails.pending, (state, action) => {
@@ -29,12 +33,16 @@ const UserSlice = createSlice({
     });
     builder.addCase(getDetails.rejected, (state, action) => {
       state.userstatus = "error";
-      state.userError=true;
-      localStorage.clear()
+      state.userError = true;
+      localStorage.clear();
     });
     builder.addCase(getDetails.fulfilled, (state, action) => {
       state.name = action.payload.user[0].username;
-      state.userError=false
+      state.firstName = action.payload.user[0].firstName;
+      state.lastName = action.payload.user[0].lastName;
+      state.email = action.payload.user[0].email;
+      state.createDate = action.payload.user[0].createDate;
+      state.userError = false;
       state.userstatus = "succeeded";
     });
   },

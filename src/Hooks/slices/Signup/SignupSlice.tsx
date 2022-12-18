@@ -23,7 +23,7 @@ export const signupButtonHandler = createAsyncThunk(
   async ({ firstname, lastname, email, password, username }: SignupType) => {
     const userID = uuidv4();
     const user = {
-      userID,
+      userId:userID,
       username: username.toLowerCase(),
       firstName: firstname,
       email,
