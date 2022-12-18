@@ -7,7 +7,9 @@ import {
 } from "../../Hooks/slices/NewNote/NoteReducer";
 import { getDetails } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch, RootState } from "../../Hooks/store";
+import { NoteGist } from "./NoteGist";
 import { NoteSummary } from "./NoteSummary";
+import { UserImage } from "./UserImage";
 
 export const ProfileBody = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,19 +22,15 @@ export const ProfileBody = () => {
   const { name, bio, firstName, lastName, email, createDate } = useSelector(
     (store: RootState) => store.userReducer
   );
-  const { allNotes, archiveNotes, trashNotes } = useSelector(
-    (store: RootState) => store.noteReducer
-  );
+
   return (
     <div className="profile-body">
-      <div className="profile-image">
-        <img
-          className="img-responsive"
-          src={"	https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg"}
-          alt="userimage"
-        />
-      </div>
+      <UserImage />
+
       <div className="profile-content">
+        <button className="edit-user-profile">
+          <i className="bi bi-pencil-square"></i>
+        </button>
         <div className="profile-username">
           <div>{firstName}</div>
           <div>{lastName}</div>
@@ -42,12 +40,7 @@ export const ProfileBody = () => {
           {bio.length !== 0 ? bio : "404 bio missing!"}
         </div>
         <hr />
-        <div>Note Summary</div>
-        <div className="note-gist">
-          <NoteSummary headerName="notes" lengthNote={allNotes.length} />
-          <NoteSummary headerName="archive" lengthNote={archiveNotes.length} />
-          <NoteSummary headerName="trash" lengthNote={trashNotes.length} />
-        </div>
+        <NoteGist />
       </div>
     </div>
   );
