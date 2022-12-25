@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getArchivedHandler,
   getNoteHandler,
@@ -8,7 +9,6 @@ import {
 import { getDetails } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { NoteGist } from "./NoteGist";
-import { NoteSummary } from "./NoteSummary";
 import { UserImage } from "./UserImage";
 
 export const ProfileBody = () => {
@@ -28,17 +28,17 @@ export const ProfileBody = () => {
       <UserImage />
 
       <div className="profile-content">
-        <button className="edit-user-profile">
+        <Link className="edit-user-profile" to="/profile/edit/">
           <i className="bi bi-pencil-square"></i>
-        </button>
+        </Link>
+        <div className="profile-name">@{name}</div>
         <div className="profile-username">
           <div>{firstName}</div>
           <div>{lastName}</div>
         </div>
-        <div className="profile-name">@{name}</div>
-        <div className="profile-bio">
-          {bio.length !== 0 ? bio : "404 bio missing!"}
-        </div>
+
+        <div className="profile-email">{email}</div>
+        <div className="profile-bio">{bio ? bio : "404 bio missing!"}</div>
         <hr />
         <NoteGist />
       </div>

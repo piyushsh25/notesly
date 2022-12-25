@@ -23,13 +23,16 @@ export const signupButtonHandler = createAsyncThunk(
   async ({ firstname, lastname, email, password, username }: SignupType) => {
     const userID = uuidv4();
     const user = {
-      userId:userID,
+      userId: userID,
       username: username.toLowerCase(),
       firstName: firstname,
       email,
       lastName: lastname,
       password,
       bio: "",
+      linkedInLink: "",
+      githubLink: "",
+      image: "",
     };
     const response = await axios.post(
       "https://notesly-backend.onrender.com/signup/",

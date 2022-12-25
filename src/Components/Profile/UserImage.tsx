@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux"
+import { RootState } from "../../Hooks/store"
+
 export const UserImage=()=>{
+  const {image}=useSelector((store:RootState)=>store.userReducer)
     return <div className="profile-image">
       <img
         className="img-responsive"
-        src={"	https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg"}
+        src={image}
         alt="userimage"
       />
     </div>
