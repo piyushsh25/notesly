@@ -6,22 +6,16 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { isDeleteExpression } from "typescript";
-import {
-  createImageHandler,
-  editProfileHandler,
-  getDetails,
-  userActions,
-} from "../../Hooks/slices/User/UserDetails";
+import { getDetails, userActions } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch, RootState } from "../../Hooks/store";
+import {
+  editButtonHandler,
+  setImageChangeHandler,
+} from "./EditHelperFunctions";
 
-type Event = React.MouseEvent<HTMLButtonElement, MouseEvent>;
 export const EditProfileForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(getDetails());
-  }, []);
   const {
     firstName,
     lastName,
@@ -37,30 +31,9 @@ export const EditProfileForm = () => {
     createDate,
     profileUpdateStatus,
   } = useSelector((store: RootState) => store.userReducer);
-  async function editButtonHandler(e: Event) {
-    e.preventDefault();
-    dispatch(
-      editProfileHandler({
-        firstName,
-        lastName,
-        email,
-        bio,
-        linkedInLink,
-        githubLink,
-        imageUploadStatus,
-        userError,
-        image,
-        name,
-        userstatus,
-        createDate,
-        profileUpdateStatus,
-      })
-    );
-  }
-  const setImageChangeHandler = (file: File) => {
-    dispatch(createImageHandler({ file }));
-  };
-
+  useEffect(() => {
+    dispatch(getDetails());
+  }, []);
   useEffect(() => {
     if (imageUploadStatus === "error") {
       toast.error("Error uploading image. Select the image file again");
@@ -151,7 +124,9 @@ export const EditProfileForm = () => {
               className="form-control"
               type="file"
               placeholder="Select image"
-              onChange={(e: any) => setImageChangeHandler(e.target.files[0])}
+              onChange={(e: any) =>
+                setImageChangeHandler(e.target.files[0], dispatch)
+              }
             />
             {imageUploadStatus === "pending" && (
               <div>
@@ -195,7 +170,27 @@ export const EditProfileForm = () => {
           <button
             className="dashboard-button"
             type="submit"
-            onClick={(e) => editButtonHandler(e)}
+            onClick={(e: any) =>
+              editButtonHandler(
+                e,
+                {
+                  firstName,
+                  lastName,
+                  email,
+                  bio,
+                  linkedInLink,
+                  githubLink,
+                  imageUploadStatus,
+                  userError,
+                  image,
+                  name,
+                  userstatus,
+                  createDate,
+                  profileUpdateStatus,
+                },
+                dispatch
+              )
+            }
           >
             <div>Save Profile</div>
           </button>
