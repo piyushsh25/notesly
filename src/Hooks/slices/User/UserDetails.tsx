@@ -99,9 +99,9 @@ const UserSlice = createSlice({
     setGithubHandler: (state, action) => {
       state.githubLink = action.payload;
     },
-    setProfileStatus:(state,action)=>{
-      state.profileUpdateStatus=action.payload.message
-    }
+    setProfileStatus: (state, action) => {
+      state.profileUpdateStatus = action.payload.message;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getDetails.pending, (state, action) => {
@@ -117,6 +117,7 @@ const UserSlice = createSlice({
       state.firstName = action.payload.user[0].firstName;
       state.lastName = action.payload.user[0].lastName;
       state.email = action.payload.user[0].email;
+      state.bio = action.payload.user[0].bio;
       state.createDate = action.payload.user[0].createDate;
       state.githubLink = action.payload.user[0]?.githubLink || "";
       state.linkedInLink = action.payload.user[0]?.linkedInLink || "";

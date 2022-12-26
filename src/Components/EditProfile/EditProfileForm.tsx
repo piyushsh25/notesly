@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { isDeleteExpression } from "typescript";
 import {
   createImageHandler,
   editProfileHandler,
@@ -68,10 +69,11 @@ export const EditProfileForm = () => {
       toast.error("Error updating profile");
     }
     if (profileUpdateStatus === "succeeded") {
-      navigate("/profile/");
-      setTimeout(()=>{
-        dispatch(userActions.setProfileStatus({message:"idle"}))
-      },0)
+      toast.success("Successfully Updated. Redirecting please wait");
+      setTimeout(() => {
+        navigate("/profile/");
+        dispatch(userActions.setProfileStatus({ message: "idle" }));
+      }, 2000);
     }
   }, [imageUploadStatus, profileUpdateStatus]);
   return (

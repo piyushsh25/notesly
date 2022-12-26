@@ -10,19 +10,17 @@ import { getDetails } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { NoteGist } from "./NoteGist";
 import { UserImage } from "./UserImage";
-
 export const ProfileBody = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { name, bio, firstName, lastName, email, createDate } = useSelector(
+    (store: RootState) => store.userReducer
+  );
   useEffect(() => {
     dispatch(getDetails());
     dispatch(getNoteHandler());
     dispatch(getArchivedHandler());
     dispatch(getTrashHandler());
   }, []);
-  const { name, bio, firstName, lastName, email, createDate } = useSelector(
-    (store: RootState) => store.userReducer
-  );
-
   return (
     <div className="profile-body">
       <UserImage />
