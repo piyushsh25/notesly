@@ -119,8 +119,8 @@ const UserSlice = createSlice({
       state.email = action.payload.user[0].email;
       state.bio = action.payload.user[0].bio;
       state.createDate = action.payload.user[0].createDate;
-      state.githubLink = action.payload.user[0]?.githubLink || "";
-      state.linkedInLink = action.payload.user[0]?.linkedInLink || "";
+      state.githubLink = action.payload.user[0]?.githubLink || "https://github.com";
+      state.linkedInLink = action.payload.user[0]?.linkedInLink || "https://linkedin.com";
       state.image =
         action.payload.user[0]?.image ||
         "https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg";
