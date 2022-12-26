@@ -10,5 +10,6 @@ export type UserState = {
   image: string;
   linkedInLink: string;
   githubLink: string;
-  imageUploadStatus:"idle" | "succeeded" | "pending" | "error";
+  imageUploadStatus: "idle" | "succeeded" | "pending" | "error";
+  profileUpdateStatus: "idle" | "succeeded" | "pending" | "error";
 };

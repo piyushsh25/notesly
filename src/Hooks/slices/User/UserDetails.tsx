@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { UserState } from "./User.types";
+type File = {
+  file: any;
+};
 const initialState: UserState = {
   name: "",
   userstatus: "idle",
@@ -10,10 +13,11 @@ const initialState: UserState = {
   lastName: "",
   email: "",
   createDate: "",
-  image: "https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg",
+  image: "",
   linkedInLink: "",
   githubLink: "",
   imageUploadStatus: "idle",
+  profileUpdateStatus: "idle",
 };
 export const getDetails = createAsyncThunk("user/getDetails", async () => {
   const token = localStorage.getItem("token");
@@ -22,9 +26,7 @@ export const getDetails = createAsyncThunk("user/getDetails", async () => {
   });
   return response.data;
 });
-type File = {
-  file: any;
-};
+
 export const createImageHandler = createAsyncThunk(
   "user/createImageHandler",
   async ({ file }: File) => {
@@ -36,6 +38,35 @@ export const createImageHandler = createAsyncThunk(
     const response = await axios.post(
       "https://api.cloudinary.com/v1_1/dm5yi6c11/image/upload",
       data
+    );
+    return response.data;
+  }
+);
+export const editProfileHandler = createAsyncThunk(
+  "user/editProfileHandler",
+  async ({
+    firstName,
+    lastName,
+    bio,
+    linkedInLink,
+    githubLink,
+    image,
+    email,
+  }: UserState) => {
+    const token = localStorage.getItem("token");
+    const user = {
+      firstName,
+      lastName,
+      email,
+      image,
+      githubLink,
+      linkedInLink,
+      bio,
+    };
+    const response = await axios.post(
+      "https://notesly-backend.onrender.com/user/profile/edit/",
+      { user: user },
+      { headers: { authorization: token } }
     );
     return response.data;
   }
@@ -68,6 +99,9 @@ const UserSlice = createSlice({
     setGithubHandler: (state, action) => {
       state.githubLink = action.payload;
     },
+    setProfileStatus:(state,action)=>{
+      state.profileUpdateStatus=action.payload.message
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getDetails.pending, (state, action) => {
@@ -86,19 +120,32 @@ const UserSlice = createSlice({
       state.createDate = action.payload.user[0].createDate;
       state.githubLink = action.payload.user[0]?.githubLink || "";
       state.linkedInLink = action.payload.user[0]?.linkedInLink || "";
+      state.image =
+        action.payload.user[0]?.image ||
+        "https://imgv3.fotor.com/images/blog-cover-image/Image-Upscaler-2.jpg";
       state.userError = false;
       state.userstatus = "succeeded";
     });
+    // create image link cloudinary api
     builder.addCase(createImageHandler.pending, (state, action) => {
-      //add spinner to it
       state.imageUploadStatus = "pending";
     });
     builder.addCase(createImageHandler.fulfilled, (state, action) => {
       state.imageUploadStatus = "succeeded";
-      state.image=action.payload.secure_url;
+      state.image = action.payload.secure_url;
     });
     builder.addCase(createImageHandler.rejected, (state, action) => {
       state.imageUploadStatus = "error";
+    });
+    // edit profile route
+    builder.addCase(editProfileHandler.pending, (state, action) => {
+      state.profileUpdateStatus = "pending";
+    });
+    builder.addCase(editProfileHandler.fulfilled, (state, action) => {
+      state.profileUpdateStatus = "succeeded";
+    });
+    builder.addCase(editProfileHandler.rejected, (state, action) => {
+      state.profileUpdateStatus = "error";
     });
   },
 });

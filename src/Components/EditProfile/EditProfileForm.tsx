@@ -1,13 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   createImageHandler,
+  editProfileHandler,
   getDetails,
   userActions,
 } from "../../Hooks/slices/User/UserDetails";
@@ -15,6 +16,8 @@ import { AppDispatch, RootState } from "../../Hooks/store";
 
 type Event = React.MouseEvent<HTMLButtonElement, MouseEvent>;
 export const EditProfileForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getDetails());
   }, []);
@@ -26,19 +29,51 @@ export const EditProfileForm = () => {
     linkedInLink,
     githubLink,
     imageUploadStatus,
+    userError,
+    image,
+    name,
+    userstatus,
+    createDate,
+    profileUpdateStatus,
   } = useSelector((store: RootState) => store.userReducer);
   async function editButtonHandler(e: Event) {
     e.preventDefault();
+    dispatch(
+      editProfileHandler({
+        firstName,
+        lastName,
+        email,
+        bio,
+        linkedInLink,
+        githubLink,
+        imageUploadStatus,
+        userError,
+        image,
+        name,
+        userstatus,
+        createDate,
+        profileUpdateStatus,
+      })
+    );
   }
   const setImageChangeHandler = (file: File) => {
     dispatch(createImageHandler({ file }));
   };
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(()=>{
-    if(imageUploadStatus==="error"){
-      toast.error("Error uploading image. Select the image file again")
+
+  useEffect(() => {
+    if (imageUploadStatus === "error") {
+      toast.error("Error uploading image. Select the image file again");
     }
-  },[imageUploadStatus])
+    if (profileUpdateStatus === "error") {
+      toast.error("Error updating profile");
+    }
+    if (profileUpdateStatus === "succeeded") {
+      navigate("/profile/");
+      setTimeout(()=>{
+        dispatch(userActions.setProfileStatus({message:"idle"}))
+      },0)
+    }
+  }, [imageUploadStatus, profileUpdateStatus]);
   return (
     <div className="edit-profile-form">
       <h1> Profile Information</h1>
@@ -118,7 +153,7 @@ export const EditProfileForm = () => {
             />
             {imageUploadStatus === "pending" && (
               <div>
-                Uploading image
+                Uploading image. Please wait
                 <Spinner
                   as="span"
                   animation="grow"
@@ -141,13 +176,28 @@ export const EditProfileForm = () => {
             />
           </Form.Group>
         </Row>
-        <button
-          className="dashboard-button"
-          type="submit"
-          onClick={(e) => editButtonHandler(e)}
-        >
-          <div>Save Profile</div>
-        </button>
+        {profileUpdateStatus === "pending" ? (
+          <button className="dashboard-button">
+            <div>
+              Saving ....{" "}
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />{" "}
+            </div>
+          </button>
+        ) : (
+          <button
+            className="dashboard-button"
+            type="submit"
+            onClick={(e) => editButtonHandler(e)}
+          >
+            <div>Save Profile</div>
+          </button>
+        )}
       </Form>
     </div>
   );
