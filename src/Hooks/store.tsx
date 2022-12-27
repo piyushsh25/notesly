@@ -6,7 +6,13 @@ import { toastReducer } from "./slices/Toast/ToastSlice";
 import { userReducer } from "./slices/User/UserDetails";
 
 export const store = configureStore({
-  reducer: { loginReducer, userReducer, toastReducer, signupReducer,noteReducer },
+  reducer: {
+    loginReducer,
+    userReducer,
+    toastReducer,
+    signupReducer,
+    noteReducer,
+  },
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
