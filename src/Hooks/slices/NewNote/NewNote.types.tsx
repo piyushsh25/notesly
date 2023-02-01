@@ -1,7 +1,7 @@
 import { NoteProps } from "../../../Components/Note/Notes.type";
-export type NoteId={
-  noteId:string
-}
+export type NoteId = {
+  noteId: string;
+};
 export type NewNote = {
   header: string;
   content: string;
@@ -20,6 +20,7 @@ export interface Note extends NewNote {
   getArchiveStatus: "idle" | "pending" | "succeeded" | "failed";
   getTrashStatus: "idle" | "pending" | "succeeded" | "failed";
   CTAstatus: "idle" | "pending" | "succeeded" | "failed";
-  CTAmessage:string;
-  showDeleteAll:boolean
+  getSingleNoteStatus: "idle" | "pending" | "succeeded" | "failed";
+  CTAmessage: string;
+  showDeleteAll: boolean;
 }

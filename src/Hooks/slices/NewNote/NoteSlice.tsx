@@ -89,10 +89,10 @@ const noteSlice = createSlice({
     });
     //get individual notes
     builder.addCase(getIndividualNotes.pending, (state, action) => {
-      state.getNoteStatus = "pending";
+      state.getSingleNoteStatus = "pending";
     });
     builder.addCase(getIndividualNotes.fulfilled, (state, action) => {
-   
+      state.getSingleNoteStatus = "succeeded";
       state.header = action.payload.message[0].header;
       state.tags = action.payload.message[0].tags;
       state.pinned = action.payload.message[0].pinned;
@@ -101,7 +101,7 @@ const noteSlice = createSlice({
       state.content = action.payload.message[0].content;
     });
     builder.addCase(getIndividualNotes.rejected, (state, action) => {
-      state.getNoteStatus = "failed";
+      state.getSingleNoteStatus = "failed";
     });
     //get archive
     builder.addCase(getArchivedHandler.pending, (state, action) => {
