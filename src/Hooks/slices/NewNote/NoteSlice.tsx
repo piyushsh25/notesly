@@ -92,11 +92,13 @@ const noteSlice = createSlice({
       state.getSingleNoteStatus = "pending";
     });
     builder.addCase(getIndividualNotes.fulfilled, (state, action) => {
+      console.log(action.payload)
       state.getSingleNoteStatus = "succeeded";
       state.header = action.payload.message[0].header;
       state.tags = action.payload.message[0].tags;
       state.pinned = action.payload.message[0].pinned;
       state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
       state.backgroundColor = action.payload.message[0].backgroundColor;
       state.content = action.payload.message[0].content;
     });

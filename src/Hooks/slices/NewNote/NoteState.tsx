@@ -17,6 +17,7 @@ export const initialState: Note = {
     getTrashStatus:"idle",
     getSingleNoteStatus:"idle",
     CTAstatus:"idle",
+    formatDate:"",
     CTAmessage:"",
     showDeleteAll:false
   };
