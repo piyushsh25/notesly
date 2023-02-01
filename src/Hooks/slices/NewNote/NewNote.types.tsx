@@ -1,5 +1,7 @@
 import { NoteProps } from "../../../Components/Note/Notes.type";
-
+export type NoteId={
+  noteId:string
+}
 export type NewNote = {
   header: string;
   content: string;

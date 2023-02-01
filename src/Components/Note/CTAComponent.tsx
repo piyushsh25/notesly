@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppDispatch } from "../../Hooks/store";
 import {
   addToHomeHandler,
@@ -28,9 +28,12 @@ export function CTAcomponent({
   return (
     <div className="note-cta">
       {/* time component */}
-      <div className="note-date">
-        <Time createDate={createDate} />
-      </div>
+      <Link to={`/note/${noteId}`}>
+        <div className="note-date">
+          <Time createDate={createDate} />
+        </div>
+      </Link>
+
       {/* cta */}
       <div className="note-icons">
         {presentLocation === "archives" || presentLocation === "trash" ? (

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { NewNote } from "./NewNote.types";
+import { NewNote, NoteId } from "./NewNote.types";
 import { v4 as uuidv4 } from "uuid";
 import { NoteProps } from "../../../Components/Note/Notes.type";
-//get notes
+//get all notes
 
 export const getNoteHandler = createAsyncThunk(
   "getNote/getNoteHandler",
@@ -14,6 +14,18 @@ export const getNoteHandler = createAsyncThunk(
       { headers: { authorization: token } }
     );
     return response.data;
+  }
+);
+// get individual notes
+export const getIndividualNotes = createAsyncThunk(
+  "getNote/getIndividualNotes",
+  async ({ noteId: id }: NoteId) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `https://notesly-backend.onrender.com/notes/${id}`,
+      { headers: { authorization: token } }
+    );
+    return response.data
   }
 );
 // get archived notes

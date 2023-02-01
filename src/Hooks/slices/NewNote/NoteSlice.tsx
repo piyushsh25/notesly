@@ -8,6 +8,7 @@ import {
   addToArchiveHandler,
   deleteNoteHandler,
   editNoteHandler,
+  getIndividualNotes,
   moveToNoteHandler,
   deleteTrashHandler,
   deleteAllTrashHandler,
@@ -17,9 +18,12 @@ export {
   getNoteHandler,
   getTrashHandler,
   saveNewNoteHandler,
+  getIndividualNotes,
   addToArchiveHandler,
   deleteNoteHandler,
-  editNoteHandler,moveToNoteHandler,deleteTrashHandler
+  editNoteHandler,
+  moveToNoteHandler,
+  deleteTrashHandler,
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -51,9 +55,9 @@ const noteSlice = createSlice({
     setCTAstatusIdle: (state, action) => {
       state.CTAstatus = "idle";
     },
-    setDeleteAllModal:(state,action)=>{
-      state.showDeleteAll=action.payload.message
-    }
+    setDeleteAllModal: (state, action) => {
+      state.showDeleteAll = action.payload.message;
+    },
   },
   extraReducers: (builder) => {
     // save note
@@ -72,7 +76,7 @@ const noteSlice = createSlice({
     builder.addCase(saveNewNoteHandler.rejected, (state, action) => {
       state.saveStatus = "failed";
     });
-    //get note
+    //get all notes
     builder.addCase(getNoteHandler.pending, (state, action) => {
       state.getNoteStatus = "pending";
     });
@@ -81,6 +85,22 @@ const noteSlice = createSlice({
       state.allNotes = action.payload.message;
     });
     builder.addCase(getNoteHandler.rejected, (state, action) => {
+      state.getNoteStatus = "failed";
+    });
+    //get individual notes
+    builder.addCase(getIndividualNotes.pending, (state, action) => {
+      state.getNoteStatus = "pending";
+    });
+    builder.addCase(getIndividualNotes.fulfilled, (state, action) => {
+   
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.pinned = action.payload.message[0].pinned;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(getIndividualNotes.rejected, (state, action) => {
       state.getNoteStatus = "failed";
     });
     //get archive
@@ -183,7 +203,7 @@ const noteSlice = createSlice({
       state.trashNotes = action.payload.message.trashNotes;
       state.CTAstatus = "succeeded";
       state.CTAmessage = "Success. All note deleted permanently.";
-      state.showDeleteAll=false
+      state.showDeleteAll = false;
     });
     builder.addCase(deleteAllTrashHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";

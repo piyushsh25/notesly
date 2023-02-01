@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { CTAcomponent } from "./CTAComponent";
 import { pinButtonHandler } from "./NoteHelperFunctions";
@@ -32,7 +32,9 @@ export const Note = ({
     <div className="note-container" style={style} id={noteId}>
       <div>
         <div className="note-upper-container">
-          <div className="note-header">{header}</div>
+          <Link to={`/note/${noteId}`}>
+            <div className="note-header">{header}</div>
+          </Link>
           {presentLocation === "me" && (
             <button
               className="pin-icon"
@@ -61,7 +63,9 @@ export const Note = ({
             </button>
           )}
         </div>
-        <div className="note-content">{content.slice(0, 70)}......</div>
+        <Link to={`/note/${noteId}`}>
+          <div className="note-content">{content.slice(0, 70)}......</div>
+        </Link>
       </div>
       <div>
         <hr />
@@ -71,8 +75,8 @@ export const Note = ({
             return <div key={id}>#{tag}</div>;
           })}
         </div>
-        <hr />
 
+        <hr />
         {CTAstatus === "pending" && isSelected === noteId ? (
           <SpinnerComponent />
         ) : (
