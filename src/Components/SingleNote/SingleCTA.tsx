@@ -81,8 +81,9 @@ export const SingleCTA = () => {
       dispatch(noteActions.setCTAstatusIdle({}));
       setTimeout(() => {
         navigate(`/${presentLocation}`);
-      }, 500);
+      }, 1);
     }
+
   }, [CTAstatus]);
   return (
     <div className="single-cta">

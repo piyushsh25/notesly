@@ -36,6 +36,8 @@ export const NewNoteForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   useEffect(() => {
+    //clear the form first
+    dispatch(noteActions.setClearForm({}))
     if (saveStatus === "succeeded") {
       // navigate to specific note after route is made
       navigate("/me");

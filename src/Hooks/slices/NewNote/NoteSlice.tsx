@@ -59,6 +59,17 @@ const noteSlice = createSlice({
     setDeleteAllModal: (state, action) => {
       state.showDeleteAll = action.payload.message;
     },
+    setClearForm: (state, action) => {
+      state.saveStatus = "idle";
+      state.header = "";
+      state.content = "";
+      state.fontFamily = "'Nunito Sans', sans-serif";
+      state.backgroundColor = "#ffffff";
+      state.pinned = false;
+      state.tags = [];
+      state.formatDate = "";
+      state.createDate = "";
+    },
   },
   extraReducers: (builder) => {
     // save note
@@ -126,7 +137,7 @@ const noteSlice = createSlice({
     });
     builder.addCase(getIndividualArchive.rejected, (state, action) => {
       state.getSingleNoteStatus = "failed";
-      console.log(action)
+      console.log(action);
     });
     //get archive
     builder.addCase(getArchivedHandler.pending, (state, action) => {
