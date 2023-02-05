@@ -113,7 +113,7 @@ export const saveNewNoteHandler = createAsyncThunk(
       tags: tagHolder.split(" "),
     };
     const response = await axios.post(
-      "https://notesly-backednd.onrender.com/notes/add/",
+      "https://notesly-backend.onrender.com/notes/add/",
       { user: user },
       { headers: { authorization: token } }
     );
