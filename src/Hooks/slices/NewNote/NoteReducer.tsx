@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { NewNote, NoteId } from "./NewNote.types";
+import { NewNote, Note, NoteId } from "./NewNote.types";
 import { v4 as uuidv4 } from "uuid";
 import { NoteProps } from "../../../Components/Note/Notes.type";
 //get all notes
@@ -25,7 +25,22 @@ export const getIndividualNotes = createAsyncThunk(
       `https://notesly-backend.onrender.com/notes/${id}`,
       { headers: { authorization: token } }
     );
-    return response.data
+    return response.data;
+  }
+);
+export const editIndividualNote = createAsyncThunk(
+  "getNote/editIndividualNote",
+  async (NewNote: NewNote) => {
+    const {
+      noteId: id
+    } = NewNote;
+    const user={...NewNote}
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      `https://notesly-backend.onrender.com/notes/edit/${id}`,{user:user},
+      { headers: { authorization: token } }
+    );
+    return response.data;
   }
 );
 // get Individual archive
@@ -37,7 +52,7 @@ export const getIndividualArchive = createAsyncThunk(
       `https://notesly-backend.onrender.com/archive/${id}`,
       { headers: { authorization: token } }
     );
-    return response.data
+    return response.data;
   }
 );
 // get individual trash
@@ -49,7 +64,7 @@ export const getIndividualTrash = createAsyncThunk(
       `https://notesly-backend.onrender.com/trash/${id}`,
       { headers: { authorization: token } }
     );
-    return response.data
+    return response.data;
   }
 );
 // get archived notes
@@ -98,7 +113,7 @@ export const saveNewNoteHandler = createAsyncThunk(
       tags: tagHolder.split(" "),
     };
     const response = await axios.post(
-      "https://notesly-backend.onrender.com/notes/add/",
+      "https://notesly-backednd.onrender.com/notes/add/",
       { user: user },
       { headers: { authorization: token } }
     );
@@ -134,7 +149,7 @@ export const deleteNoteHandler = createAsyncThunk(
     formatDate,
   }: NoteProps) => {
     const token = localStorage.getItem("token");
-    
+
     const user = {
       noteId: id,
       header,
@@ -144,7 +159,6 @@ export const deleteNoteHandler = createAsyncThunk(
       pinned,
       tags,
     };
-    console.log(user)
     const response = await axios.post(
       `https://notesly-backend.onrender.com/trash/add/${id}`,
       { user: user },

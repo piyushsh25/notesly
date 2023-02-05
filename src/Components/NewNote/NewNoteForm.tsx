@@ -36,8 +36,6 @@ export const NewNoteForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   useEffect(() => {
-    //clear the form first
-    dispatch(noteActions.setClearForm({}))
     if (saveStatus === "succeeded") {
       // navigate to specific note after route is made
       navigate("/me");
@@ -45,14 +43,19 @@ export const NewNoteForm = () => {
         toast.success("Successfully added.", {
           theme: "dark",
         });
+        dispatch(noteActions.setClearForm({}));
         dispatch(noteActions.setSaveStatusIdle({}));
-      }, 100);
+      }, 0);
     }
     if (saveStatus === "failed") {
       toast.error("Something went wrong, please try again.");
       dispatch(noteActions.setSaveStatusIdle({}));
     }
   }, [saveStatus]);
+  useEffect(() => {
+    //clear the form first
+    dispatch(noteActions.setClearForm({}));
+  }, []);
   return (
     <div className="new-note-body">
       <div className="new-note-container">

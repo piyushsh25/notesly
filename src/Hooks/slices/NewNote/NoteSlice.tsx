@@ -14,6 +14,7 @@ import {
   deleteAllTrashHandler,
   getIndividualArchive,
   getIndividualTrash,
+  editIndividualNote,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -27,7 +28,7 @@ export {
   moveToNoteHandler,
   deleteTrashHandler,
   getIndividualArchive,
-  getIndividualTrash,
+  getIndividualTrash,editIndividualNote
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -121,6 +122,29 @@ const noteSlice = createSlice({
     });
     builder.addCase(getIndividualNotes.rejected, (state, action) => {
       state.getSingleNoteStatus = "failed";
+    });
+    //edit individual notes
+    builder.addCase(editIndividualNote.pending, (state, action) => {
+      state.saveStatus = "pending";
+    });
+    builder.addCase(editIndividualNote.fulfilled, (state, action) => {
+      state.saveStatus = "succeeded";
+      state.CTAmessage="Success. Note Edited"
+      console.log(action.payload)
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.tagHolder=action.payload.message[0].tags.join()
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(editIndividualNote.rejected, (state, action) => {
+      state.saveStatus = "failed";
+      state.CTAmessage="Failed to edit note."
     });
     // get individual archives
     builder.addCase(getIndividualArchive.pending, (state, action) => {

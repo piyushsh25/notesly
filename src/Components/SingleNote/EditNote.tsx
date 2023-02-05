@@ -1,7 +1,13 @@
 import { Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
+import {
+  editIndividualNote,
+  noteActions,
+} from "../../Hooks/slices/NewNote/NoteSlice";
+import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../Hooks/store";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const EditNote = () => {
   const availableFonts = [
@@ -24,13 +30,27 @@ export const EditNote = () => {
     tagHolder,
     noteId,
     createDate,
-    updateDate,
+    updateDate,CTAmessage
   } = useSelector((store: RootState) => store.noteReducer);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (saveStatus === "succeeded") {
+      navigate(`/me/${noteId}`);
+      setTimeout(()=>{
+        toast.success(CTAmessage)
+      },0)
+      dispatch(noteActions.setSaveStatusIdle({}))
+    }
+    if (saveStatus === "failed") {
+      toast.error(CTAmessage);
+      dispatch(noteActions.setSaveStatusIdle({}))
+    }
+  }, [saveStatus]);
   return (
     <div className="new-note-body">
       <div className="new-note-container">
         <Form>
-          <h1>New note</h1>
+          <h1>Editing note.. </h1>
           <Form.Group className="mb-3">
             <Form.Label>Select font-family</Form.Label>
             <Form.Select
@@ -149,8 +169,26 @@ export const EditNote = () => {
             />
           </button>
         ) : (
-          <button className="dashboard-button">
-            <div>Save note</div>
+          <button
+            className="dashboard-button"
+            onClick={() =>
+              dispatch(
+                editIndividualNote({
+                  header,
+                  content,
+                  fontFamily,
+                  backgroundColor,
+                  pinned,
+                  tags,
+                  tagHolder,
+                  noteId,
+                  createDate,
+                  updateDate,
+                })
+              )
+            }
+          >
+            <div>Edit note..</div>
           </button>
         )}
       </div>
