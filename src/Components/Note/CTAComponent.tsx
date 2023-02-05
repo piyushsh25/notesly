@@ -28,11 +28,10 @@ export function CTAcomponent({
   return (
     <div className="note-cta">
       {/* time component */}
-      <Link to={`/note/${noteId}`}>
         <div className="note-date">
           <Time createDate={createDate} />
         </div>
-      </Link>
+   
 
       {/* cta */}
       <div className="note-icons">

@@ -90,9 +90,6 @@ export const SingleCTA = () => {
         Last Updated : <Time createDate={formatDate} />
       </div>
       <div className="single-cta-actions">
-        {presentLocation === "me" ? (
-          <button className="single-cta-button">Edit</button>
-        ) : null}
         {CTAstatus === "pending" ? (
           <Spinner
             as="span"
@@ -100,11 +97,11 @@ export const SingleCTA = () => {
             size="sm"
             role="status"
             aria-hidden="true"
-            className="single-cta-button"
+            className="single-cta-button delete"
           />
         ) : (
           <button
-            className="single-cta-button"
+            className="single-cta-button delete"
             onClick={() =>
               deleteNote({
                 header,
@@ -125,6 +122,10 @@ export const SingleCTA = () => {
             Delete
           </button>
         )}
+
+        {presentLocation === "me" ? (
+          <button className="single-cta-button edit">Edit</button>
+        ) : null}
       </div>
     </div>
   );

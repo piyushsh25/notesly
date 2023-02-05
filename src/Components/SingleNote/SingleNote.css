@@ -44,10 +44,10 @@
   border-radius: 8px;
   border: none;
 }
-.single-cta-button:nth-child(1){
+.single-cta-button.edit{
   background-color: #5348c7;
 }
-.single-cta-button:nth-child(2){
+.single-cta-button.delete{
   background-color:rgb(223, 73, 73);
 }
 @media only screen and (min-width: 800px) {
