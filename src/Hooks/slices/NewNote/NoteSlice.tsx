@@ -82,12 +82,6 @@ const noteSlice = createSlice({
     });
     builder.addCase(saveNewNoteHandler.fulfilled, (state, action) => {
       state.saveStatus = "succeeded";
-      state.header = "";
-      state.content = "";
-      state.fontFamily = "'Nunito Sans', sans-serif";
-      state.backgroundColor = "#ffffff";
-      state.pinned = false;
-      state.tags = [];
     });
     builder.addCase(saveNewNoteHandler.rejected, (state, action) => {
       state.saveStatus = "failed";
