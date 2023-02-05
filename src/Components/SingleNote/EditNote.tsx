@@ -1,17 +1,15 @@
-import "./NewNote.css";
-import Form from "react-bootstrap/Form";
+import { Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Hooks/store";
 import {
+  editIndividualNote,
   noteActions,
-  saveNewNoteHandler,
 } from "../../Hooks/slices/NewNote/NoteSlice";
 import { useEffect } from "react";
+import { AppDispatch, RootState } from "../../Hooks/store";
 import { useNavigate } from "react-router-dom";
-import Spinner from "react-bootstrap/Spinner";
 import { toast } from "react-toastify";
 
-export const NewNoteForm = () => {
+export const EditNote = () => {
   const availableFonts = [
     "'Nunito Sans', sans-serif",
     "'Fuzzy Bubbles', cursive",
@@ -20,47 +18,39 @@ export const NewNoteForm = () => {
     "'Fasthand', cursive",
     "'Fuzzy Bubbles', cursive",
   ];
+  const dispatch = useDispatch<AppDispatch>();
   const {
+    fontFamily,
+    pinned,
     header,
     content,
-    fontFamily,
     backgroundColor,
-    pinned,
-    tagHolder,
-    tags,
     saveStatus,
+    tags,
+    tagHolder,
     noteId,
     createDate,
-    updateDate,
+    updateDate,CTAmessage
   } = useSelector((store: RootState) => store.noteReducer);
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   useEffect(() => {
     if (saveStatus === "succeeded") {
-      // navigate to specific note after route is made
-      navigate("/me");
-      setTimeout(() => {
-        toast.success("Successfully added.", {
-          theme: "dark",
-        });
-        dispatch(noteActions.setClearForm({}));
-        dispatch(noteActions.setSaveStatusIdle({}));
-      }, 0);
+      navigate(`/me/${noteId}`);
+      setTimeout(()=>{
+        toast.success(CTAmessage)
+      },0)
+      dispatch(noteActions.setSaveStatusIdle({}))
     }
     if (saveStatus === "failed") {
-      toast.error("Something went wrong, please try again.");
-      dispatch(noteActions.setSaveStatusIdle({}));
+      toast.error(CTAmessage);
+      dispatch(noteActions.setSaveStatusIdle({}))
     }
   }, [saveStatus]);
-  useEffect(() => {
-    //clear the form first
-    dispatch(noteActions.setClearForm({}));
-  }, []);
   return (
     <div className="new-note-body">
       <div className="new-note-container">
         <Form>
-          <h1>New note</h1>
+          <h1>Editing note.. </h1>
           <Form.Group className="mb-3">
             <Form.Label>Select font-family</Form.Label>
             <Form.Select
@@ -157,6 +147,7 @@ export const NewNoteForm = () => {
             <Form.Control
               type="text"
               placeholder="Enter tags"
+              value={tagHolder}
               onChange={(e) =>
                 dispatch(noteActions.setTaggedHandler(e.target.value))
               }
@@ -182,7 +173,7 @@ export const NewNoteForm = () => {
             className="dashboard-button"
             onClick={() =>
               dispatch(
-                saveNewNoteHandler({
+                editIndividualNote({
                   header,
                   content,
                   fontFamily,
@@ -197,7 +188,7 @@ export const NewNoteForm = () => {
               )
             }
           >
-            <div>Save note</div>
+            <div>Edit note..</div>
           </button>
         )}
       </div>

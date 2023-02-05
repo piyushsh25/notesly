@@ -8,18 +8,27 @@ import {
   addToArchiveHandler,
   deleteNoteHandler,
   editNoteHandler,
+  getIndividualNotes,
   moveToNoteHandler,
   deleteTrashHandler,
   deleteAllTrashHandler,
+  getIndividualArchive,
+  getIndividualTrash,
+  editIndividualNote,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
   getNoteHandler,
   getTrashHandler,
   saveNewNoteHandler,
+  getIndividualNotes,
   addToArchiveHandler,
   deleteNoteHandler,
-  editNoteHandler,moveToNoteHandler,deleteTrashHandler
+  editNoteHandler,
+  moveToNoteHandler,
+  deleteTrashHandler,
+  getIndividualArchive,
+  getIndividualTrash,editIndividualNote
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -51,9 +60,20 @@ const noteSlice = createSlice({
     setCTAstatusIdle: (state, action) => {
       state.CTAstatus = "idle";
     },
-    setDeleteAllModal:(state,action)=>{
-      state.showDeleteAll=action.payload.message
-    }
+    setDeleteAllModal: (state, action) => {
+      state.showDeleteAll = action.payload.message;
+    },
+    setClearForm: (state, action) => {
+      state.saveStatus = "idle";
+      state.header = "";
+      state.content = "";
+      state.fontFamily = "'Nunito Sans', sans-serif";
+      state.backgroundColor = "#ffffff";
+      state.pinned = false;
+      state.tags = [];
+      state.formatDate = "";
+      state.createDate = "";
+    },
   },
   extraReducers: (builder) => {
     // save note
@@ -72,7 +92,7 @@ const noteSlice = createSlice({
     builder.addCase(saveNewNoteHandler.rejected, (state, action) => {
       state.saveStatus = "failed";
     });
-    //get note
+    //get all notes
     builder.addCase(getNoteHandler.pending, (state, action) => {
       state.getNoteStatus = "pending";
     });
@@ -82,6 +102,88 @@ const noteSlice = createSlice({
     });
     builder.addCase(getNoteHandler.rejected, (state, action) => {
       state.getNoteStatus = "failed";
+    });
+    //get individual notes
+    builder.addCase(getIndividualNotes.pending, (state, action) => {
+      state.getSingleNoteStatus = "pending";
+    });
+    builder.addCase(getIndividualNotes.fulfilled, (state, action) => {
+      state.getSingleNoteStatus = "succeeded";
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.tagHolder=action.payload.message[0].tags.join()
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(getIndividualNotes.rejected, (state, action) => {
+      state.getSingleNoteStatus = "failed";
+    });
+    //edit individual notes
+    builder.addCase(editIndividualNote.pending, (state, action) => {
+      state.saveStatus = "pending";
+    });
+    builder.addCase(editIndividualNote.fulfilled, (state, action) => {
+      state.saveStatus = "succeeded";
+      state.CTAmessage="Success. Note Edited"
+      console.log(action.payload)
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.tagHolder=action.payload.message[0].tags.join()
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(editIndividualNote.rejected, (state, action) => {
+      state.saveStatus = "failed";
+      state.CTAmessage="Failed to edit note."
+    });
+    // get individual archives
+    builder.addCase(getIndividualArchive.pending, (state, action) => {
+      state.getSingleNoteStatus = "pending";
+    });
+    builder.addCase(getIndividualArchive.fulfilled, (state, action) => {
+      state.getSingleNoteStatus = "succeeded";
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(getIndividualArchive.rejected, (state, action) => {
+      state.getSingleNoteStatus = "failed";
+    });
+    // get individual trash
+    builder.addCase(getIndividualTrash.pending, (state, action) => {
+      state.getSingleNoteStatus = "pending";
+      console.log("lo")
+    });
+    builder.addCase(getIndividualTrash.fulfilled, (state, action) => {
+      state.getSingleNoteStatus = "succeeded";
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(getIndividualTrash.rejected, (state, action) => {
+      state.getSingleNoteStatus = "failed";
     });
     //get archive
     builder.addCase(getArchivedHandler.pending, (state, action) => {
@@ -183,7 +285,7 @@ const noteSlice = createSlice({
       state.trashNotes = action.payload.message.trashNotes;
       state.CTAstatus = "succeeded";
       state.CTAmessage = "Success. All note deleted permanently.";
-      state.showDeleteAll=false
+      state.showDeleteAll = false;
     });
     builder.addCase(deleteAllTrashHandler.rejected, (state, action) => {
       state.CTAstatus = "failed";

@@ -1,0 +1,60 @@
+.single-note-body {
+  margin-left: 5rem;
+  margin-top: 2rem;
+  margin-right: 1rem;
+  height: 100vh;
+}
+
+.note-tags {
+  display: flex;
+  gap: 20px;
+}
+.note-tags div {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #00bbff;
+  cursor: pointer;
+}
+.note-tags div:hover {
+  background-color: #00bbff5a;
+}
+.individual-note-header {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+.individual-note-content {
+  margin-top: 1.5rem;
+}
+/* cta single page */
+.create-date {
+  font-size: 1rem;
+}
+.single-cta {
+  display: flex;
+  justify-content: space-between;
+}
+.single-cta-actions {
+  display: flex;
+  gap: 1rem;
+}
+.single-cta-button {
+  padding: 8px 1rem;
+  height: auto;
+  color: #ffffff;
+  border-radius: 8px;
+  border: none;
+}
+.single-cta-button.edit{
+  background-color: #5348c7;
+  color: #ffffff;
+  text-decoration: none;
+}
+.single-cta-button.delete{
+  background-color:rgb(223, 73, 73);
+}
+
+@media only screen and (min-width: 800px) {
+  .single-note-body {
+    margin-left: 22%;
+  }
+}

@@ -26,7 +26,7 @@ export const DashboardModal = () => {
                 <div>Tags</div>
               </div>
             </Link>
-            <Link to="/archives">
+            <Link to="/archive">
               <div>
                 <div>
                   <i className="bi bi-calendar-plus"></i>

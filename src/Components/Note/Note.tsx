@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { CTAcomponent } from "./CTAComponent";
 import { pinButtonHandler } from "./NoteHelperFunctions";
@@ -24,6 +24,8 @@ export const Note = ({
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const presentLocation = location.pathname.slice(1, location.pathname.length);
+  // note | trash | archive
+  const noteLocation = location.pathname.split("/")[1];
   const { CTAstatus } = useSelector((store: RootState) => store.noteReducer);
   // isSelected will store note id for a specific note, when an action is performed. that noteid will be use for spinner component for a specific note
   const [isSelected, setIsSelected] = useState("");
@@ -32,8 +34,10 @@ export const Note = ({
     <div className="note-container" style={style} id={noteId}>
       <div>
         <div className="note-upper-container">
-          <div className="note-header">{header}</div>
-          {presentLocation === "me" && (
+          <Link to={`/${noteLocation}/${noteId}`}>
+            <div className="note-header">{header}</div>
+          </Link>
+          {presentLocation === "note" && (
             <button
               className="pin-icon"
               onClick={() =>
@@ -61,7 +65,9 @@ export const Note = ({
             </button>
           )}
         </div>
-        <div className="note-content">{content.slice(0, 70)}......</div>
+        <Link to={`/${noteLocation}/${noteId}`}>
+          <div className="note-content">{content.slice(0, 70)}......</div>
+        </Link>
       </div>
       <div>
         <hr />
@@ -71,8 +77,8 @@ export const Note = ({
             return <div key={id}>#{tag}</div>;
           })}
         </div>
-        <hr />
 
+        <hr />
         {CTAstatus === "pending" && isSelected === noteId ? (
           <SpinnerComponent />
         ) : (

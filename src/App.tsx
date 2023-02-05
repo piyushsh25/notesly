@@ -21,9 +21,11 @@ import { AppDispatch, RootState } from "./Hooks/store";
 import { ErrorPage } from "./Pages/Error";
 import { Profile } from "./Pages/Profile";
 import { EditProfile } from "./Pages/EditProfile";
+import { IndividualNote } from "./Pages/IndividualNote";
+import { EditNote } from "./Components/SingleNote/EditNote";
+import { EditNoteForm } from "./Pages/EditNoteForm";
 
 function App() {
-  const { showToast } = useSelector((store: RootState) => store.toastReducer);
   const { userError } = useSelector((store: RootState) => store.userReducer);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -44,13 +46,19 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
           <Route element={<RequiresAuth />}>
             <Route path="/me" element={<User />} />
-            <Route path="/archives" element={<Archive />} />
+            <Route path="/archive" element={<Archive />} />
             <Route path="/trash" element={<Trash />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/newnote" element={<NewNote />} />
             <Route path="/profile/" element={<Profile />} />
             <Route path="/profile/edit/" element={<EditProfile />} />
+            {/* main note section in me/id */}
+            <Route path="/me/:id" element={<IndividualNote/>}/>
+            <Route path="/archive/:id" element={<IndividualNote/>}/>
+            <Route path="/trash/:id" element={<IndividualNote/>}/>
+            {/* edit form */}
+            <Route path="/edit/:id" element={<EditNoteForm/>}/>
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />

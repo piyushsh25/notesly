@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getTrashHandler,
-} from "../../Hooks/slices/NewNote/NoteSlice";
+import { getTrashHandler } from "../../Hooks/slices/NewNote/NoteSlice";
 import { getDetails } from "../../Hooks/slices/User/UserDetails";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { Footer } from "../Footer/Footer";
@@ -21,6 +19,11 @@ export const TrashPage = () => {
     dispatch(getTrashHandler());
     dispatch(getDetails());
   }, []);
+  useEffect(() => {
+    showDeleteAll
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "auto");
+  }, [showDeleteAll]);
   return (
     <div className="trash-body">
       <Header />
@@ -42,7 +45,7 @@ export const TrashPage = () => {
         )}
       </div>
       {/* confirm delete all modal */}
-      {showDeleteAll && <TrashModal/>}
+      {showDeleteAll && <TrashModal />}
       <Footer />
     </div>
   );

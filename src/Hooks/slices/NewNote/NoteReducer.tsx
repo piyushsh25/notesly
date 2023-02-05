@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { NewNote } from "./NewNote.types";
+import { NewNote, Note, NoteId } from "./NewNote.types";
 import { v4 as uuidv4 } from "uuid";
 import { NoteProps } from "../../../Components/Note/Notes.type";
-//get notes
+//get all notes
 
 export const getNoteHandler = createAsyncThunk(
   "getNote/getNoteHandler",
@@ -11,6 +11,57 @@ export const getNoteHandler = createAsyncThunk(
     const token = localStorage.getItem("token");
     const response = await axios.get(
       "https://notesly-backend.onrender.com/notes/",
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+// get individual notes
+export const getIndividualNotes = createAsyncThunk(
+  "getNote/getIndividualNotes",
+  async ({ noteId: id }: NoteId) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `https://notesly-backend.onrender.com/notes/${id}`,
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+export const editIndividualNote = createAsyncThunk(
+  "getNote/editIndividualNote",
+  async (NewNote: NewNote) => {
+    const {
+      noteId: id
+    } = NewNote;
+    const user={...NewNote}
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      `https://notesly-backend.onrender.com/notes/edit/${id}`,{user:user},
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+// get Individual archive
+export const getIndividualArchive = createAsyncThunk(
+  "getNote/getIndividualArchive",
+  async ({ noteId: id }: NoteId) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `https://notesly-backend.onrender.com/archive/${id}`,
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+// get individual trash
+export const getIndividualTrash = createAsyncThunk(
+  "getNote/getIndividualTrash",
+  async ({ noteId: id }: NoteId) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `https://notesly-backend.onrender.com/trash/${id}`,
       { headers: { authorization: token } }
     );
     return response.data;
@@ -82,7 +133,8 @@ export const addToArchiveHandler = createAsyncThunk(
     return response.data;
   }
 );
-//  delete note should go to trash . wrong api call here?
+//  delete note should go to trash . wrong variable naming here?
+// add to trash
 export const deleteNoteHandler = createAsyncThunk(
   "deleteNote/deleteNoteHandler",
   async ({
@@ -97,6 +149,7 @@ export const deleteNoteHandler = createAsyncThunk(
     formatDate,
   }: NoteProps) => {
     const token = localStorage.getItem("token");
+
     const user = {
       noteId: id,
       header,

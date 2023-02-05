@@ -25,7 +25,7 @@ export function LoginBody() {
         toast.success("Welcome back, we missed you.", {
           theme: "dark",
         });
-      }, 100);
+      }, 1);
 
       dispatch(loginActions.setIdleHandler({}));
     }

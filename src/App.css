@@ -5,12 +5,13 @@
 .app-container {
   font-family: "Nunito Sans", sans-serif;
   width: 100%;
-  height: 100%;
+  height: 110vh auto;
   background: #e5e5e5;
   display: relative;
 }
 div a {
   text-decoration: none;
+  color: inherit;
 }
 /* error body */
 .error-body{
