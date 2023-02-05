@@ -40,6 +40,18 @@ export const getIndividualArchive = createAsyncThunk(
     return response.data
   }
 );
+// get individual trash
+export const getIndividualTrash = createAsyncThunk(
+  "getNote/getIndividualTrash",
+  async ({ noteId: id }: NoteId) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `https://notesly-backend.onrender.com/trash/${id}`,
+      { headers: { authorization: token } }
+    );
+    return response.data
+  }
+);
 // get archived notes
 export const getArchivedHandler = createAsyncThunk(
   "getNote/getArchivedHandler",

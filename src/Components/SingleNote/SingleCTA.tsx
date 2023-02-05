@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "../../Hooks/store";
 import { NoteEditProps } from "../Note/Notes.type";
 import { Time } from "../Note/Time";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
 import { deleteTrashButton } from "../Note/NoteHelperFunctions";
@@ -125,7 +125,7 @@ export const SingleCTA = () => {
         )}
 
         {presentLocation === "me" ? (
-          <button className="single-cta-button edit">Edit</button>
+          <Link className="single-cta-button edit" to={`/edit/${noteId}`}>Edit</Link>
         ) : null}
       </div>
     </div>

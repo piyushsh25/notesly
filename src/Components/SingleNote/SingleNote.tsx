@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   getIndividualArchive,
   getIndividualNotes,
+  getIndividualTrash,
+  getTrashHandler,
 } from "../../Hooks/slices/NewNote/NoteReducer";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { Header } from "../Header/Header";
@@ -19,7 +22,7 @@ export const SingleNote = () => {
 
   // note | trash | archive
   const presentLocation = location.pathname.split("/")[1];
-  const noteId=location.pathname.split("/")[2];
+  const noteId = location.pathname.split("/")[2];
   const { getSingleNoteStatus } = useSelector(
     (store: RootState) => store.noteReducer
   );
@@ -27,15 +30,18 @@ export const SingleNote = () => {
     if (presentLocation === "me") dispatch(getIndividualNotes({ noteId }));
     else if (presentLocation === "archive") {
       dispatch(getIndividualArchive({ noteId }));
-      console.log(noteId)
     } else if (presentLocation === "trash") {
-      console.log("hi");
+      dispatch(getIndividualTrash({ noteId }));
     }
   }, []);
+  useEffect(() => {
+    if (getSingleNoteStatus === "failed") {
+      toast.error("Error loading note");
+    }
+  }, [getSingleNoteStatus]);
   return (
     <div>
       <Header />
-
       <div className="user-body">
         <DashboardCTA />
         {getSingleNoteStatus === "pending" ? (
@@ -55,6 +61,11 @@ export const SingleNote = () => {
           <div className="single-note-body">
             <SingleCTA />
             <NoteDetails />
+          </div>
+        ) : null}
+        {getSingleNoteStatus === "failed" ? (
+          <div className="center-spinner">
+            Please refresh the page. We couldn't find any information{" "}
           </div>
         ) : null}
         {/* add component here:  user details like date created, edit delete buttons */}

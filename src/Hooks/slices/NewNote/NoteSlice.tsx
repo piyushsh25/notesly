@@ -13,6 +13,7 @@ import {
   deleteTrashHandler,
   deleteAllTrashHandler,
   getIndividualArchive,
+  getIndividualTrash,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -25,6 +26,8 @@ export {
   editNoteHandler,
   moveToNoteHandler,
   deleteTrashHandler,
+  getIndividualArchive,
+  getIndividualTrash,
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -107,12 +110,12 @@ const noteSlice = createSlice({
       state.getSingleNoteStatus = "succeeded";
       state.header = action.payload.message[0].header;
       state.tags = action.payload.message[0].tags;
+      state.tagHolder=action.payload.message[0].tags.join()
       state.pinned = action.payload.message[0].pinned;
       state.noteId = action.payload.message[0].noteId;
       state.fontFamily = action.payload.message[0].fontFamily;
       state.formatDate = action.payload.message[0].formatDate;
       state.createDate = action.payload.message[0].createDate;
-
       state.backgroundColor = action.payload.message[0].backgroundColor;
       state.content = action.payload.message[0].content;
     });
@@ -137,7 +140,26 @@ const noteSlice = createSlice({
     });
     builder.addCase(getIndividualArchive.rejected, (state, action) => {
       state.getSingleNoteStatus = "failed";
-      console.log(action);
+    });
+    // get individual trash
+    builder.addCase(getIndividualTrash.pending, (state, action) => {
+      state.getSingleNoteStatus = "pending";
+      console.log("lo")
+    });
+    builder.addCase(getIndividualTrash.fulfilled, (state, action) => {
+      state.getSingleNoteStatus = "succeeded";
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(getIndividualTrash.rejected, (state, action) => {
+      state.getSingleNoteStatus = "failed";
     });
     //get archive
     builder.addCase(getArchivedHandler.pending, (state, action) => {

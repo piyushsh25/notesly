@@ -22,6 +22,8 @@ import { ErrorPage } from "./Pages/Error";
 import { Profile } from "./Pages/Profile";
 import { EditProfile } from "./Pages/EditProfile";
 import { IndividualNote } from "./Pages/IndividualNote";
+import { EditNote } from "./Components/SingleNote/EditNote";
+import { EditNoteForm } from "./Pages/EditNoteForm";
 
 function App() {
   const { userError } = useSelector((store: RootState) => store.userReducer);
@@ -55,6 +57,8 @@ function App() {
             <Route path="/me/:id" element={<IndividualNote/>}/>
             <Route path="/archive/:id" element={<IndividualNote/>}/>
             <Route path="/trash/:id" element={<IndividualNote/>}/>
+            {/* edit form */}
+            <Route path="/edit/:id" element={<EditNoteForm/>}/>
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />
