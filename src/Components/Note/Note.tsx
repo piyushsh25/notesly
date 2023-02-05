@@ -24,6 +24,8 @@ export const Note = ({
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const presentLocation = location.pathname.slice(1, location.pathname.length);
+  // note | trash | archive
+  const noteLocation = location.pathname.split("/")[1];
   const { CTAstatus } = useSelector((store: RootState) => store.noteReducer);
   // isSelected will store note id for a specific note, when an action is performed. that noteid will be use for spinner component for a specific note
   const [isSelected, setIsSelected] = useState("");
@@ -32,10 +34,10 @@ export const Note = ({
     <div className="note-container" style={style} id={noteId}>
       <div>
         <div className="note-upper-container">
-          <Link to={`/note/${noteId}`}>
+          <Link to={`/${noteLocation}/${noteId}`}>
             <div className="note-header">{header}</div>
           </Link>
-          {presentLocation === "me" && (
+          {presentLocation === "note" && (
             <button
               className="pin-icon"
               onClick={() =>
@@ -63,7 +65,7 @@ export const Note = ({
             </button>
           )}
         </div>
-        <Link to={`/note/${noteId}`}>
+        <Link to={`/${noteLocation}/${noteId}`}>
           <div className="note-content">{content.slice(0, 70)}......</div>
         </Link>
       </div>

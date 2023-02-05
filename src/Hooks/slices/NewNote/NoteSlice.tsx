@@ -12,6 +12,7 @@ import {
   moveToNoteHandler,
   deleteTrashHandler,
   deleteAllTrashHandler,
+  getIndividualArchive,
 } from "./NoteReducer";
 export {
   getArchivedHandler,
@@ -92,18 +93,40 @@ const noteSlice = createSlice({
       state.getSingleNoteStatus = "pending";
     });
     builder.addCase(getIndividualNotes.fulfilled, (state, action) => {
-      console.log(action.payload)
       state.getSingleNoteStatus = "succeeded";
       state.header = action.payload.message[0].header;
       state.tags = action.payload.message[0].tags;
       state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
       state.fontFamily = action.payload.message[0].fontFamily;
       state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+
       state.backgroundColor = action.payload.message[0].backgroundColor;
       state.content = action.payload.message[0].content;
     });
     builder.addCase(getIndividualNotes.rejected, (state, action) => {
       state.getSingleNoteStatus = "failed";
+    });
+    // get individual archives
+    builder.addCase(getIndividualArchive.pending, (state, action) => {
+      state.getSingleNoteStatus = "pending";
+    });
+    builder.addCase(getIndividualArchive.fulfilled, (state, action) => {
+      state.getSingleNoteStatus = "succeeded";
+      state.header = action.payload.message[0].header;
+      state.tags = action.payload.message[0].tags;
+      state.pinned = action.payload.message[0].pinned;
+      state.noteId = action.payload.message[0].noteId;
+      state.fontFamily = action.payload.message[0].fontFamily;
+      state.formatDate = action.payload.message[0].formatDate;
+      state.createDate = action.payload.message[0].createDate;
+      state.backgroundColor = action.payload.message[0].backgroundColor;
+      state.content = action.payload.message[0].content;
+    });
+    builder.addCase(getIndividualArchive.rejected, (state, action) => {
+      state.getSingleNoteStatus = "failed";
+      console.log(action)
     });
     //get archive
     builder.addCase(getArchivedHandler.pending, (state, action) => {

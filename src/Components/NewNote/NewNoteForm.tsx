@@ -29,6 +29,9 @@ export const NewNoteForm = () => {
     tagHolder,
     tags,
     saveStatus,
+    noteId,
+    createDate,
+    updateDate,
   } = useSelector((store: RootState) => store.noteReducer);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -105,8 +108,11 @@ export const NewNoteForm = () => {
                 dispatch(noteActions.setColorHandler(e.target.value))
               }
             />
-            
-            <Form.Label> Use light color for better visibility. :{`${`)`}`}</Form.Label>
+
+            <Form.Label>
+              {" "}
+              Use light color for better visibility. :{`${`)`}`}
+            </Form.Label>
           </Form.Group>
           <Form.Group className="pin-note-form-container">
             <Form.Label> Pin note ?</Form.Label>
@@ -179,6 +185,9 @@ export const NewNoteForm = () => {
                   pinned,
                   tags,
                   tagHolder,
+                  noteId,
+                  createDate,
+                  updateDate,
                 })
               )
             }

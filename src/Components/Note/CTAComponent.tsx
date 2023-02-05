@@ -36,7 +36,7 @@ export function CTAcomponent({
 
       {/* cta */}
       <div className="note-icons">
-        {presentLocation === "archives" || presentLocation === "trash" ? (
+        {presentLocation === "archive" || presentLocation === "trash" ? (
           // add to home/main notes page
           <button
             onClick={() =>

@@ -54,7 +54,7 @@ export const DashboardCTA = () => {
             </div>
           </NavLink>
           <NavLink
-            to="/archives"
+            to="/archive"
             style={({ isActive }) => (isActive ? { color: "#7978FF" } : {})}
           >
             <div>

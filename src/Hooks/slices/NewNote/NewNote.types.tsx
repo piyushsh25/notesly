@@ -10,6 +10,9 @@ export type NewNote = {
   pinned: boolean;
   tags: string[];
   tagHolder: string;
+  noteId:string;
+  createDate:string;
+  updateDate:string
 };
 export interface Note extends NewNote {
   allNotes: NoteProps[];

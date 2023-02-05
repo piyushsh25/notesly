@@ -44,14 +44,17 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
           <Route element={<RequiresAuth />}>
             <Route path="/me" element={<User />} />
-            <Route path="/archives" element={<Archive />} />
+            <Route path="/archive" element={<Archive />} />
             <Route path="/trash" element={<Trash />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/newnote" element={<NewNote />} />
             <Route path="/profile/" element={<Profile />} />
             <Route path="/profile/edit/" element={<EditProfile />} />
-            <Route path="/note/:id" element={<IndividualNote/>}/>
+            {/* main note section in me/id */}
+            <Route path="/me/:id" element={<IndividualNote/>}/>
+            <Route path="/archive/:id" element={<IndividualNote/>}/>
+            <Route path="/trash/:id" element={<IndividualNote/>}/>
           </Route>
           <Route element={<RedirectAuth />}>
             <Route path="/login" element={<Login />} />

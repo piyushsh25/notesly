@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <div className="header-div">
       <div>
-        <Link to="/me"><div className="header-title"> notesly </div></Link>
+        <Link to="/note"><div className="header-title"> notesly </div></Link>
       </div>
       <div>
         <button className="header-icon" onClick={logoutSelfHandler}>
