@@ -1,13 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
 import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
 import { AppDispatch, RootState } from "../../Hooks/store";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Search.css";
 import { Link } from "react-router-dom";
 export const Search = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const searchHandler = (value: string) => {
+  function fetch(value: any) {
     dispatch(noteActions.setSearchHandler({ value }));
+  }
+  const debounceFunction = (fetch: any, delay: number) => {
+    let timer: any;
+    return (value: any) => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        fetch(value);
+      }, delay);
+    };
+  };
+
+  const optimizeFunc = debounceFunction(fetch, 500);
+  const searchHandler = (value: string) => {
+    optimizeFunc(value);
   };
   const { filteredNote } = useSelector((store: RootState) => store.noteReducer);
   const [showRecommendation, setShowRecommendation] = useState(false);
