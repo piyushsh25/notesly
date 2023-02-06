@@ -6,19 +6,20 @@ import "./Search.css";
 import { Link } from "react-router-dom";
 export const Search = () => {
   const dispatch = useDispatch<AppDispatch>();
-  function fetch(value: any) {
+  function fetch(value: string) {
     dispatch(noteActions.setSearchHandler({ value }));
   }
   const debounceFunction = (fetch: any, delay: number) => {
     let timer: any;
-    return (value: any) => {
+    return (value: string) => {
+      //clear timer if already exists
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
         fetch(value);
       }, delay);
     };
   };
-
+  // debounceFunction returns a function (closures)
   const optimizeFunc = debounceFunction(fetch, 500);
   const searchHandler = (value: string) => {
     optimizeFunc(value);
@@ -65,6 +66,11 @@ export const Search = () => {
                   );
                 })
               : null}
+            {showRecommendation ? (
+              filteredNote.length === 0 ? (
+                <div>Not found.</div>
+              ) : null
+            ) : null}
           </ul>
         </div>
       </div>
