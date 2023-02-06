@@ -42,7 +42,7 @@ export const Search = () => {
 
   return (
     <div>
-      <div className="search-bar" onFocus={() => setShowRecommendation(true)}>
+      <div className="search-bar" onFocus={() => setShowRecommendation(true)} ref={menRef} >
         <div>
           <input
             placeholder="Search notes :)"
@@ -52,7 +52,7 @@ export const Search = () => {
         <div className="search-icon">
           <i className="bi bi-search"></i>
         </div>
-        <div ref={menRef} className="search-recommendation-container">
+        <div className="search-recommendation-container">
           <ul className="search-recommendation">
             {showRecommendation
               ? filteredNote?.map((note) => {
