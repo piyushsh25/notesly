@@ -37,7 +37,7 @@ export const Note = ({
           <Link to={`/${noteLocation}/${noteId}`}>
             <div className="note-header">{header}</div>
           </Link>
-          {presentLocation === "note" && (
+          {presentLocation === "me" && (
             <button
               className="pin-icon"
               onClick={() =>
