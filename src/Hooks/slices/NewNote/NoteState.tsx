@@ -23,4 +23,5 @@ export const initialState: Note = {
   showDeleteAll: false,
   createDate: "",
   updateDate: "",
+  filteredNote:[]
 };

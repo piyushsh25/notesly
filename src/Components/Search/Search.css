@@ -1,35 +1,48 @@
-.search-bar{
-    position: relative;
+.search-bar {
+  position: relative;
 }
 
-.search-bar input{
-    width: 80%;
-    border: 1px solid rgb(188, 185, 185);
-    height: 3rem;
-    font-size: 12px;
-    position: relative;
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
+.search-bar input {
+  width: 80%;
+  border: 1px solid rgb(188, 185, 185);
+  height: 3rem;
+  font-size: 12px;
+  position: relative;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
 }
-.search-bar input:focus{
-    outline: none;
+.search-bar input:focus {
+  outline: none;
 }
-.search-icon{
-    position: absolute;
-    top: 7px;
-    left: 10px;
-    font-size: 1.2rem;
-    padding: 2px 6px 2px 6px;
+.search-icon {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  font-size: 1.2rem;
+  padding: 2px 6px 2px 6px;
 }
-.filter-icon{
-    position: absolute;
-    top: 7px;
-    right: 22%;
-    font-size: 1.2rem;
-    border: none;
-    background-color: inherit;
-    padding: 2px 6px 2px 6px;
+.filter-icon {
+  position: absolute;
+  top: 7px;
+  right: 22%;
+  font-size: 1.2rem;
+  border: none;
+  background-color: inherit;
+  padding: 2px 6px 2px 6px;
 }
-.filter-icon:focus{
-    outline-color: gray;
+.filter-icon:focus {
+  outline-color: gray;
+}
+/* search-recommendation */
+.search-recommendation {
+  z-index: 999;
+  height: auto;
+  width: 80%;
+  background-color: white;
+  position: absolute;
+}
+.search-recommendation li {
+  padding: 8px 0rem;
+  list-style: none;
+  border-bottom: 1px solid rgb(68, 68, 68);
 }

@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { noteActions } from "../../Hooks/slices/NewNote/NoteSlice";
 import { AppDispatch, RootState } from "../../Hooks/store";
 import { HeaderTags } from "../Header/HeaderTags";
-import { Search } from "../Search/Search";
 import { Note } from "./Note";
 import "./Notes.css";
 import { NoteProps } from "./Notes.type";
@@ -34,10 +33,10 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
       dispatch(noteActions.setCTAstatusIdle({}))
     }
   }, [CTAstatus]);
-  const emotyArray=(todisplayArray.length===0)
+  const emotyArray=(todisplayArray.length<=1)
   return (
     <div className={!emotyArray?"notes-array":"notes-array empty"}>
-      <Search />
+     
       {HeaderTags(pathname, { todisplayArray }, tagName, setTag)}
       {todisplayArray?.map((note) => (
         <Note
