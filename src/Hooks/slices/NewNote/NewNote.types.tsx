@@ -27,4 +27,5 @@ export interface Note extends NewNote {
   formatDate: string;
   CTAmessage: string;
   showDeleteAll: boolean;
+  filteredNote:NoteProps[]
 }

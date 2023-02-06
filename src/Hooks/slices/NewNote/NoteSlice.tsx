@@ -28,7 +28,8 @@ export {
   moveToNoteHandler,
   deleteTrashHandler,
   getIndividualArchive,
-  getIndividualTrash,editIndividualNote
+  getIndividualTrash,
+  editIndividualNote,
 } from "./NoteReducer";
 
 const noteSlice = createSlice({
@@ -74,6 +75,17 @@ const noteSlice = createSlice({
       state.formatDate = "";
       state.createDate = "";
     },
+    setSearchHandler: (state, action) => {
+      const value = action.payload.value;
+      if(value===""){
+         state.filteredNote=[]
+      }
+      state.filteredNote = state.allNotes.filter((note) => {
+        return note.header.toLowerCase().includes(value.toLowerCase());
+      });
+    
+    
+    },
   },
   extraReducers: (builder) => {
     // save note
@@ -111,7 +123,7 @@ const noteSlice = createSlice({
       state.getSingleNoteStatus = "succeeded";
       state.header = action.payload.message[0].header;
       state.tags = action.payload.message[0].tags;
-      state.tagHolder=action.payload.message[0].tags.join()
+      state.tagHolder = action.payload.message[0].tags.join();
       state.pinned = action.payload.message[0].pinned;
       state.noteId = action.payload.message[0].noteId;
       state.fontFamily = action.payload.message[0].fontFamily;
@@ -129,11 +141,11 @@ const noteSlice = createSlice({
     });
     builder.addCase(editIndividualNote.fulfilled, (state, action) => {
       state.saveStatus = "succeeded";
-      state.CTAmessage="Success. Note Edited"
-      console.log(action.payload)
+      state.CTAmessage = "Success. Note Edited";
+      console.log(action.payload);
       state.header = action.payload.message[0].header;
       state.tags = action.payload.message[0].tags;
-      state.tagHolder=action.payload.message[0].tags.join()
+      state.tagHolder = action.payload.message[0].tags.join();
       state.pinned = action.payload.message[0].pinned;
       state.noteId = action.payload.message[0].noteId;
       state.fontFamily = action.payload.message[0].fontFamily;
@@ -144,7 +156,7 @@ const noteSlice = createSlice({
     });
     builder.addCase(editIndividualNote.rejected, (state, action) => {
       state.saveStatus = "failed";
-      state.CTAmessage="Failed to edit note."
+      state.CTAmessage = "Failed to edit note.";
     });
     // get individual archives
     builder.addCase(getIndividualArchive.pending, (state, action) => {
@@ -168,7 +180,7 @@ const noteSlice = createSlice({
     // get individual trash
     builder.addCase(getIndividualTrash.pending, (state, action) => {
       state.getSingleNoteStatus = "pending";
-      console.log("lo")
+      console.log("lo");
     });
     builder.addCase(getIndividualTrash.fulfilled, (state, action) => {
       state.getSingleNoteStatus = "succeeded";
