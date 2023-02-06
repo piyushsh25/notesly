@@ -81,7 +81,8 @@ const noteSlice = createSlice({
          state.filteredNote=[]
       }
       state.filteredNote = state.allNotes.filter((note) => {
-        return note.header.toLowerCase().includes(value.toLowerCase());
+        const tagHolder=note.tags.join("")
+        return note.header.toLowerCase().includes(value.toLowerCase()) || note.content.toLowerCase().includes(value.toLowerCase()) || tagHolder.toLowerCase().includes(value.toLowerCase());
       });
     
     

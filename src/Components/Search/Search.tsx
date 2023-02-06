@@ -45,7 +45,7 @@ export const Search = () => {
       <div className="search-bar" onFocus={() => setShowRecommendation(true)}>
         <div>
           <input
-            placeholder="Start typing to search notes"
+            placeholder="Search notes :)"
             onChange={(e) => searchHandler(e.target.value)}
           />
         </div>
