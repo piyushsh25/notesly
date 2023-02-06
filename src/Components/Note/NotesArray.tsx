@@ -33,7 +33,7 @@ export const NotesArray = ({ todisplayArray }: DisplayArray) => {
       dispatch(noteActions.setCTAstatusIdle({}))
     }
   }, [CTAstatus]);
-  const emotyArray=(todisplayArray.length===0)
+  const emotyArray=(todisplayArray.length<=1)
   return (
     <div className={!emotyArray?"notes-array":"notes-array empty"}>
      
